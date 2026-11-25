@@ -295,6 +295,44 @@ def configure():
                  runway=bounds.wall['runway_ground'].momentum.get_state() if 'runway_ground' in walls else None))
     print('X57-PHYSICS-CONFIGURED', flush=True)
 
+def align_force_history():
+    """Cut force_history.out back to the restart iteration before a resumed block appends to it.
+
+    Rows past the restart come from a failed, quarantined block. Fluent then asks "Report data in file must be
+    lower than current iteration index ... create new file?", which swallows the journal's /exit and diverts
+    the forces to force_history_<n>_<i>.out (reproduced 2026-11-25). The removed rows are kept in a backup.
+    """
+    import re
+    hist=CASE/'force_history.out'
+    if not hist.exists():
+        return
+    name=Path(CFG['input_data']).name
+    stem=name[:-len('.dat.h5')] if name.endswith('.dat.h5') else Path(name).stem
+    restart=None
+    auto=re.fullmatch(r'autosave-\d+-(\d+)',stem)
+    if auto:
+        restart=int(auto.group(1))
+    elif (CASE/(stem+'_residuals.csv')).is_file():
+        rows=[l.split(',',1)[0].strip() for l in
+              (CASE/(stem+'_residuals.csv')).read_text(encoding='utf-8',errors='replace').splitlines()[1:] if l.strip()]
+        if rows:
+            restart=int(float(rows[-1]))
+    backup=CASE/f"force_history.out.pre_{CFG['output_stem']}"
+    if restart is None:
+        # Unknown restart index (e.g. an initialized-only file): this block starts a fresh history.
+        hist.replace(backup)
+        print('X57-FORCE-HISTORY superseded; restart iteration unknown for',name,flush=True)
+        return
+    text=hist.read_bytes().decode('latin-1')
+    lines=text.splitlines(keepends=True)
+    keep=[l for l in lines if not (re.match(r'^\s*\d+\s',l) and int(l.split()[0])>restart)]
+    if len(keep)!=len(lines):
+        backup.write_bytes(text.encode('latin-1'))
+        hist.write_bytes(''.join(keep).encode('latin-1'))
+        print(f'X57-FORCE-HISTORY cut back to iteration {restart}: {len(lines)-len(keep)} stale rows removed',flush=True)
+
+if CFG['mode'] == 'resume' and not CFG.get('extract_only'):
+    align_force_history()
 if CFG['mode'] != 'resume':
     configure()
     if not fixture:
