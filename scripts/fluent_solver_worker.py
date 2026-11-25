@@ -409,11 +409,28 @@ if CFG['s']==0:
                              ('MaxTemperatureDeparture','abs(StaticTemperature-288.15 [K])')]}
     write_record('static_equilibrium_native.json',dict(accepted_stem=CFG['output_stem'],initialization='Uniform static standard initialization on matched medium grid; all disk momentum sources zero by speed multiplier.',**extrema,force_N=loads))
 reports = s.solution.report_definitions
+report_units = {}
+def native_report(name):
+    # Fluent 25.2 returns [{name: [value, unit]}]; keep the native value (unchanged) under its report name
+    # and record the unit separately, the shape the external assessor reads.
+    raw=reports.compute(report_defs=[name])
+    items=raw if isinstance(raw,(list,tuple)) else [raw]
+    found=[it[name] for it in items if isinstance(it,dict) and name in it]
+    if len(found)!=1:
+        raise ValueError(f'Unexpected native report result for {name}: {raw!r}')
+    v=found[0]
+    if isinstance(v,(list,tuple)):
+        value=float(v[0]);report_units[name]=str(v[1]) if len(v)>1 else ''
+    else:
+        value=float(v);report_units[name]=''
+    if not math.isfinite(value):
+        raise ValueError(f'Nonfinite native report {name}')
+    return {name:value}
 flux = {}
 for zone in ambient_zones:
     name='mass-'+zone.replace('_','-')
     reports.surface[name]={'report_type':'surface-massflowrate','surface_names':[zone]}
-    flux[zone]=reports.compute(report_defs=[name])
+    flux[zone]=native_report(name)
 volume_zones=repr(s.setup.cell_zone_conditions.fluid.get_object_names())
 reaction={axis:-scalar('NativeDiskForce'+axis.upper(),f'VolumeInt(DepSource{axis.upper()},{volume_zones})') for axis in 'xyz'}
 reaction_moment={axis:-scalar('NativeDiskMoment'+axis.upper(),f'VolumeInt({term},{volume_zones})')
@@ -433,7 +450,8 @@ if all('discrete_force_vector_N' in d and 'discrete_moment_about_center_Nm' in d
             raise ValueError(f'Origin-shifted per-disk reactions differ from global source integral on {ax}')
 
 write_record(CFG['output_stem']+'_force_and_flux.json',dict(half_model_force_N=loads,native_flux_reports=flux,
-             pitch_origin_m=[0,0,0],half_model_pitch_moment_Nm=reports.compute(report_defs=['airframe-pitch-mz-half']),
+             pitch_origin_m=[0,0,0],half_model_pitch_moment_Nm=native_report('airframe-pitch-mz-half'),
+             native_report_units=report_units,
              half_model_actuator_reaction_N=reaction,half_model_actuator_reaction_Mz_Nm=reaction_mz,
              half_model_actuator_reaction_moment_about_origin_Nm=reaction_moment,
              half_model_wall_plus_actuator_N={k:loads['airframe']['Force'+k.upper()]+reaction[k] for k in 'xy'}))
