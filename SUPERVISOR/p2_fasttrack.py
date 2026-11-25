@@ -62,16 +62,19 @@ PRISM_PLAN = {
 RECIPES = {"R1": dict(height_mult=1.0, layer_delta=0, stairstep=0.92, gap=0.25),
            "R2": dict(height_mult=1.6, layer_delta=-2, stairstep=0.85, gap=0.35),
            "A": dict(height_mult=1.0, layer_delta=0, stairstep=0.85, gap=0.35),
-           "B": dict(height_mult=1.0, layer_delta=0, stairstep=0.85, gap=0.35)}
+           "B": dict(height_mult=1.0, layer_delta=0, stairstep=0.85, gap=0.35),
+           "C": dict(height_mult=1.0, layer_delta=0, stairstep=0.85, gap=0.35)}
 # 2026-11-24 evening: the medium shell produced zero-OQ / >2 % poor-cell meshes in 4 attempts, while the coarse
 # shell gives 0.05-0.5 % poor cells. All three levels therefore share the coarse CAD surface tessellation
 # (systematic volume + inflation refinement on an identical surface) with the robust R2-type prism controls.
 SHELL_LEVEL = {"coarse": "coarse", "medium": "coarse", "fine": "coarse"}
 # Explicit wing inflation (first height m, layers, growth) per attempt: "A" aims at y+ ~ 1-2 on Fine,
 # "B" is the thicker, quality-safe fallback. Other walls follow from the wing values.
-LEVEL_PLANS = {"medium": {"A": (6.0e-5, 12, 1.18), "B": (9.0e-5, 10, 1.18)},
-               "fine": {"A": (2.5e-5, 16, 1.20), "B": (4.0e-5, 14, 1.20)}}
-ATTEMPT_ORDER = {"medium": ("A", "B", "B"), "fine": ("A", "B", "B")}
+# "C" = the inflation that produced admissible coarse meshes (R2: 2.4e-4 m wing, 8 layers) -- the guaranteed
+# fallback once A and B have both failed (it is reached automatically on a P2 resume-retry).
+LEVEL_PLANS = {"medium": {"A": (6.0e-5, 12, 1.18), "B": (9.0e-5, 10, 1.18), "C": (2.4e-4, 8, 1.18)},
+               "fine": {"A": (2.5e-5, 16, 1.20), "B": (4.0e-5, 14, 1.20), "C": (2.4e-4, 8, 1.18)}}
+ATTEMPT_ORDER = {"medium": ("A", "B", "C", "C"), "fine": ("A", "B", "C", "C")}
 ATTEMPT_MIN = {"coarse": 35, "medium": 50, "fine": 80}        # nominal duration of one full attempt
 IMPROVE_WALL = {"coarse": 20, "medium": 30, "fine": 40}
 REPAIR_WALL = {"coarse": 20, "medium": 25, "fine": 35}
