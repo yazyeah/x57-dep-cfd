@@ -277,8 +277,9 @@ def configure():
     names.append(pitch)
     if not fixture:
         s.solution.monitor.residual.options.plot=True
-        s.solution.monitor.report_plots['x57-force-live']={'report_defs':names[:-1], 'active':True, 'frequency':1, 'title':'Half-aircraft forces [N]'}
-        s.solution.monitor.report_plots['x57-moment-live']={'report_defs':[pitch], 'active':True, 'frequency':1, 'title':'Half-aircraft pitching moment about CAD origin [N m]'}
+        # Live GUI plots redraw every 5 iterations (display only; force_history.out keeps every iteration).
+        s.solution.monitor.report_plots['x57-force-live']={'report_defs':names[:-1], 'active':True, 'frequency':5, 'title':'Half-aircraft forces [N]'}
+        s.solution.monitor.report_plots['x57-moment-live']={'report_defs':[pitch], 'active':True, 'frequency':5, 'title':'Half-aircraft pitching moment about CAD origin [N m]'}
     monitors=s.solution.monitor.report_files
     hist=CASE/'force_history.out'
     if hist.exists():
@@ -370,7 +371,10 @@ if not CFG.get('extract_only'):
                       time_step_method=pseudo.time_step_method.get_state()))
     # Apply autosave after reading the current case; reading a file restores its saved settings.
     auto=s.file.auto_save
-    auto.data_frequency=100
+    # No mid-block autosave: every block already ends with its own case/data pair (the restart point), and a
+    # failed block's autosaves are quarantined with it. Each autosave wrote 125-400 MB per 100 iterations
+    # and one failed with "Permission denied" mid-write, killing the session (2026-11-25 05:51).
+    auto.data_frequency=100000
     auto.case_frequency='each-time'
     auto.retain_most_recent_files=True
     auto.max_files=2
