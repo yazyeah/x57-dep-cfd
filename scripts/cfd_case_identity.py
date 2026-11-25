@@ -84,6 +84,15 @@ def reference(root,case,section):
             raise ValueError('Section inlet is not the accepted Fine endpoint')
         drivers={'profile_sha256':digest(profile),'fine_case_sha256':fine['case_sha256'],'fine_data_sha256':fine['data_sha256']}
         sha=digest(grid)
+    elif case.startswith('surfref_'):
+        # Surface-refinement study grid (brief: refine the surface AND the volume mesh): the published Medium
+        # volume size field and inflation on the refined surface tessellation. Not part of the volume ladder.
+        from fasttrack_profile import LICENSE_CELL_CAP
+        folder=root/'02_mesh'/'surfref';row=read(folder/'mesh_qa.json')
+        grid=Path(row['source_mesh']).resolve(strict=True);sha=digest(grid);drivers={}
+        if not (grid.is_relative_to(folder.resolve()) and row.get('level')=='surfref' and row.get('passed') is True
+                and sha==row['mesh_sha256'] and row['cells']<=LICENSE_CELL_CAP):
+            raise ValueError('The native volume mesh is not the admitted surface-refinement grid')
     else:
         level=case.split('_')[0];folder=root/'02_mesh'/level;row=read(folder/'mesh_qa.json');ladder=read(root/'02_mesh/grid_ladder_qa.json')
         grid=Path(row['source_mesh']).resolve(strict=True);sha=digest(grid);drivers={}

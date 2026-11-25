@@ -188,7 +188,9 @@ def solve(case,stage,block_size=None,initial_scale=None):
     import os
     from fasttrack_profile import (case_plan,env_deadline,MAX_DIVERGENCE_RECOVERIES,FORCE_TIERS,
                                    INTERPOLATION_EXPORT_CASES)
-    plan=case_plan(case)
+    # The surface-refinement grid starts, like Fine, from the interpolated accepted Medium field: it uses the
+    # required-case Fine plan (strict/engineering acceptance only, never deadline-shortened).
+    plan=case_plan("fine_rpm100" if case.startswith("surfref_") else case)
     block_size=int(block_size or plan["block"])
     if block_size<50:raise ValueError("Residual acceptance uses the last 50 native iterations of the block")
     control()
@@ -258,9 +260,9 @@ def solve(case,stage,block_size=None,initial_scale=None):
                   "--first-order-iterations",str(warm)]
             if restart:
                 prep+=["--resume",str(restart),"--resume-data",str(data)]
-            elif case in ("coarse_rpm100","medium_rpm100","fine_rpm100"):
+            elif case in ("coarse_rpm100","medium_rpm100","fine_rpm100") or case.startswith("surfref_"):
                 prep+=["--mesh",str(grid)]
-                if case=="fine_rpm100":
+                if case=="fine_rpm100" or case.startswith("surfref_"):
                     q,c,_=accepted("medium_rpm100")
                     if not interpolation_valid(c.parent,q):
                         export_accepted(c.parent,"medium_rpm100",stage,q)
@@ -426,7 +428,7 @@ def export_accepted(work,case,stage,qa):
 
 if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("case",choices=CASES3+list(SECTIONS))
+    p.add_argument("case",choices=CASES3+list(SECTIONS)+["surfref_rpm100"])
     p.add_argument("--stage",required=True)
     p.add_argument("--block",type=int,default=None,help="Iterations per native launch (default: fasttrack_profile.CASE_PLAN)")
     p.add_argument("--initial-scale",type=float,default=None)

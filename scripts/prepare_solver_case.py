@@ -8,7 +8,8 @@ MATRIX={'coarse_rpm100':(1,True),'medium_rpm100':(1,True),'fine_rpm100':(1,True)
         'medium_rpm100_hlp_only':(1,True),'medium_rpm100_wt_only':(1,True),
         'medium_rpm100_alt_swirl':(1,True),'medium_rpm100_takeoff_v10':(1,True),
         'medium_rpm100_oge':(1,True),'medium_rpm100_rke':(1,True),
-        'medium_opt_hlp_vector10':(1,True),'medium_rpm000':(0,False),'medium_rpm050':(.5,True),'medium_rpm075':(.75,True),'medium_rpm100_noswirl':(1,False)}
+        'medium_opt_hlp_vector10':(1,True),'medium_rpm000':(0,False),'medium_rpm050':(.5,True),'medium_rpm075':(.75,True),'medium_rpm100_noswirl':(1,False),
+        'surfref_rpm100':(1,True)}
 p=argparse.ArgumentParser()
 p.add_argument('--case',choices=list(MATRIX)+['synthetic_solver'],required=True)
 g=p.add_mutually_exclusive_group(required=True)
