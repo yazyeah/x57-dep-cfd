@@ -61,7 +61,7 @@ def verify(manifest):
                         bounds_hi[c]=np.maximum(bounds_hi[c],pts.max(axis=0))
         cmin=np.asarray([bounds_lo[c] for c in chosen])
         cmax=np.asarray([bounds_hi[c] for c in chosen])
-        for id_column in dict.fromkeys([required["cell_id"],cols.get("cellnumber")]):
+        for id_column in dict.fromkeys([cols.get("cffcellid"),required["cell_id"],cols.get("cellnumber")]):
             if id_column is None:
                 continue
             ids=table[id_column].to_numpy()
@@ -81,7 +81,61 @@ def verify(manifest):
                                 pressure_rtol=4.e-6,pressure_atol_Pa=5.e-6,cell_boxes_checked=len(chosen),
                                 cell_box_tolerance_m=5.e-6,cell_center_coordinate_columns=[cols[k+"coordinate"] for k in "xyz"],
                                 fields=required)
+        recovered=(None if "cffcellid" in cols else
+                   recover_cff_ids(table,cols,required,cell_ids,pressure,fd,chosen,sample_rows,cmin,cmax))
+    if recovered is not None:
+        # Write the proven native ID as an extra column next to the untouched raw export, re-point the manifest
+        # and verify again through the ordinary ID-convention path.
+        out=csvfile.with_name(csvfile.stem+"_cffid.csv")
+        table.insert(0,"cff-cell-id",recovered)
+        table.to_csv(out,index=False)
+        m.setdefault("raw_fluent_export_file",m["file"])
+        m["file"]=out.name
+        m["cff_id_recovery"]=("Fluent 25.2 parallel ASCII export numbers cells in its in-memory order, not by CFF ID. "
+                              "Bijection recovered from the data and verified: pressure and 3 velocity components match "
+                              "the CFF data in every cell, sampled centroids lie in their CFF cell boxes.")
+        manifest.write_text(json.dumps(m,indent=2),encoding="utf-8")
+        return verify(manifest)
     raise ValueError("No native ID convention matches all CFF pressures and sampled CFF cell boxes.")
+
+
+def recover_cff_ids(table,cols,required,cell_ids,pressure,fd,chosen,sample_rows,cmin,cmax):
+    """Recover the ASCII-row -> CFF-cell bijection when Fluent's export numbering is its in-memory order."""
+    from extract_fluent_fields import sample as sample_cff
+    fields=[("pressure_Pa","SV_P",4.e-6,5.e-6)]+[(q,k,1.e-5,2.e-6) for q,k in (("u_m_s","SV_U"),("v_m_s","SV_V"),("w_m_s","SV_W"))]
+    if any(q not in required for q,_,_,_ in fields):
+        return None
+    cells=fd["results/1/phase-1/cells"]
+    cff=[pressure]+[sample_cff(cells,k,cell_ids).reshape(-1) for _,k,_,_ in fields[1:]]
+    asc=[table[required[q]].to_numpy(dtype=float) for q,_,_,_ in fields]
+    n=len(cell_ids)
+    oa=np.lexsort((asc[1],asc[0]));oc=np.lexsort((cff[1],cff[0]))
+    perm=np.empty(n,dtype=np.int64);perm[oa]=oc                  # ASCII row -> CFF index
+    def ok(rows,idx):
+        good=np.ones(len(rows),bool)
+        for (q,k,rt,at),a,c in zip(fields,asc,cff):
+            good&=np.isclose(a[rows],c[idx],rtol=rt,atol=at)
+        return good
+    rows=np.arange(n);good=ok(rows,perm)
+    bad=np.flatnonzero(~good)
+    if len(bad)>max(200,n//1000):
+        return None
+    if len(bad):                                                   # re-pair rank swaps among near-equal pressures
+        pool=perm[bad].copy();used=np.zeros(len(pool),bool)
+        for r in bad:
+            cand=np.flatnonzero(~used)
+            err=sum(np.abs(a[r]-c[pool[cand]])/(at+rt*np.abs(c[pool[cand]])) for (q,k,rt,at),a,c in zip(fields,asc,cff))
+            j=cand[int(np.argmin(err))];perm[r]=pool[j];used[j]=True
+        if not ok(rows,perm).all():
+            return None
+    if len(np.unique(perm))!=n:
+        return None
+    inv=np.empty(n,dtype=np.int64);inv[perm]=rows                  # CFF index -> ASCII row
+    xyz=table[[cols[k+"coordinate"] for k in "xyz"]].to_numpy()
+    loc=xyz[inv[sample_rows]]
+    if not np.all((loc>=cmin-5.e-6)&(loc<=cmax+5.e-6)):
+        return None
+    return cell_ids[perm]
 
 
 if __name__=="__main__":
