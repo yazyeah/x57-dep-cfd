@@ -80,7 +80,10 @@ LEVEL_PLANS = {"medium": {"A": (6.0e-5, 12, 1.18), "B": (9.0e-5, 10, 1.18)},
 # grids share surface AND near-wall layers and differ only by the systematically refined volume mesh.
 ATTEMPT_ORDER = {"medium": ("C",), "fine": ("C",)}
 ATTEMPT_MIN = {"coarse": 35, "medium": 50, "fine": 80}        # nominal duration of one full attempt
-IMPROVE_WALL = {"coarse": 20, "medium": 30, "fine": 40}
+# Recipe C meshes ~2.5x slower than B (medium: 40 min vs 16 min), so Fine (~1.7x Medium cells) needs ~70 min:
+# volume-meshing wall limits are raised above the profile's 45/60/80 min to keep a real margin.
+MESH_WALL = {"coarse": FP.P2_FLUENT_WALL_MIN["coarse"], "medium": 75, "fine": 130}
+IMPROVE_WALL = {"coarse": 20, "medium": 30, "fine": 50}
 REPAIR_WALL = {"coarse": 20, "medium": 25, "fine": 35}
 
 
@@ -464,7 +467,7 @@ def run_level(level, stage_deadline):
             work = prepare_attempt(level, attempt, scale, recipe)
             raw = work / f"{level}.msh.h5"
             rc, raw_trn = run_fluent(work, work / "mesh.jou", "meshing", f"{level}_{attempt}",
-                                     procs=4, silent_stall_min=FP.P2_SILENT_STALL_MIN, max_wall_min=FP.P2_FLUENT_WALL_MIN[level])
+                                     procs=4, silent_stall_min=FP.P2_SILENT_STALL_MIN, max_wall_min=MESH_WALL[level])
             if rc != 0 or not raw.is_file() or raw_trn is None:
                 raise RuntimeError(f"volume meshing failed rc={rc}")
             inv = FM.mesh_inventory(raw)
