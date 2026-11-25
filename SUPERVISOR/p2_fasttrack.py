@@ -72,9 +72,13 @@ SHELL_LEVEL = {"coarse": "coarse", "medium": "coarse", "fine": "coarse"}
 # "B" is the thicker, quality-safe fallback. Other walls follow from the wing values.
 # "C" = the inflation that produced admissible coarse meshes (R2: 2.4e-4 m wing, 8 layers) -- the guaranteed
 # fallback once A and B have both failed (it is reached automatically on a P2 resume-retry).
-LEVEL_PLANS = {"medium": {"A": (6.0e-5, 12, 1.18), "B": (9.0e-5, 10, 1.18), "C": (2.4e-4, 8, 1.18)},
-               "fine": {"A": (2.5e-5, 16, 1.20), "B": (4.0e-5, 14, 1.20), "C": (2.4e-4, 8, 1.18)}}
-ATTEMPT_ORDER = {"medium": ("A", "B", "C", "C"), "fine": ("A", "B", "C", "C")}
+LEVEL_PLANS = {"medium": {"A": (6.0e-5, 12, 1.18), "B": (9.0e-5, 10, 1.18)},
+               "fine": {"A": (2.5e-5, 16, 1.20), "B": (4.0e-5, 14, 1.20)}}
+# 2026-11-24 23:10: medium A timed out and B gave an inverted cell (OQ 0) at the same spot in 3/3 meshes
+# (outboard HLP nacelle junction, x=0.137 y=-0.012 z=3.762). Every further medium/fine attempt therefore uses
+# recipe "C" = the exact inflation of the published coarse mesh (coarse PRISM_PLAN x R2), so all three
+# grids share surface AND near-wall layers and differ only by the systematically refined volume mesh.
+ATTEMPT_ORDER = {"medium": ("C",), "fine": ("C",)}
 ATTEMPT_MIN = {"coarse": 35, "medium": 50, "fine": 80}        # nominal duration of one full attempt
 IMPROVE_WALL = {"coarse": 20, "medium": 30, "fine": 40}
 REPAIR_WALL = {"coarse": 20, "medium": 25, "fine": 35}
@@ -107,6 +111,8 @@ def gate_or_exit():
 
 
 def scopes_for(level, recipe):
+    if recipe == "C":            # identical to the published coarse inflation
+        return scopes_for("coarse", "R2")
     if recipe in LEVEL_PLANS.get(level, {}):
         h, n, g = LEVEL_PLANS[level][recipe]
         plan = [("wing_prisms", ["wall_wing"], h, n, g), ("nacelle_prisms", ["wall_nacelles"], 1.5 * h, max(4, n - 2), 1.18),
@@ -391,6 +397,8 @@ def run_level(level, stage_deadline):
     # Attempts already made in earlier (killed/retried) runs count toward the cap; one extra
     # attempt is granted only when nothing admissible exists yet.
     limit = FP.P2_MAX_ATTEMPTS[level] + (0 if any(c["admissible"] for c in candidates) else 1)
+    if level in ATTEMPT_ORDER:   # attempts with superseded recipes (A/B) do not use up the proven recipe's cap
+        limit += sum(1 for h in history if h.get("recipe") not in ATTEMPT_ORDER[level])
     for k in range(len(history), max(len(history), limit)):
         best = sorted(candidates, key=FM.tier_key)[0] if candidates else None
         if best and best["admissible"] and best["quality_tier"] in ("target", "accept"):
@@ -405,7 +413,8 @@ def run_level(level, stage_deadline):
         gate_or_exit()
         if level in ATTEMPT_ORDER:
             order = ATTEMPT_ORDER[level]
-            recipe = order[min(k, len(order) - 1)]
+            n_done = sum(1 for h in history if h.get("recipe") in order)
+            recipe = order[min(n_done, len(order) - 1)]
         else:
             recipe = "R2" if (quality_failed or k >= 1 and history and history[-1].get("quality_failed")) else "R1"
         scale = predict_scale(level, recipe, refs + [h for h in history if h.get("cells")])
