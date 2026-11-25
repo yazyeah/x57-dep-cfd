@@ -23,19 +23,23 @@ try:
     s.set_flproxy(Proxy)
     cfg = json.loads((Path.cwd() / "repair_config.json").read_text(encoding="utf-8"))
     passes = int(cfg.get("improve_passes", 2))
+    # Fallback mode (Fluent's own advice when left-handed faces persist next to a wall): boundary nodes may
+    # move by a sub-cell distance; the CAD-gap audit of the resulting case still checks the geometry.
+    allow_bnd = bool(cfg.get("allow_repair_at_boundaries", False))
     ri = s.mesh.repair_improve
-    for name, value in (("allow_repair_at_boundaries", False),
+    for name, value in (("allow_repair_at_boundaries", allow_bnd),
                         ("include_local_polyhedra_conversion_in_repair", False)):
         try:
             setattr(ri, name, value)
             record["steps"].append(f"{name}={value}")
         except Exception as exc:  # option absent in this build
             record["errors"].append(f"{name}: {exc}")
-    try:
-        ri.repair()
-        record["steps"].append("repair")
-    except Exception as exc:
-        record["errors"].append(f"repair: {exc}")
+    for k in range(2 if allow_bnd else 1):
+        try:
+            ri.repair()
+            record["steps"].append(f"repair_{k + 1}")
+        except Exception as exc:
+            record["errors"].append(f"repair_{k + 1}: {exc}")
     for i in range(passes):
         try:
             ri.improve_quality()

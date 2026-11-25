@@ -251,13 +251,14 @@ def prepare_attempt(level, attempt, scale, recipe):
     return work
 
 
-def repair_and_check(level, work, mesh, label):
+def repair_and_check(level, work, mesh, label, allow_boundary=False, passes=2):
     """One solver session: quality before, Fluent repair/improve-quality, quality after, write solver-ready case."""
     stamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-    rdir = work / "fasttrack_solver" / stamp
+    rdir = work / ("fasttrack_solver_bnd" if allow_boundary else "fasttrack_solver") / stamp
     rdir.mkdir(parents=True, exist_ok=True)
     target = rdir / f"{level}_solver_ready.cas.h5"
-    atomic_write_json(rdir / "repair_config.json", dict(improve_passes=2, source_mesh=str(mesh), target=str(target)))
+    atomic_write_json(rdir / "repair_config.json", dict(improve_passes=passes, source_mesh=str(mesh), target=str(target),
+                                                       allow_repair_at_boundaries=bool(allow_boundary)))
     lines = ["/file/confirm-overwrite no", '(set! checkpoint/exit-filename "exit-fluent.txt")',
              f'/file/read-case "{Path(mesh).as_posix()}"', "/mesh/check",
              '(format #t "~%X57-BEFORE-QUALITY-BEGIN~%")', "/mesh/quality", '(format #t "~%X57-BEFORE-QUALITY-END~%")',
@@ -295,6 +296,42 @@ def evaluate(level, work, mesh, mesh_trn, label):
                                max_wall_min=REPAIR_WALL[level])
         if trn2 is not None:
             reports.append(FM.audit_candidate(level, mesh, mesh_trn, trn2, cfg, label + "_reload", "before"))
+    reports = finish_reports(level, work, mesh, reports)
+    pool = [r for r in reports if rescuable(level, r)]
+    if pool and not any(r["admissible"] for r in reports):
+        reports += boundary_repair(level, work, sorted(pool, key=FM.tier_key)[0]["source_mesh"], mesh_trn, label, mesh)
+    return sorted(reports, key=FM.tier_key)
+
+
+def rescuable(level, r):
+    """Rejected only for min OQ (window, ratio and poor-cell share already fine): boundary repair can fix it."""
+    try:
+        return (not r["admissible"] and not r["label"].endswith("_bndrepair") and r["hard_checks"]["admissible_cell_window"]
+                and r["hard_checks"]["single_fluid_zone"] and r["hard_checks"]["eleven_physical_boundaries"]
+                and r["spacing_ratio_preview"]["hard_pass"]
+                and float(r["poor_cell_fraction_oq_below_0p05"]) <= FP.MESH_POOR_FRACTION_LASTRESORT)
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
+def boundary_repair(level, work, base_mesh, mesh_trn, label, raw_mesh):
+    """Fallback: Fluent repair with boundary nodes allowed to move (2x repair + 4 improve passes)."""
+    try:
+        rc, trn, repaired = repair_and_check(level, work, base_mesh, label + "_bnd", allow_boundary=True, passes=4)
+        if trn is None or repaired is None or FM.solver_quality(trn).get("after_min_oq") is None:
+            log(f"  boundary repair of {label}: no usable case (rc={rc})")
+            return []
+        rep = FM.audit_candidate(level, repaired, mesh_trn, trn, work / "mesh_config.json", label + "_bndrepair", "after")
+        rep["boundary_repair"] = dict(allowed_boundary_node_motion=True, base_mesh=str(base_mesh),
+                                      note="Fluent repair-improve with allow-repair-at-boundaries (Fluent-recommended "
+                                           "fix for persistent left-handed faces at a wall)")
+        return finish_reports(level, work, raw_mesh, [rep])
+    except Exception as exc:
+        log(f"  boundary repair of {label} failed: {exc.__class__.__name__}: {exc}")
+        return []
+
+
+def finish_reports(level, work, mesh, reports):
     known_bl = next((r["inventory"]["boundary_layer_cells"] for r in reports if r["inventory"].get("boundary_layer_cells")), None)
     if known_bl is None:
         try:
@@ -453,6 +490,32 @@ def run_level(level, stage_deadline):
             log(f"  attempt error: {entry['error']}\n{traceback.format_exc()[-1500:]}")
         atomic_write_json(WS_ROOT / "02_mesh" / level / "fasttrack_history.json", dict(history=history))
     admissible = sorted([c for c in candidates if c["admissible"]], key=FM.tier_key)
+    if not admissible:
+        # Final rescue: boundary repair of the best earlier candidates that failed only on min OQ
+        # (proven-inflation recipe first, then lowest poor-cell share). Bounded: 3 x one repair session.
+        def base(lbl):
+            return lbl.replace("_bndrepair", "").replace("_repaired", "")
+
+        def pref(c):   # C = coarse-identical inflation; A/B = shared coarse surface; R1/R2 = old medium surface
+            rec = c["label"].split("_")[1] if c["label"].startswith("ft_") else "?"
+            return ({"C": 0, "B": 1, "A": 1}.get(rec, 2), 0 if c["label"].endswith("_repaired") else 1,
+                    float(c["poor_cell_fraction_oq_below_0p05"]))
+
+        done = {base(c["label"]) for c in candidates if c["label"].endswith("_bndrepair")}
+        pool, seen = [], set(done)
+        for c in sorted((c for c in candidates if rescuable(level, c)), key=pref):
+            if base(c["label"]) not in seen:
+                seen.add(base(c["label"]))
+                pool.append(c)
+        for c in pool[:3]:
+            if (stage_deadline - time.time()) / 60.0 < REPAIR_WALL[level] + 5 or any(x["admissible"] for x in candidates):
+                break
+            gate_or_exit()
+            log(f"{level}: rescue -> boundary repair of {c['label']}")
+            work = Path(c["meshing_config_path"]).parent
+            candidates += boundary_repair(level, work, c["source_mesh"], c["mesher_quality"]["transcript"],
+                                          c["label"], c["source_mesh"])
+        admissible = sorted([c for c in candidates if c["admissible"]], key=FM.tier_key)
     if not admissible:
         status(level=level, state="failed")
         raise RuntimeError(f"P2 {level}: no admissible candidate after {len(history)} attempts; see logs/p2_fasttrack.log")
