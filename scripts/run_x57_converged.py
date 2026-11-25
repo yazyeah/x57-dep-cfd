@@ -178,6 +178,65 @@ def _log_event(work,payload):
         fp.write(json.dumps({"at":dt.datetime.now().astimezone().isoformat(timespec="seconds"),**payload},default=str)+"\n")
 
 
+def residual_plateau_only(work,qa,previous,stamp,remaining_blocks=0):
+    """Early 'flagged' decision (user-approved 2026-11-25): every criterion except the scaled-residual ones holds,
+    the integrated loads have met the engineering stable-lift criterion in this AND the previous block, and each
+    failing residual cannot reach its limit within the iterations the plan still allows, so further iterations
+    cannot change the outcome (the plan would reach the same 'flagged' tier at exhaustion).
+    Rule: (1) engineering force_platform in this and the previous block; (2) all other engineering checks pass
+    (mass balance, continuity stability, disk integrals, force consistency); (3) only residual_thresholds /
+    residual_reduction fail; (4) for each failing equation the median of the last 100 iterations of this block is
+    > 2x its engineering limit, and EITHER it improved < 10 % on the lower of the two previous block medians
+    (plateau) OR, at the most optimistic of the last two block-to-block decay rates, the median (itself below the
+    50-iteration maximum the criterion uses) would need more blocks than remain (planned maximum + unused grace)."""
+    from assess_fluent_case import residual_category
+    from fasttrack_profile import RESIDUAL_TIERS
+    info=dict(rule="residual plateau with converged loads",stamp=stamp)
+    eng=(qa.get("tier_checks") or {}).get("engineering") or {}
+    failing=[k for k,v in eng.items() if not v]
+    info["failing_engineering_checks"]=failing
+    if not failing or set(failing)-{"residual_thresholds","residual_reduction"} or not eng.get("force_platform"):
+        return False,info
+    if len(previous)<2:
+        return False,info
+    stems=[previous[-2]["stem"],previous[-1]["stem"],stamp]
+    try:
+        prev_qa=read(work/(previous[-1]["stem"]+"_qa.json"))
+        if not ((prev_qa.get("tier_checks") or {}).get("engineering") or {}).get("force_platform"):
+            info["previous_block_force_platform"]=False
+            return False,info
+        meds=[]
+        for s in stems:
+            with (work/(s+"_residuals.csv")).open() as f:
+                rows=list(csv.DictReader(f))[-100:]
+            meds.append({k:sorted(float(r[k]) for r in rows)[len(rows)//2] for k in rows[0] if k!="iter"})
+    except (OSError,ValueError,KeyError,IndexError) as exc:
+        info["error"]=f"{exc.__class__.__name__}: {exc}"
+        return False,info
+    lim={eq:RESIDUAL_TIERS["engineering"][residual_category(eq)] for eq in qa["max_last_50_scaled_residuals"]}
+    bad=[eq for eq,v in qa["max_last_50_scaled_residuals"].items() if not v<lim[eq]]
+    info["failing_equations"]=bad
+    info["median_last100_by_block"]={eq:[m.get(eq) for m in meds] for eq in bad}
+    info["engineering_limit"]={eq:lim[eq] for eq in bad}
+    if not bad:
+        return False,info
+    info["remaining_blocks"]=remaining_blocks
+    info["projection_blocks_needed"]={}
+    for eq in bad:
+        a,b,c=(m.get(eq) for m in meds)
+        if None in (a,b,c) or not c>2.*lim[eq]:
+            info["not_plateau"]=eq
+            return False,info
+        plateau=c>.9*min(a,b)
+        rate=min(b/a if a>0 else 1.,c/b if b>0 else 1.)
+        needed=float("inf") if rate>=1. else math.log(lim[eq]/c)/math.log(rate)
+        info["projection_blocks_needed"][eq]=needed
+        if not (plateau or needed>remaining_blocks):
+            info["not_plateau"]=eq
+            return False,info
+    return True,info
+
+
 def _residual_samples(work,stamp):
     with (work/(stamp+"_residuals.csv")).open() as f:
         return len({int(row["iter"]) for row in csv.DictReader(f)})
@@ -349,6 +408,15 @@ def solve(case,stage,block_size=None,initial_scale=None):
             tier=qa["acceptance_tier"]
         elif exhausted and window_ok and qa.get("best_available_tier") in acceptable:
             tier=qa["best_available_tier"]
+        elif (not section and window_ok and allow_flagged and total>=plan["min_iter"]
+              and residual_plateau_only(work,qa,previous,stamp,
+                                        max(0,math.ceil((plan["max_iter"]-total)/iterations))+max(0,grace_cap-grace_used))[0]):
+            # Same 'flagged' outcome the plan reaches at exhaustion, decided as soon as it is certain.
+            tier="flagged"
+            qa["early_flag_decision"]=residual_plateau_only(work,qa,previous,stamp,
+                                        max(0,math.ceil((plan["max_iter"]-total)/iterations))+max(0,grace_cap-grace_used))[1]
+            _log_event(work,dict(event="early_flagged",stamp=stamp,total_iterations=total,
+                                 decision=qa["early_flag_decision"]))
         elif exhausted and grace_used<grace_cap:
             grace_used+=1
             _log_event(work,dict(event="grace_block",stamp=stamp,grace=f"{grace_used}/{grace_cap}",
