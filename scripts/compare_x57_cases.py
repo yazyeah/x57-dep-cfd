@@ -30,6 +30,27 @@ PROVENANCE="Native CFD: converged Fluent CFF case/data and terminal force report
 def read_json(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
+PITCH_REPORT="airframe-pitch-mz-half"
+
+def pitch_report_to_Nm(folder):
+    """Factor turning this case's native 'airframe-pitch-mz-half' report value into N m.
+
+    The solver worker defines the moment report without an output type, so Fluent 25.2 keeps its default
+    'Moment Coefficient' C_M = M / (rho_ref V_ref^2 / 2 * A_ref * L_ref), with the reference values the
+    worker set and recorded in solver_physics.json (found 2026-11-25: the conservative wall-load mapping
+    reproduces C_M * q_ref * A_ref * L_ref to 1e-6). Histories and QA keep the native coefficient."""
+    phys=read_json(Path(folder)/"solver_physics.json")
+    kind=phys["moment_reports"][PITCH_REPORT].get("report_output_type")
+    if kind=="Moment":
+        return 1.0
+    if kind!="Moment Coefficient":
+        raise ValueError(f"{folder}: unexpected pitch report output type {kind!r}")
+    ref=phys["reference"]
+    factor=0.5*ref["density"]*ref["velocity"]**2*ref["area"]*ref["length"]
+    if not (np.isfinite(factor) and factor>0):
+        raise ValueError(f"{folder}: invalid moment-coefficient reference values")
+    return float(factor)
+
 def accepted(name):
     case=ROOT/"03_cases"/name
     qa=read_json(case/"iteration_qa.json") if name!=ZERO else read_json(case/"static_equilibrium_audit.json")
@@ -71,7 +92,8 @@ def load3(name):
     if not np.isclose(q,float(read_json(folder/"solver_physics.json")["q_ref_Pa"]),rtol=2e-8):
         raise ValueError(f"{name}: inconsistent coefficient reference dynamic pressure.")
     force=2*native["airframe"]["ForceY"];drag=2*native["airframe"]["ForceX"]
-    moment=2*flux_value(end["half_model_pitch_moment_Nm"],"airframe-pitch-mz-half")
+    mfac=pitch_report_to_Nm(folder)
+    moment=2*flux_value(end["half_model_pitch_moment_Nm"],"airframe-pitch-mz-half")*mfac
     a=native["airframe"]
     return dict(case=name,label=LABEL[name],dimension="3D",native_case=str(cas.relative_to(ROOT)),native_data=str(dat.relative_to(ROOT)),
                 qa_file=str((folder/("static_equilibrium_audit.json" if name==ZERO else "iteration_qa.json")).relative_to(ROOT)),
@@ -86,7 +108,7 @@ def load3(name):
                 L_over_D=force/drag if abs(drag)>1e-10*q*area else np.nan,
                 L_std_N=qa["forces_full_aircraft"]["L_air"]["std_N"] if name!=ZERO else np.nan,
                 D_std_N=qa["forces_full_aircraft"]["D_air"]["std_N"] if name!=ZERO else np.nan,
-                Mz_std_Nm=qa["forces_full_aircraft"]["Mz"]["std_Nm"] if name!=ZERO else np.nan,
+                Mz_std_Nm=qa["forces_full_aircraft"]["Mz"]["std_Nm"]*mfac if name!=ZERO else np.nan,
                 prescribed_runway_condition="ambient pressure opening" if name==OGE else ("+x moving no-slip" if name==ROLL else "stationary no-slip"),
                 prescribed_runway_speed_m_s=(np.nan if name==OGE else 10.0 if name==ROLL else 0.0),
                 prescribed_turbulence_model="realizable k-epsilon with enhanced wall treatment" if name==RKE else "curvature-corrected k-omega SST",

@@ -106,7 +106,7 @@ def evaluate(mesh,w,disk_specs,disks):
 def produce(grid,case_path):
     case_path=case_path.resolve();folder=case_path.parent
     if folder.parent!=ROOT/'03_cases' or folder.name not in [x+'_rpm100' for x in ('coarse','medium','fine')]+['medium_rpm100_takeoff_v10','medium_opt_hlp_vector10'] or not case_path.name.endswith('.cas.h5'):raise ValueError('Expected an accepted baseline, takeoff-roll, or vectored-thrust case')
-    from compare_x57_cases import accepted
+    from compare_x57_cases import accepted,pitch_report_to_Nm
     qa,accepted_case,data=accepted(folder.name)
     if not qa['passed'] or accepted_case.resolve()!=case_path:
         raise ValueError('Only the accepted Fluent case/data pair can supply structural loads')
@@ -124,8 +124,13 @@ def produce(grid,case_path):
     wrench=report['airframe_only_wrench']
     origin=np.asarray(qa['pitch_origin_m'],dtype=float)
     mapped_pitch=wrench[5]-np.cross(origin,wrench[:3])[2]
-    if not np.isclose(mapped_pitch,float(qa['half_model_endpoint_pitch_Nm']),atol=.02,rtol=.002):
-        raise ValueError(('Native aerodynamic pitch moment and mapped moment disagree',mapped_pitch,qa['half_model_endpoint_pitch_Nm']))
+    # The native report is Fluent's moment coefficient; compare in N m (see compare_x57_cases.pitch_report_to_Nm).
+    pitch_factor=pitch_report_to_Nm(folder)
+    native_pitch=float(qa['half_model_endpoint_pitch_Nm'])*pitch_factor
+    if not np.isclose(mapped_pitch,native_pitch,atol=.02,rtol=.002):
+        raise ValueError(('Native aerodynamic pitch moment and mapped moment disagree',mapped_pitch,native_pitch))
+    report['native_pitch_check']=dict(native_report_value=float(qa['half_model_endpoint_pitch_Nm']),report_to_Nm_factor=pitch_factor,
+                                      native_half_model_pitch_Nm=native_pitch,mapped_half_model_pitch_Nm=float(mapped_pitch))
     work=OUT/(grid+'_struct__'+folder.name);work.mkdir(parents=True,exist_ok=True)
     np.save(work/'nodal_loads.npy',loads)
     with (work/'mapped_loads.inp').open('w',encoding='ascii') as h:

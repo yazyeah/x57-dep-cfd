@@ -4,7 +4,7 @@ from control_gate import checked_command
 from pathlib import Path
 import h5py
 import numpy as np
-from compare_x57_cases import ROOT,BASE,ZERO,accepted,read_json
+from compare_x57_cases import ROOT,BASE,ZERO,accepted,read_json,pitch_report_to_Nm
 from assess_fluent_case import flux_value
 from fluent_checkpoints import case_for_data
 from cut_fluent_cells import bounds,zones
@@ -73,7 +73,7 @@ def validate(baseline,folder,stem):
         for load in end["half_model_force_N"].values())
     checks["reported_open_boundaries"]=set(end["native_flux_reports"])=={"farfield_inlet","farfield_outlet","farfield_top","farfield_side"}
     checks["stationary_wall_forces"]=all(abs(float(value))<=1.e-4 for group in end["half_model_force_N"].values() for value in group.values())
-    checks["zero_moment"]=abs(flux_value(end["half_model_pitch_moment_Nm"],"airframe-pitch-mz-half"))<=1.e-4
+    checks["zero_moment"]=abs(flux_value(end["half_model_pitch_moment_Nm"],"airframe-pitch-mz-half")*pitch_report_to_Nm(folder))<=1.e-4  # N m
     checks["zero_surface_flux"]=all(abs(flux_value(v,"mass-"+k.replace("_","-")))<=1.e-5 for k,v in end["native_flux_reports"].items())
     checks["zero_source_reaction"]=all(abs(v)<1e-10 for v in end["half_model_actuator_reaction_N"].values())
     report=dict(accepted_stem=stem,accepted_data=data.name,passed=all(checks.values()),role=ROLE,baseline_case=str(baseline),

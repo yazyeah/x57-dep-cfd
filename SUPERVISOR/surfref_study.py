@@ -247,7 +247,7 @@ def solve():
 
 # ------------------------------------------------------------------ compare
 def case_row(name, grid):
-    from compare_x57_cases import accepted, reference
+    from compare_x57_cases import accepted, reference, pitch_report_to_Nm
     from assess_fluent_case import flux_value
     qa, cas, dat = accepted(name)
     end = read(cas.parent / (cas.name[:-7] + "_force_and_flux.json"))
@@ -263,7 +263,7 @@ def case_row(name, grid):
                 min_orthogonal_quality=mq.get("min_orthogonal_quality"), quality_tier=mq.get("quality_tier"),
                 acceptance_tier=qa.get("acceptance_tier"), final_iteration=qa.get("final_iteration"),
                 L_wall_N=L, D_wall_N=D, L_wing_N=2 * end["half_model_force_N"]["wing"]["ForceY"],
-                Mz_wall_Nm=2 * flux_value(end["half_model_pitch_moment_Nm"], "airframe-pitch-mz-half"),
+                Mz_wall_Nm=2 * flux_value(end["half_model_pitch_moment_Nm"], "airframe-pitch-mz-half") * pitch_report_to_Nm(cas.parent),
                 L_tail_mean_N=f["L_air"]["mean_N"], L_tail_std_N=f["L_air"]["std_N"],
                 D_tail_mean_N=f["D_air"]["mean_N"], D_tail_std_N=f["D_air"]["std_N"],
                 C_L=L / (q * area), C_D=D / (q * area), q_ref_Pa=q, S_ref_m2=area,

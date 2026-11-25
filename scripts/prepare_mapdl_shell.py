@@ -78,13 +78,30 @@ def pair_skin(v,f,tag):
     side=np.linalg.norm(tang,axis=2)
     sint=norm/(side*np.roll(side,-1,axis=1))
     score=np.min(cos,axis=1)*np.min(sint,axis=1)*side.min(1)/side.max(1)
-    ranked=np.flatnonzero((cos.min(1)>.97)&(sint.min(1)>.45));ranked=ranked[np.argsort(-score[ranked])]
+    # MAPDL's SHELL181 warping factor is the distance between the two quad diagonals divided by the shell
+    # thickness (reproduced to 5e-4 from the 2026-11-25 .err files); it warns above 1 and rejects above 5.
+    # Keep only planar-enough triangle pairs (factor < 1); others stay two triangles, as MAPDL advises.
+    d1=xyz[:,2]-xyz[:,0];d2=xyz[:,3]-xyz[:,1];nd=np.cross(d1,d2)
+    gap=np.abs(np.einsum('ij,ij->i',xyz[:,1]-xyz[:,0],nd))/np.maximum(np.linalg.norm(nd,axis=1),1e-30)
+    warp=gap/np.asarray(GAUGES)[tag[i]]
+    ranked=np.flatnonzero((cos.min(1)>.97)&(sint.min(1)>.45)&(warp<1.));ranked=ranked[np.argsort(-score[ranked])]
     used=np.zeros(len(f),bool);picked=[]
     for k in ranked:
         if not (used[i[k]] or used[j[k]]):
             picked.append(k);used[[i[k],j[k]]]=True
     tri=f[~used]
     return np.vstack((quad[picked],tri[:,[0,1,2,2]])),np.r_[tag[i[picked]],tag[~used]]
+
+def split_warped(v,el,group):
+    """Split quadrilaterals whose SHELL181 warping factor (diagonal gap / shell thickness) is >= 1 into two
+    triangles with the same orientation; MAPDL warns above 1 and rejects above 5 (e.g. twisted coarse web panels)."""
+    el=np.asarray(el);group=np.asarray(group)
+    P=v[el];d1=P[:,2]-P[:,0];d2=P[:,3]-P[:,1];nd=np.cross(d1,d2)
+    gap=np.abs(np.einsum('ij,ij->i',P[:,1]-P[:,0],nd))/np.maximum(np.linalg.norm(nd,axis=1),1e-30)
+    bad=(el[:,2]!=el[:,3])&(gap/np.asarray(GAUGES)[group]>=1.)
+    a,b,c,d=el[bad].T
+    tri=np.vstack((np.column_stack((a,b,c,c)),np.column_stack((a,c,d,d))))
+    return np.vstack((el[~bad],tri)),np.r_[group[~bad],group[bad],group[bad]]
 
 def add_wingbox(v,f,tag,step):
     skin=f[tag==0]
@@ -139,7 +156,7 @@ def build(level):
     skin_nodes=len(v);quad,qtag=pair_skin(v,faces,tags)
     step={'coarse':.075,'medium':.052,'fine':.0375}[level]
     v,web,webtag,tie_error=add_wingbox(v,faces,tags,step)
-    elements=np.vstack([quad,web]);sect=np.r_[qtag,webtag]
+    elements,sect=split_warped(v,np.vstack([quad,web]),np.r_[qtag,webtag])
     assert len(v)<128000 and len(elements)<128000
     v0=v[elements[:,0]];v1=v[elements[:,1]];v2=v[elements[:,2]];v3=v[elements[:,3]]
     area=.5*(np.linalg.norm(np.cross(v1-v0,v2-v0),axis=1)+np.linalg.norm(np.cross(v2-v0,v3-v0),axis=1))
@@ -219,7 +236,7 @@ def build(level):
         'symmetry_nodes':len(sym),'wingtip_readout_nodes':len(tip),'geometric_source':source['source_surface_dir'],'geometry_signature':source['signature'],'geometry_lock':str(lock),
         'shear_axes':'SHELL181 local x is the projected positive span for wing skin and spar webs, positive chord for ribs and other exterior shells. MAPDL uses local y where x is nearly normal. Local y completes the right-handed x, y, shell normal frame. Spar normals point approximately aft; rib normals approximately inboard.',
         'material':{'name':'assumed homogeneous 7075-T6','E_Pa':71.7e9,'nu':.33,'density_kg_m3':2810,'nominal_yield_Pa':503e6},
-        'assumptions':'Half airframe. Actual exterior CAD represented by the qualified P2 coarse surface, fixed across the structural refinement study. No measured internal structure or material layup. Shell midsurfaces coincide with the exterior, component joints are bonded via shared nodes. The separated horizontal stabilizer root uses four assumed rigid offsets at two chord and span stations, with all six DOFs coupled. Where topologically separate, the trim-fixed inboard control surface uses three assumed hinge links to the stabilizer. PYLON is an engineering subregion of the nacelle skins at the wing attachment; WINGBOX comprises the two internal webs and ribs. Two surrogate webs at 30%/65% chord joined to skin nodes; eight ribs on exposed semi-wing. Nose and main gear attach to assumed finite patches. Static symmetric taxi load only; no gravity, gear dynamics, cabin pressure or design flight loads.'}
+        'assumptions':'Half airframe. Actual exterior CAD represented by the qualified P2 coarse surface, fixed across the structural refinement study. No measured internal structure or material layup. Shell midsurfaces coincide with the exterior, component joints are bonded via shared nodes. The separated horizontal stabilizer root uses four assumed rigid offsets at two chord and span stations, with all six DOFs coupled. Where topologically separate, the trim-fixed inboard control surface uses three assumed hinge links to the stabilizer. PYLON is an engineering subregion of the nacelle skins at the wing attachment; WINGBOX comprises the two internal webs and ribs. Skin triangle pairs form SHELL181 quadrilaterals only below the MAPDL warping limit (diagonal gap < shell thickness); the rest stay triangles. Two surrogate webs at 30%/65% chord joined to skin nodes; eight ribs on exposed semi-wing. Nose and main gear attach to assumed finite patches. Static symmetric taxi load only; no gravity, gear dynamics, cabin pressure or design flight loads.'}
     if geometry()!=source:raise ValueError('Accepted source changed while generating the structural model')
     files=hashes([out/'model.inp',out/'shell_mesh.npz'])
     stats['model_generator_sha256']=source_hash(Path(__file__))

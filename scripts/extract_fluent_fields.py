@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 import h5py
 import numpy as np
-from cut_fluent_cells import read_id_blocks, zones, bounds, cut_mesh
+from cut_fluent_cells import read_id_blocks, zones, bounds, cut_mesh,robust_cut
 
 
 def sample(group, name, ids):
@@ -76,7 +76,7 @@ def extract_walls(case, data):
 
 
 def extract_slice(case, data, axis, value):
-    result = cut_mesh(case, axis, value)
+    result = robust_cut(case, axis, value)
     with h5py.File(data) as f:
         fields = f["results/1/phase-1/cells"]
         ids = result["cell_ids"]

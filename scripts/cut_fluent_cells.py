@@ -49,7 +49,9 @@ def polygon_loops(segments):
         yield loop
 
 
-def cut_mesh(mesh_path, axis, value):
+def cut_mesh(mesh_path, axis, value, max_open_cells=0):
+    """max_open_cells > 0 drops at most that many cells whose cut is not a closed polygon (returned as
+    open_cell_ids); the default keeps the strict closed-cycle requirement."""
     kept = [i for i in range(3) if i != axis]
     segments = defaultdict(list)
     with h5py.File(mesh_path) as file:
@@ -90,8 +92,16 @@ def cut_mesh(mesh_path, axis, value):
                             segments[int(cell)].extend(pairs)
     coords, cell_ids, offsets = [], [], [0]
     area = 0.0
+    open_cells = []
     for cell, pairs in segments.items():
-        for loop in polygon_loops(pairs):
+        try:
+            loops = list(polygon_loops(pairs))
+        except ValueError:
+            if len(open_cells) >= max_open_cells:
+                raise
+            open_cells.append(int(cell))
+            continue
+        for loop in loops:
             a = np.array(loop)
             # Shift origin for thin near-wall polygons.
             a -= a[0].copy()
@@ -105,7 +115,27 @@ def cut_mesh(mesh_path, axis, value):
     if not cell_ids:
         raise ValueError("Plane did not cut a fluid cell.")
     return dict(xy=np.asarray(coords), offsets=np.asarray(offsets), cell_ids=np.asarray(cell_ids),
-                axis=axis, coordinate_m=value, projected_axes=np.array(kept), fluid_area_m2=area)
+                axis=axis, coordinate_m=value, projected_axes=np.array(kept), fluid_area_m2=area,
+                open_cell_ids=np.asarray(open_cells, dtype=np.int64))
+
+
+def robust_cut(mesh_path, axis, value):
+    """cut_mesh with the remedy its non-manifold error asks for: displace the plane slightly (up to 1 mm) and
+    record the coordinate used; if a sliver/spinner cell stays open at every shift, drop at most 3 such cells
+    at the requested plane and record them (open_cell_ids). Same policy as native_flow_data.intersect."""
+    shifts = (0., 1.e-6, -1.e-6, 1.e-5, -1.e-5, 1.e-4, -1.e-4, 5.e-4, -5.e-4, 1.e-3, -1.e-3)
+    for shift in shifts:
+        try:
+            result = cut_mesh(mesh_path, axis, value + shift)
+            break
+        except ValueError as exc:
+            if "Non-manifold" not in str(exc):
+                raise
+    else:
+        result = cut_mesh(mesh_path, axis, value, max_open_cells=3)
+    result["requested_coordinate_m"] = value
+    result["plane_displacement_m"] = result["coordinate_m"] - value
+    return result
 
 
 if __name__ == "__main__":

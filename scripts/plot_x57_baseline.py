@@ -106,7 +106,9 @@ def fig3():
     a=axs[0,1]
     for label,col in FORCES.items():a.plot(force.index,2*force[col],label=label)
     a.legend(fontsize=6);a.set(xlabel="Iteration",ylabel="Full-aircraft force (N)");title(a,"b","Force histories")
-    tail=force.iloc[-300:];a=axs[1,0];mz=2*force["airframe-pitch-mz-half"]
+    tail=force.iloc[-300:];a=axs[1,0]
+    from compare_x57_cases import pitch_report_to_Nm   # native report is the moment coefficient
+    mz=2*force["airframe-pitch-mz-half"]*pitch_report_to_Nm(ROOT/"03_cases"/FINE)
     a.plot(force.index,mz,color=ACADEMIC_PALETTE[1]);a.set(xlabel="Iteration",ylabel="Pitching moment (N m)");title(a,"c","Moment about CAD origin")
     if len(force)>len(tail):
         axin=a.inset_axes([.5,.55,.45,.39]);axin.plot(tail.index,mz.loc[tail.index],lw=.65);axin.tick_params(labelsize=5)
