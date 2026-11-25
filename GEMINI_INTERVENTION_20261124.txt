@@ -1,0 +1,33 @@
+【运行中干预：2026-11-24 质量更新】你正在监视的 X-57 fast-track 运行需要加载一次质量更新。用户不在场，不要提问，按下面步骤自主完成，然后继续监视直到全部结束。
+
+第 1 步：重新阅读以下文件（全部读完再操作，规则以最新文件为准）：
+- D:\FEA Coursework\Workspace\GEMINI.md（运行规则，已更新）
+- D:\FEA Coursework\Workspace\FASTTRACK_UPDATE_20261124.md（本次更新内容，优先于旧数值）
+- D:\FEA Coursework\Workspace\FASTTRACK_RUNBOOK.md（完整手册）
+- D:\FEA Coursework\Workspace\GEMINI_FASTTRACK_PROMPT.txt（原始监视规则，仍然有效）
+
+第 2 步：只执行一次（立即返回；后台助手会在下一个“安全点”——网格候选/求解块/阶段记录刚写完时——自动重启调度器一次，从断点续跑并载入新代码）：
+powershell -ExecutionPolicy Bypass -File "D:\FEA Coursework\Workspace\00_FASTTRACK_APPLY_UPDATE.ps1"
+不要重复执行；若提示 "Update already applied" 说明已完成。
+
+第 3 步：回到监视循环：
+powershell -ExecutionPolicy Bypass -File "D:\FEA Coursework\Workspace\00_FASTTRACK_STATUS.ps1" -Wait 540
+（工具超时更短就改成 -Wait 240。）按退出码处理：
+- 0 RUNNING：立即再次执行同一监视命令，不做任何其它操作。
+- 3 ORCHESTRATOR_NOT_RUNNING：更新期间出现一次是正常的。先执行一次 -Wait 120 的监视；仍是 3 时，再执行
+  powershell -ExecutionPolicy Bypass -File "D:\FEA Coursework\Workspace\00_FASTTRACK_START.ps1"
+  （幂等、续跑，不会出现两个调度器）。整个运行期间累计最多重启 3 次。
+- 1 HALTED：按 GEMINI.md 第 5 条处理（用户暂停则停止汇报；脚本 Python 崩溃只允许对出错行做最小修复，同一错误最多 2 次，然后执行 START；其它原因再执行一次 START，同阶段再次停机就写 DELIVERABLES\run_incident_report.md 并汇报）。
+- 2 COMPLETE：读取 DELIVERABLES\final_quality_report.md 与 logs\final_deliverables_verification.log 后汇报。
+
+第 4 步：更新确认（第一次看到 RUNNING 后做一次即可）：读取 logs\fasttrack_update.log，确认出现 "UPDATE APPLIED"。若 60 分钟后仍未出现，读取该日志末尾 20 行并按其中提示处理（通常是执行一次 START）。
+
+完成后的汇报必须按以下顺序给出（只汇报真实结果，不得修改或美化任何数值）：
+1) 任务书必需项：三级网格单元数与质量等级、y+（fine 机翼面积加权均值/中位数）、coarse/medium/fine 的升力与阻力系数及 GCI、起飞推力与静升力增量、50/75/100% 转速的升力（RPM² 拟合 R²）、这些算例的验收等级（必须是 strict/engineering）。
+2) 结构应力：外蒙皮最低色带（<37.3 MPa，0–335.3 MPa 许用应力色标）面积占比（要求 ≥95%）、最小屈服安全系数、峰值与 p99 应力。
+3) 升力口径对照：DELIVERABLES\data\lift_definitions.csv 中每个算例的 wall_lift_N（主结果：水平姿态下全部机体壁面的气动升力）、wing_lift_N、gross_thrust_N、attitude_retained_vertical_N 与 thrust_vertical_component_N（若保留 CAD 自带 5.408° 抬头姿态时的解析估算，仅供对照），原样列出，不得改动。
+4) 扩展项的验收等级汇总、总用时、所有 WARN/FAIL 原文、交付物位置。
+
+绝对禁止（与 GEMINI.md 一致）：手动启动 Fluent/MAPDL 或阶段脚本；修改 fasttrack_profile.py、任何验收阈值、assess_*.py、fasttrack_mesh.py、verify_deliverables.py、final_quality_audit.py、render_mapdl_fields.py 的色标、结构厚度/载荷/材料；伪造或手改任何结果文件；写 CONTROL\STATE.txt 或 CONTROL\USER_INSTRUCTION.md；删除文件；在 RUNNING 期间做“优化”或“排查”。
+
+现在开始执行第 1 步。

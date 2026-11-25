@@ -1,0 +1,244 @@
+% ==============================================================================
+% x57_paper.sty — Clean arXiv / NeurIPS (1706.03762) Pure Black-and-White Style
+% Tailored for University of Dundee — DI41015 Computer Aided Engineering I
+%   * Pure black ink on pure white background everywhere (zero colors, zero fills)
+%   * Title block: compact NeurIPS thick top rule (3.2pt) & thin bottom rule (0.9pt)
+%   * Elsewhere: zero decorative rules (only standard black booktabs 3-line tables)
+%   * Mandatory Dundee running header (italic left + logo right) & centered X / Y footer
+%   * 100% Times New Roman typography, zero monospace code fonts, IEEE references
+% ==============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{x57_paper}[2026/11/24 v4.1 Compact arXiv 1706.03762 Academic Style]
+
+% --- Layout option: singlecol (arXiv / NeurIPS default) vs twocol ---
+\newif\ifx@twocol
+\x@twocolfalse
+\DeclareOption{singlecol}{\x@twocolfalse}
+\DeclareOption{twocol}{\x@twocoltrue}
+\ProcessOptions\relax
+
+% --- Core engines & fonts: strict Times New Roman across text, math, headers, captions ---
+\RequirePackage{iftex}
+\RequirePackage{amsmath}
+\ifPDFTeX
+  \RequirePackage[T1]{fontenc}
+  \RequirePackage[utf8]{inputenc}
+  \RequirePackage{newtxtext}
+  \RequirePackage{newtxmath}
+\else
+  \RequirePackage{newtxmath}
+  \RequirePackage[no-math]{fontspec}
+  \setmainfont{Times New Roman}
+  \setsansfont{Times New Roman}
+  \setmonofont{Times New Roman}
+\fi
+
+% --- Page Geometry (A4, NeurIPS / arXiv balanced margins, compact header/footer) ---
+\RequirePackage[
+  a4paper,
+  top=20mm,
+  bottom=19mm,
+  left=25mm,
+  right=25mm,
+  headheight=11mm,
+  headsep=3mm,
+  footskip=8mm
+]{geometry}
+
+\ifx@twocol
+  \setlength{\columnsep}{6.5mm}
+\fi
+
+% --- Microtypography & clean paragraph rhythm (arXiv / NeurIPS style) ---
+\RequirePackage{microtype}
+\RequirePackage{setspace}
+\setstretch{1.06}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt plus 1pt minus 0.5pt}
+
+% --- Graphics, Standard Three-Line Tables, Units, Lists, Subfigures ---
+\RequirePackage{graphicx}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{siunitx}
+\sisetup{
+  detect-all,
+  group-digits=integer,
+  group-separator={,},
+  group-minimum-digits=4,
+  per-mode=symbol,
+  separate-uncertainty=true
+}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{float}
+\RequirePackage{enumitem}
+\setlist[itemize]{leftmargin=1.5em, itemsep=2.5pt, topsep=3pt}
+\setlist[enumerate]{leftmargin=1.7em, itemsep=2.5pt, topsep=3pt}
+
+% --- Pure Black Captions (arXiv / NeurIPS clean typography) ---
+\captionsetup{
+  font={small},
+  labelfont={bf},
+  textfont={normalfont},
+  labelsep=colon,
+  justification=justified,
+  singlelinecheck=true,
+  skip=6pt
+}
+\captionsetup[table]{position=top, skip=6pt}
+\captionsetup[subfigure]{font={footnotesize}, labelfont={bf}, justification=centering}
+
+% --- Section Headings (Pure Black, Zero Underlines — arXiv 1706.03762 Style) ---
+\RequirePackage{titlesec}
+\titleformat{\section}
+  {\large\bfseries}
+  {\thesection}{0.85em}{}
+\titlespacing*{\section}{0pt}{13pt plus 3pt minus 2pt}{5pt plus 1pt}
+
+% Prefix Appendix headings explicitly with "Appendix A", "Appendix B", etc.
+\g@addto@macro\appendix{%
+  \titleformat{\section}
+    {\large\bfseries}
+    {Appendix~\thesection}{0.85em}{}%
+}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries}
+  {\thesubsection}{0.75em}{}
+\titlespacing*{\subsection}{0pt}{9.5pt plus 2pt minus 1pt}{3.5pt plus 1pt}
+
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\itshape}
+  {\thesubsubsection}{0.65em}{}
+\titlespacing*{\subsubsection}{0pt}{7pt plus 1pt minus 1pt}{2.5pt}
+
+% --- Mandatory University of Dundee Running Header & Page X / Y Footer (Zero Rules, Pure Black) ---
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+
+\newcommand{\x@dundeeheaderleft}{%
+  \raisebox{2.2mm}{\fontsize{9.5}{11}\selectfont\textit{DI41015 - Computer Aided Engineering I}}%
+}
+\newcommand{\x@dundeeheaderright}{%
+  \IfFileExists{assets/dundee_logo.png}{%
+    \includegraphics[height=8.2mm]{assets/dundee_logo.png}%
+  }{%
+    \raisebox{2.2mm}{\fontsize{9.5}{11}\selectfont\textbf{University of Dundee}}%
+  }%
+}
+\newcommand{\x@dundeefooter}{%
+  {\fontsize{9.5}{11}\selectfont\thepage\ /\ \pageref{LastPage}}%
+}
+
+\fancypagestyle{dundeepaper}{%
+  \fancyhf{}
+  \fancyhead[L]{\x@dundeeheaderleft}
+  \fancyhead[R]{\x@dundeeheaderright}
+  \fancyfoot[C]{\x@dundeefooter}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[L]{\x@dundeeheaderleft}
+  \fancyhead[R]{\x@dundeeheaderright}
+  \fancyfoot[C]{\x@dundeefooter}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\pagestyle{dundeepaper}
+
+% --- Pure White-Background, Zero-Border, Zero-Fill Semantic Environments ---
+% Compact NeurIPS / arXiv (1706.03762) Abstract without excess \topsep whitespace
+\newenvironment{abstractbox}{%
+  \par\noindent{\centering\normalsize\bfseries Abstract\par}%
+  \vspace{5pt}%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{11mm}%
+    \setlength{\rightmargin}{11mm}%
+    \setlength{\topsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+    \setlength{\parsep}{4pt}%
+    \setlength{\itemsep}{0pt}%
+  }\item\relax\small
+}{%
+  \end{list}
+  \vspace{4pt}
+}
+
+% Unboxed Key Physical Finding (pure black text on white background, zero rules/fills)
+\newenvironment{keyfinding}[1][Key Physical Finding]{%
+  \par\vspace{4pt}\noindent\textbf{#1.}\ %
+}{%
+  \par\vspace{4pt}%
+}
+
+% Unboxed Methodology Summary (pure black text on white background, zero rules/fills)
+\newenvironment{pipelinebox}[1][Methodology Overview]{%
+  \par\vspace{6pt}\noindent\textbf{#1}\par\vspace{2pt}\small
+}{%
+  \par\vspace{4pt}\normalsize
+}
+
+% --- Compact NeurIPS / arXiv (1706.03762) Title Block (Zero \begin{center} bloat) ---
+\newcommand{\x@title}{}
+\newcommand{\x@subtitle}{}
+\newcommand{\x@author}{}
+\newcommand{\x@authoremail}{}
+\newcommand{\papertitle}[1]{\renewcommand{\x@title}{#1}}
+\newcommand{\papersubtitle}[1]{\renewcommand{\x@subtitle}{#1}}
+\newcommand{\paperauthor}[1]{\renewcommand{\x@author}{#1}}
+\newcommand{\paperauthoremail}[1]{\renewcommand{\x@authoremail}{#1}}
+
+\newcommand{\makepapertitle}{%
+  \vspace*{-3pt}%
+  \noindent\rule{\textwidth}{3.2pt}\par
+  \vspace{9pt}%
+  {\centering
+    {\fontsize{15.5}{19}\selectfont\bfseries\x@title\par}%
+    \if\relax\detokenize\expandafter{\x@subtitle}\relax\else
+      \vspace{4pt}%
+      {\fontsize{10.5}{13}\selectfont\x@subtitle\par}%
+    \fi
+  }%
+  \vspace{8pt}%
+  \noindent\rule{\textwidth}{0.9pt}\par
+  \vspace{8pt}%
+  {\centering
+    {\normalsize\bfseries\x@author\par}%
+    \if\relax\detokenize\expandafter{\x@authoremail}\relax\else
+      \vspace{1.5pt}%
+      {\small\href{mailto:\x@authoremail}{\x@authoremail}\par}%
+    \fi
+  }%
+  \vspace{10pt}%
+}
+
+% --- Bibliography (IEEE Numbered Style) & Pure Black Clickable Cross-References ---
+\RequirePackage{cite}
+\RequirePackage[
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdfborder={0 0 0}
+]{hyperref}
+\RequirePackage[nameinlink,noabbrev]{cleveref}
+\crefname{figure}{Fig.}{Figs.}
+\Crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\Crefname{table}{Table}{Tables}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Equation}{Equations}
+\crefname{section}{Section}{Sections}
+
+% --- Helper Macros (Pure Black Roman Typography Only) ---
+\newcommand{\best}[1]{\textbf{#1}}
+\newcommand{\second}[1]{\underline{#1}}
+\newcommand{\gain}[1]{{\footnotesize(#1)}}
+\newcommand{\pending}[1]{\textit{(#1)}}
+
+\endinput

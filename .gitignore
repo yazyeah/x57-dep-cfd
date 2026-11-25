@@ -1,0 +1,28 @@
+# Allowlist: only source code, documentation, the LaTeX report sources and small deliverable data are
+# versioned. Meshes, Fluent case/data, logs, control state, caches and the virtual environment stay local.
+/*
+!/.gitignore
+!/*.md
+!/*.txt
+!/*.ps1
+!/*.bat
+!/scripts/
+!/SUPERVISOR/
+!/REPORT/
+!/skills/
+!/DELIVERABLES/
+
+__pycache__/
+*.pyc
+*.lock
+
+/SUPERVISOR/*
+!/SUPERVISOR/*.py
+!/SUPERVISOR/*.cmd
+
+/REPORT/_build/
+/REPORT/*.pdf
+
+/DELIVERABLES/*
+!/DELIVERABLES/data/
+!/DELIVERABLES/handoff_notes.md

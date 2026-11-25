@@ -1,0 +1,583 @@
+{
+  "inputs": {
+    "glb_path": "E:\\FEA Coursework\\CW1-X-57.glb",
+    "stl_path": "E:\\FEA Coursework\\CW1--X-57_metool.stl",
+    "triangle_count": 1369522,
+    "original_units": "inches",
+    "scale_factor_to_meters": 0.0254
+  },
+  "baked_stl_rotation_removed": {
+    "glb_node0_quaternion_xyzw": [
+      -0.0030793172772973776,
+      -0.000670874782372266,
+      0.04717618599534035,
+      0.9988816380500793
+    ],
+    "approx_euler_deg": {
+      "roll_x": -0.3561,
+      "yaw_y": -0.0601,
+      "pitch_z": 5.4082
+    },
+    "glb_local_min_in": [
+      -139.06044006347656,
+      -43.28644561767578,
+      -216.2940216064453
+    ],
+    "glb_local_max_in": [
+      203.54039001464844,
+      48.900184631347656,
+      216.2942657470703
+    ],
+    "stl_unrotated_min_in": [
+      -139.0604,
+      -43.2864,
+      -216.294
+    ],
+    "stl_unrotated_max_in": [
+      203.5406,
+      48.8924,
+      216.2943
+    ]
+  },
+  "restored_level_metric_bounds_m": {
+    "min_xyz": [
+      -3.53214,
+      -1.09948,
+      -5.49387
+    ],
+    "max_xyz": [
+      5.16993,
+      1.24187,
+      5.49387
+    ],
+    "span_xyz": [
+      8.70207,
+      2.34134,
+      10.98774
+    ],
+    "symmetry_z_mismatch_m": 6e-06,
+    "recommended_runway_y_m": -1.7,
+    "fuselage_belly_y_m": -1.09948,
+    "belly_to_runway_clearance_m": 0.60052
+  },
+  "sponson_clearance_at_x0_z086": {
+    "vertical_gap_m": 0.74311,
+    "sponson_top_y_m": -0.81242,
+    "wing_nacelle_bottom_y_m": -0.06931,
+    "method": "Legacy vertex-band estimate; exact station results are in cad_clearance_vertical_rays."
+  },
+  "wing_reference_estimates": {
+    "semi_span_to_wingtip_hub_m": 4.819,
+    "full_span_hub_to_hub_m": 9.638,
+    "mean_exposed_chord_m": 0.67441,
+    "estimated_full_wing_planform_area_m2": 6.5,
+    "chord_samples_count": 41
+  },
+  "starboard_propellers_detected": [
+    {
+      "name": "HLP-1",
+      "nominal_rpm": 5400,
+      "blade_count": 5,
+      "x_disk_m": -0.67906,
+      "y_axis_m": 0.00245,
+      "z_axis_m": 0.88832,
+      "r_tip_m": 0.28852,
+      "r_hub_est_m": 0.10919,
+      "diameter_m": 0.57705,
+      "swept_annulus_area_m2": 0.22407,
+      "spinner_nose_x_m": -0.81052
+    },
+    {
+      "name": "HLP-2",
+      "nominal_rpm": 5400,
+      "blade_count": 5,
+      "x_disk_m": -0.62876,
+      "y_axis_m": 0.00245,
+      "z_axis_m": 1.46443,
+      "r_tip_m": 0.28851,
+      "r_hub_est_m": 0.10917,
+      "diameter_m": 0.57702,
+      "swept_annulus_area_m2": 0.22405,
+      "spinner_nose_x_m": -0.76022
+    },
+    {
+      "name": "HLP-3",
+      "nominal_rpm": 5400,
+      "blade_count": 5,
+      "x_disk_m": -0.67906,
+      "y_axis_m": 0.00245,
+      "z_axis_m": 2.04055,
+      "r_tip_m": 0.28851,
+      "r_hub_est_m": 0.10917,
+      "diameter_m": 0.57702,
+      "swept_annulus_area_m2": 0.22405,
+      "spinner_nose_x_m": -0.81052
+    },
+    {
+      "name": "HLP-4",
+      "nominal_rpm": 5400,
+      "blade_count": 5,
+      "x_disk_m": -0.59121,
+      "y_axis_m": 0.00245,
+      "z_axis_m": 2.61666,
+      "r_tip_m": 0.28851,
+      "r_hub_est_m": 0.10919,
+      "diameter_m": 0.57702,
+      "swept_annulus_area_m2": 0.22404,
+      "spinner_nose_x_m": -0.72199
+    },
+    {
+      "name": "HLP-5",
+      "nominal_rpm": 5400,
+      "blade_count": 5,
+      "x_disk_m": -0.64151,
+      "y_axis_m": 0.00245,
+      "z_axis_m": 3.19277,
+      "r_tip_m": 0.28851,
+      "r_hub_est_m": 0.10919,
+      "diameter_m": 0.57702,
+      "swept_annulus_area_m2": 0.22404,
+      "spinner_nose_x_m": -0.77229
+    },
+    {
+      "name": "HLP-6",
+      "nominal_rpm": 5400,
+      "blade_count": 5,
+      "x_disk_m": -0.55365,
+      "y_axis_m": 0.00245,
+      "z_axis_m": 3.76889,
+      "r_tip_m": 0.28851,
+      "r_hub_est_m": 0.11658,
+      "diameter_m": 0.57702,
+      "swept_annulus_area_m2": 0.2188,
+      "spinner_nose_x_m": -0.68376
+    },
+    {
+      "name": "WT-1",
+      "nominal_rpm": 2700,
+      "blade_count": 3,
+      "x_disk_m": -0.59053,
+      "y_axis_m": 0.1339,
+      "z_axis_m": 4.81917,
+      "r_tip_m": 0.76543,
+      "r_hub_est_m": 0.17156,
+      "diameter_m": 1.53086,
+      "swept_annulus_area_m2": 1.74813,
+      "spinner_nose_x_m": -0.89771
+    }
+  ],
+  "cad_clearance_vertical_rays": [
+    {
+      "x_m": 0,
+      "z_m": 0.86,
+      "sponson_top_y_m": -0.82735739,
+      "underside_y_m": -0.04882581,
+      "clearance_m": 0.77853158
+    },
+    {
+      "x_m": 0,
+      "z_m": 0.87,
+      "sponson_top_y_m": -0.83367685,
+      "underside_y_m": -0.06003336,
+      "clearance_m": 0.77364349
+    },
+    {
+      "x_m": 0,
+      "z_m": 0.88,
+      "sponson_top_y_m": -0.85105029,
+      "underside_y_m": -0.06562392,
+      "clearance_m": 0.7854263699999999
+    },
+    {
+      "x_m": 0,
+      "z_m": 0.88832,
+      "sponson_top_y_m": null,
+      "underside_y_m": -0.06723252,
+      "clearance_m": null
+    }
+  ],
+  "blade_removal": {
+    "method": "Metric coordinate welding to 1 micrometre, collapsed and duplicate face removal, edge-connected shells, blade shell bounding limits, per-propeller count assertions. 10 micrometre centreline snapping before exact halfspace clipping.",
+    "removed_components": {
+      "HLP-1": [
+        43,
+        44,
+        45,
+        46,
+        47
+      ],
+      "HLP-2": [
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "HLP-3": [
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
+      "HLP-4": [
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "HLP-5": [
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "HLP-6": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "WT-1": [
+        0,
+        1,
+        2
+      ]
+    },
+    "remaining_component_count": 25,
+    "section_file": "cad_blade_sections.csv"
+  },
+  "cad_rotation_senses": {
+    "HLP-1": {
+      "omega_x_sign": 1,
+      "sense": "inboard-up",
+      "chord_angle_range_deg_45_85_pct_R": [
+        -41.16445303615673,
+        -25.230493122252234
+      ]
+    },
+    "HLP-2": {
+      "omega_x_sign": 1,
+      "sense": "inboard-up",
+      "chord_angle_range_deg_45_85_pct_R": [
+        -41.1447873137108,
+        -25.25573976574486
+      ]
+    },
+    "HLP-3": {
+      "omega_x_sign": 1,
+      "sense": "inboard-up",
+      "chord_angle_range_deg_45_85_pct_R": [
+        -41.146256785216536,
+        -25.48150013106
+      ]
+    },
+    "HLP-4": {
+      "omega_x_sign": 1,
+      "sense": "inboard-up",
+      "chord_angle_range_deg_45_85_pct_R": [
+        -41.311990627215394,
+        -25.266853660604013
+      ]
+    },
+    "HLP-5": {
+      "omega_x_sign": 1,
+      "sense": "inboard-up",
+      "chord_angle_range_deg_45_85_pct_R": [
+        -41.255476638076544,
+        -25.2483588159677
+      ]
+    },
+    "HLP-6": {
+      "omega_x_sign": 1,
+      "sense": "inboard-up",
+      "chord_angle_range_deg_45_85_pct_R": [
+        -41.19939444104952,
+        -25.319033985270636
+      ]
+    },
+    "WT-1": {
+      "omega_x_sign": 1,
+      "sense": "inboard-up",
+      "chord_angle_range_deg_45_85_pct_R": [
+        -44.74920680064494,
+        -27.641166341255968
+      ]
+    }
+  },
+  "disc_zones": {
+    "axis": [
+      1,
+      0,
+      0
+    ],
+    "selection": "abs(x-x_disk)<=thickness/2 and inner_radius<=hypot(y-y_axis,z-z_axis)<=outer_radius. Inner radius uses maximum observed spinner radius in the disk slab; plotted/STL rings have 256 segments.",
+    "definitions": [
+      {
+        "name": "HLP-1",
+        "x_disk_m": -0.67906,
+        "y_axis_m": 0.00245,
+        "z_axis_m": 0.88832,
+        "inner_radius_m": 0.07853422930610329,
+        "outer_radius_m": 0.28852,
+        "thickness_m": 0.05,
+        "volume_m3": 0.012107095722247371,
+        "zone_envelope_stl": "actuator_disks/hlp_1.stl"
+      },
+      {
+        "name": "HLP-2",
+        "x_disk_m": -0.62876,
+        "y_axis_m": 0.00245,
+        "z_axis_m": 1.46443,
+        "inner_radius_m": 0.07853721585457217,
+        "outer_radius_m": 0.28851,
+        "thickness_m": 0.05,
+        "volume_m3": 0.012106115639354115,
+        "zone_envelope_stl": "actuator_disks/hlp_2.stl"
+      },
+      {
+        "name": "HLP-3",
+        "x_disk_m": -0.67906,
+        "y_axis_m": 0.00245,
+        "z_axis_m": 2.04055,
+        "inner_radius_m": 0.07853220345339613,
+        "outer_radius_m": 0.28851,
+        "thickness_m": 0.05,
+        "volume_m3": 0.012106239307354424,
+        "zone_envelope_stl": "actuator_disks/hlp_3.stl"
+      },
+      {
+        "name": "HLP-4",
+        "x_disk_m": -0.59121,
+        "y_axis_m": 0.00245,
+        "z_axis_m": 2.61666,
+        "inner_radius_m": 0.07853433644513677,
+        "outer_radius_m": 0.28851,
+        "thickness_m": 0.05,
+        "volume_m3": 0.012106186682279476,
+        "zone_envelope_stl": "actuator_disks/hlp_4.stl"
+      },
+      {
+        "name": "HLP-5",
+        "x_disk_m": -0.64151,
+        "y_axis_m": 0.00245,
+        "z_axis_m": 3.19277,
+        "inner_radius_m": 0.07853728618009849,
+        "outer_radius_m": 0.28851,
+        "thickness_m": 0.05,
+        "volume_m3": 0.01210611390419798,
+        "zone_envelope_stl": "actuator_disks/hlp_5.stl"
+      },
+      {
+        "name": "HLP-6",
+        "x_disk_m": -0.55365,
+        "y_axis_m": 0.00245,
+        "z_axis_m": 3.76889,
+        "inner_radius_m": 0.07847577797927707,
+        "outer_radius_m": 0.28851,
+        "thickness_m": 0.05,
+        "volume_m3": 0.012107630915057694,
+        "zone_envelope_stl": "actuator_disks/hlp_6.stl"
+      },
+      {
+        "name": "WT-1",
+        "x_disk_m": -0.59053,
+        "y_axis_m": 0.1339,
+        "z_axis_m": 4.81917,
+        "inner_radius_m": 0.12952645630618465,
+        "outer_radius_m": 0.76543,
+        "thickness_m": 0.05,
+        "volume_m3": 0.08939495861089324,
+        "zone_envelope_stl": "actuator_disks/wt_1.stl"
+      }
+    ]
+  },
+  "fluid_shell": {
+    "patch_directory": "mesher_input/",
+    "method": "Union of component vertical CAD envelopes on a 6 mm lattice, segmented isosurface, boundary-conforming constrained planar triangulation at z=0. Intended for remeshing. Features below lattice resolution can be lost.",
+    "nominal_simplification_target_faces": 85000,
+    "isosurface_inward_offset_m": 0.0001373,
+    "lattice_m": 0.006,
+    "bounds_m": [
+      [
+        -18,
+        30
+      ],
+      [
+        -1.7,
+        18
+      ],
+      [
+        0,
+        20
+      ]
+    ],
+    "surface_faces": {
+      "farfield_inlet": 2,
+      "farfield_outlet": 2,
+      "farfield_side": 2,
+      "farfield_top": 2,
+      "runway_ground": 2,
+      "symmetry": 371,
+      "wall_empennage": 13214,
+      "wall_fuselage": 36886,
+      "wall_nacelles": 18758,
+      "wall_sponson": 1714,
+      "wall_wing": 13997
+    },
+    "edge_incidence": {
+      "2": 127425
+    },
+    "signed_fluid_volume_m3": 18908.21486439899,
+    "wrapped_clearance_x0_z086_m": 0.7802708,
+    "method_details": "CAD bodies are vertical upper/lower envelopes per connected component. Marching cubes with float32 geometry, 1 micrometre welding, quadric simplification, nearest-facet semantic relabeling, and symmetry-constrained triangulation. Two short trailing-edge contacts created by decimation had their local vertex fans split with a 15 micrometre shift. Source patch coordinates are preserved separately in cad_patches.",
+    "binary_stl_reload": {
+      "triangles": 84950,
+      "vertices": 42469,
+      "undirected_edges": 127425,
+      "edges_with_unbalanced_winding": 0,
+      "minimum_triangle_area_m2": 3.9880572802464265e-12,
+      "connected_boundary_components": 1,
+      "component_signed_volumes_m3": [
+        18908.21486439941
+      ]
+    },
+    "wing_thickness_rays": [
+      {
+        "x_m": 0,
+        "z_m": 1.2,
+        "cad_lower_upper_m": [
+          0.10579039,
+          0.20035244
+        ],
+        "wrap_lower_upper_m": [
+          0.10597258,
+          0.20000862
+        ]
+      },
+      {
+        "x_m": 0,
+        "z_m": 1.8,
+        "cad_lower_upper_m": [
+          0.10536151,
+          0.19651168
+        ],
+        "wrap_lower_upper_m": [
+          0.1055362,
+          0.19634121
+        ]
+      },
+      {
+        "x_m": 0,
+        "z_m": 2.3,
+        "cad_lower_upper_m": [
+          0.10474288,
+          0.19336398
+        ],
+        "wrap_lower_upper_m": [
+          0.10490251,
+          0.1934303
+        ]
+      },
+      {
+        "x_m": 0,
+        "z_m": 3.5,
+        "cad_lower_upper_m": [
+          0.10387993,
+          0.18584421
+        ],
+        "wrap_lower_upper_m": [
+          0.1039528,
+          0.185563
+        ]
+      },
+      {
+        "x_m": 0,
+        "z_m": 4.3,
+        "cad_lower_upper_m": [
+          0.10268946,
+          0.1807232
+        ],
+        "wrap_lower_upper_m": [
+          0.10288434,
+          0.18060137
+        ]
+      }
+    ],
+    "detached_subgrid_fragments_removed": {
+      "count": 5,
+      "faces": 428,
+      "reason": "Disconnected sub-resolution islands from wrapping; all signed-volume magnitudes below 1.3e-6 m3."
+    }
+  },
+  "wing_reference": {
+    "method": "Chord = TE minus LE of isolated wing CAD at constant z, integrated across both halves including buried centerbox. Includes control-surface chord and hinge gaps. Endpoint truncation 20 micrometres with constant extrapolation.",
+    "quadrature_by_n": {
+      "129": {
+        "full_planform_area_m2": 6.193395912325225,
+        "mean_aerodynamic_chord_m": 0.6492233648872392,
+        "full_span_m": 9.638341903686523
+      },
+      "257": {
+        "full_planform_area_m2": 6.19336376039779,
+        "mean_aerodynamic_chord_m": 0.6492196311074573,
+        "full_span_m": 9.638341903686523
+      },
+      "513": {
+        "full_planform_area_m2": 6.193355309991654,
+        "mean_aerodynamic_chord_m": 0.6492185342181733,
+        "full_span_m": 9.638341903686523
+      }
+    },
+    "full_planform_area_m2": 6.193355309991654,
+    "mean_aerodynamic_chord_m": 0.6492185342181733,
+    "full_span_m": 9.638341903686523
+  },
+  "spinner_radii": {
+    "HLP-1": {
+      "at_x_disk_m": 0.07574434162288907,
+      "minimum_over_disk_slab_m": 0.07058542285145523,
+      "maximum_over_disk_slab_m": 0.07853422930610329,
+      "legacy_annulus_inner_radius_m": 0.10919
+    },
+    "HLP-2": {
+      "at_x_disk_m": 0.07574561783194327,
+      "minimum_over_disk_slab_m": 0.07045715952425344,
+      "maximum_over_disk_slab_m": 0.07853721585457217,
+      "legacy_annulus_inner_radius_m": 0.10917
+    },
+    "HLP-3": {
+      "at_x_disk_m": 0.07565362594785324,
+      "minimum_over_disk_slab_m": 0.07045163492307949,
+      "maximum_over_disk_slab_m": 0.07853220345339613,
+      "legacy_annulus_inner_radius_m": 0.10917
+    },
+    "HLP-4": {
+      "at_x_disk_m": 0.07553875823805892,
+      "minimum_over_disk_slab_m": 0.0704528185123761,
+      "maximum_over_disk_slab_m": 0.07853433644513677,
+      "legacy_annulus_inner_radius_m": 0.10919
+    },
+    "HLP-5": {
+      "at_x_disk_m": 0.07554209350023772,
+      "minimum_over_disk_slab_m": 0.07043396513678159,
+      "maximum_over_disk_slab_m": 0.07853728618009849,
+      "legacy_annulus_inner_radius_m": 0.10919
+    },
+    "HLP-6": {
+      "at_x_disk_m": 0.07541981863099077,
+      "minimum_over_disk_slab_m": 0.07025983780762649,
+      "maximum_over_disk_slab_m": 0.07847577797927707,
+      "legacy_annulus_inner_radius_m": 0.11658
+    },
+    "WT-1": {
+      "at_x_disk_m": 0.12832008535293182,
+      "minimum_over_disk_slab_m": 0.12686002017656248,
+      "maximum_over_disk_slab_m": 0.12952645630618465,
+      "legacy_annulus_inner_radius_m": 0.17156
+    }
+  }
+}

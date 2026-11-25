@@ -1,0 +1,48 @@
+{
+  "fluent_release": "Ansys Fluent 2025 R2 Student",
+  "build_id": 10204,
+  "executable": "D:\\Ansys\\ANSYS Inc\\ANSYS Student\\v252\\fluent\\ntbin\\win64\\fluent.exe",
+  "launch_method": "scripts/run_fluent_managed.py",
+  "machine": {
+    "cpu": "Intel(R) Core(TM) i7-14650HX",
+    "physical_cores": 16,
+    "logical_processors": 24,
+    "physical_memory_bytes": 16873545728
+  },
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "E:\\FEA Coursework\\Workspace\\.venv\\Scripts\\python.exe",
+  "license": {
+    "solver_cell_threshold": 1048576,
+    "solver_diagnostic": "This is a student license, and can only be used with cases containing less than 1048576 cells.",
+    "over_limit_test_cells": 1048577,
+    "over_limit_test_nodes": 526850,
+    "production_policy": "Keep cell count below this threshold. Equality at the threshold was not tested.",
+    "max_licensed_cpu_ranks": 4,
+    "five_rank_checkout_message": "Insufficient FlexNet Publisher (FNP) license count of HPC Parallel are available for use, only 4 of the requested 5 tasks were available after using the 4 cores included with feature cfd_solve_level1.",
+    "node_probe": {
+      "cells": 524288,
+      "nodes": 1048578,
+      "read_succeeded": true,
+      "interpretation": "No rejection at this node count on solver import. A separate upper node limit was not established. The topology fixture reached mesh/check, which flagged left-handed faces. It was used only to test license admission."
+    }
+  },
+  "files": {
+    "solver_transcripts": [
+      "logs\\20261122_224841_s0_4core_solver.log",
+      "logs\\20261122_225254_s0_cells1048577_solver.log",
+      "logs\\20261122_225937_s0_nodes1048578_solver.log",
+      "logs\\20261122_230117_s0_5core_exclusive_solver.log"
+    ],
+    "five_rank_license_evidence": "00_env_audit\\hpc_checkout_evidence.txt"
+  },
+  "isolation": {
+    "workspace": "E:\\FEA Coursework\\Workspace",
+    "temp": "E:\\FEA Coursework\\Workspace\\_tmp",
+    "cache": "E:\\FEA Coursework\\Workspace\\_cache",
+    "fluent_profile": "E:\\FEA Coursework\\Workspace\\_cache\\fluent_profile",
+    "evidence": "Fluent transcript, licensing diagnostics, roaming profile records and scratch files observed beneath Workspace. This audit checked configured paths and observed files, without OS-wide filesystem tracing.",
+    "e_free_GiB": 47.82
+  },
+  "probe_notes": "The first 4-rank session checked out successfully. A follow-on interactive query in that journal ended early. The exact cell and core limits were obtained from separate diagnostic runs.",
+  "published_reference": "https://ansyshelp.ansys.com/public/views/secured/corp/v252/en/flu_ug/flu_gs_sec_gs_capabilities.html"
+}

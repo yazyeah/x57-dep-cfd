@@ -1,0 +1,736 @@
+{
+  "status": "prescribed model inputs; discrete Fluent verification pending",
+  "rho_kg_m3": 1.225,
+  "sources": {
+    "hlp": "https://ntrs.nasa.gov/citations/20240014295",
+    "cruise": "https://ntrs.nasa.gov/citations/20240006496",
+    "cruise_section_polar": "https://raw.githubusercontent.com/OpenFAST/r-test/main/glue-codes/openfast/5MW_Baseline/Airfoils/NACA64_A17.dat"
+  },
+  "geometry_input_sha256": "3ff6ded919af4c91099e881f7b957520a593bf69dd26e09745f0f55a193b949e",
+  "hlp_calibration": {
+    "method": "Linear extrapolation of the NASA calibrated BEMT performance map from 5 and 10 KEAS to zero, then similarity scaling of CT and CQ to CAD diameter and requested RPM.",
+    "fixed_mode_rpm": 4800,
+    "table_14_torque_Nm_5_10_KEAS": [
+      21.1,
+      21.3
+    ],
+    "table_16_thrust_lbf_5_10_KEAS": [
+      69.9,
+      68.8
+    ],
+    "diameter_reference_m": 0.57592,
+    "table_configuration": "80-degree deployed folding HLP, standard sea-level atmosphere.",
+    "limitation": "A small extrapolation of predicted near-static data. Prescribed RPM ignores HLP current and torque limiting."
+  },
+  "cruise_calibration": {
+    "method": "Isolated static BEMT. CAD blade chord and geometric twist from cylinder intersections; uniform collective trim matches the published full torque command at nominal RPM. Pitch is held fixed for the sweep.",
+    "torque_target_Nm": 127.5,
+    "collective_offset_deg": -21.08704498586959,
+    "section_data_columns": [
+      "r_m",
+      "chord_m",
+      "pitch_deg"
+    ],
+    "section_data": [
+      [
+        0.13079826339357228,
+        0.06776041973650641,
+        68.49619122002392
+      ],
+      [
+        0.14153317745321703,
+        0.06924306544516348,
+        67.75923407777151
+      ],
+      [
+        0.15226809151286178,
+        0.07141442550634612,
+        64.20979416084921
+      ],
+      [
+        0.16300300557250652,
+        0.07388942289490272,
+        63.60779446573388
+      ],
+      [
+        0.17373791963215127,
+        0.07665344715878294,
+        60.23809901360079
+      ],
+      [
+        0.184472833691796,
+        0.07936415998350264,
+        60.60023151750889
+      ],
+      [
+        0.19520774775144076,
+        0.08129935017209078,
+        59.76720362407609
+      ],
+      [
+        0.2059426618110855,
+        0.08342890428748352,
+        58.75241147866149
+      ],
+      [
+        0.21667757587073025,
+        0.08543997936825434,
+        56.25353001586138
+      ],
+      [
+        0.227412489930375,
+        0.08746928757275231,
+        54.72104452342467
+      ],
+      [
+        0.23814740399001974,
+        0.08987681269700286,
+        53.674780762244524
+      ],
+      [
+        0.24888231804966449,
+        0.09175465676927777,
+        53.71207572581356
+      ],
+      [
+        0.25961723210930926,
+        0.09377059108983268,
+        52.883917099328556
+      ],
+      [
+        0.270352146168954,
+        0.09568644010439474,
+        50.58549541896876
+      ],
+      [
+        0.28108706022859875,
+        0.09785884586663694,
+        50.10803297173181
+      ],
+      [
+        0.29182197428824347,
+        0.09948921410955334,
+        49.413674683796636
+      ],
+      [
+        0.30255688834788824,
+        0.10132127972064822,
+        48.38943508052071
+      ],
+      [
+        0.31329180240753296,
+        0.10307323225730453,
+        47.85650881430598
+      ],
+      [
+        0.32402671646717773,
+        0.10440352380321619,
+        47.07357884504521
+      ],
+      [
+        0.3347616305268225,
+        0.10586041976563208,
+        45.71108028487795
+      ],
+      [
+        0.3454965445864672,
+        0.10730914618867396,
+        44.823395560270335
+      ],
+      [
+        0.35623145864611194,
+        0.10888702628987355,
+        44.09140526084009
+      ],
+      [
+        0.3669663727057567,
+        0.10978384022676592,
+        43.07257169907313
+      ],
+      [
+        0.3777012867654015,
+        0.11093603886756027,
+        42.006517980730365
+      ],
+      [
+        0.3884362008250462,
+        0.11220171330092608,
+        41.56527561171521
+      ],
+      [
+        0.399171114884691,
+        0.1127032196039843,
+        40.22559654574928
+      ],
+      [
+        0.4099060289443357,
+        0.11348874544136474,
+        39.909175733836335
+      ],
+      [
+        0.4206409430039804,
+        0.11446006487087354,
+        39.15543142248847
+      ],
+      [
+        0.4313758570636252,
+        0.115009353546505,
+        38.328991610576836
+      ],
+      [
+        0.4421107711232699,
+        0.11514904586433011,
+        38.035160319186645
+      ],
+      [
+        0.4528456851829147,
+        0.11562472677337919,
+        36.85101394999579
+      ],
+      [
+        0.4635805992425594,
+        0.11592404108434619,
+        36.127428675741605
+      ],
+      [
+        0.4743155133022042,
+        0.11621745476537924,
+        36.47013327219825
+      ],
+      [
+        0.48505042736184895,
+        0.11622215367394269,
+        35.77853223165067
+      ],
+      [
+        0.4957853414214937,
+        0.11588773471813378,
+        34.93611047829105
+      ],
+      [
+        0.5065202554811383,
+        0.11573544584270742,
+        33.677773440371155
+      ],
+      [
+        0.5172551695407832,
+        0.11549825177686888,
+        33.50433283524732
+      ],
+      [
+        0.5279900836004279,
+        0.11490659890269343,
+        33.03061838921066
+      ],
+      [
+        0.5387249976600728,
+        0.11389496045913344,
+        32.26488988275905
+      ],
+      [
+        0.5494599117197174,
+        0.11328741044608892,
+        31.780619664174218
+      ],
+      [
+        0.5601948257793621,
+        0.11239065576034697,
+        31.154862036706252
+      ],
+      [
+        0.570929739839007,
+        0.11126746232388092,
+        30.384225329527514
+      ],
+      [
+        0.5816646538986516,
+        0.11023492808733361,
+        29.682940791606647
+      ],
+      [
+        0.5923995679582965,
+        0.10910024841150262,
+        30.40311745815277
+      ],
+      [
+        0.6031344820179412,
+        0.10780210025806346,
+        29.077309749913358
+      ],
+      [
+        0.6138693960775858,
+        0.10647000876355606,
+        29.393296052196956
+      ],
+      [
+        0.6246043101372307,
+        0.10503518744925606,
+        29.166131486620074
+      ],
+      [
+        0.6353392241968754,
+        0.10347798864803717,
+        27.89440738500571
+      ],
+      [
+        0.6460741382565202,
+        0.10196780577348147,
+        27.74788328878479
+      ],
+      [
+        0.6568090523161648,
+        0.10012305547733756,
+        27.110033997447115
+      ],
+      [
+        0.6675439663758096,
+        0.09846944281536024,
+        26.65495441992098
+      ],
+      [
+        0.6782788804354544,
+        0.09638793135904869,
+        26.519461305925308
+      ],
+      [
+        0.6890137944950991,
+        0.09483581139026781,
+        26.607613368504566
+      ],
+      [
+        0.6997487085547438,
+        0.09274837298529542,
+        25.713411097972124
+      ],
+      [
+        0.7104836226143886,
+        0.09084244784941557,
+        25.835058811897675
+      ],
+      [
+        0.7212185366740334,
+        0.08875121248504227,
+        25.51451775595344
+      ],
+      [
+        0.7319534507336781,
+        0.08663137853242131,
+        25.129418932469484
+      ],
+      [
+        0.7426883647933229,
+        0.08452526101940494,
+        24.86840822539015
+      ],
+      [
+        0.7534232788529676,
+        0.08253156957281446,
+        24.48430856159949
+      ],
+      [
+        0.7641581929126124,
+        0.07349294826734366,
+        24.946466941757308
+      ]
+    ],
+    "polar": "NACA64_A17 surrogate at Re 750000 including its original rotational stall correction. Real MT blade polars and controller flight dynamics are unavailable. No compressibility or further Reynolds correction.",
+    "quadrature": "256 equally spaced annulus midpoints with Prandtl tip and hub losses and induced swirl.",
+    "coarse_fine_difference_N": -0.042868572162205965,
+    "thrust_N": 1549.0548534183265,
+    "torque_Nm": 127.50000000000001,
+    "relative_mach_range": [
+      0.08228265356741175,
+      0.6280547115126595
+    ],
+    "section_reynolds_range": [
+      129918.82190246365,
+      1267343.3915671734
+    ],
+    "angle_of_attack_deg": [
+      -2.578636027802487,
+      30.840630543341916
+    ]
+  },
+  "source_terms": {
+    "hub_definition": "Maximum CAD spinner radius over the entire 0.05 m disk slab.",
+    "radial_fraction": "h=(r-rhub)/(rtip-rhub)",
+    "extent": "abs(x-xdisk)<=t/2; rhub<=r<=rtip",
+    "axial": "Sx=T/norm_t*h*sqrt(1-h)",
+    "tangential": "Stheta=sign*Q/norm_q*sqrt(h*(1-h))/r; Sy=-Stheta*(z-zaxis)/r; Sz=Stheta*(y-yaxis)/r",
+    "discrete_normalization": "For each grid integrate both dimensionless weight fields over fluid cell volumes to replace continuum norms. Recheck each source force and torque using Fluent reports.",
+    "swirl_off": "Hold axial thrust at the matched swirl-on value. Set tangential source to zero.",
+    "mirrored_configuration": "Starboard CAD rotation follows negative axial-to-positive-azimuth chord slope for positive-x rotation. Reflecting to port reverses axial torque. NASA reports alternating adjacent HLPs on the later simulator configuration."
+  },
+  "rotors": [
+    {
+      "name": "HLP-1",
+      "center_m": [
+        -0.67906,
+        0.00245,
+        0.88832
+      ],
+      "r_hub_m": 0.07853422930610329,
+      "spinner_measurement": {
+        "at_x_disk_m": 0.07574434162288907,
+        "minimum_over_disk_slab_m": 0.07058542285145523,
+        "maximum_over_disk_slab_m": 0.07853422930610329,
+        "legacy_annulus_inner_radius_m": 0.10919
+      },
+      "r_tip_m": 0.28852,
+      "thickness_m": 0.05,
+      "nominal_rpm": 5400,
+      "positive_x_spin_sign": 1,
+      "measured_chord_slopes_deg": [
+        -28.84085085962271,
+        -28.987222292214,
+        -28.94933279166109,
+        -29.14690885943801,
+        -28.778258366059344
+      ],
+      "ct": 0.36616772345766446,
+      "cq": 0.04207454427287099,
+      "continuum_norm_t_m3": 0.0034924168812322885,
+      "continuum_norm_q_m3": 0.0047544453721650925,
+      "targets": [
+        {
+          "s": 0.5,
+          "rpm": 2700.0,
+          "thrust_N": 100.70820445676166,
+          "torque_magnitude_Nm": 6.677442128585298,
+          "shaft_power_W": 1888.002282234111
+        },
+        {
+          "s": 0.75,
+          "rpm": 4050.0,
+          "thrust_N": 226.59346002771372,
+          "torque_magnitude_Nm": 15.02424478931692,
+          "shaft_power_W": 6372.007702540124
+        },
+        {
+          "s": 1.0,
+          "rpm": 5400.0,
+          "thrust_N": 402.83281782704665,
+          "torque_magnitude_Nm": 26.709768514341192,
+          "shaft_power_W": 15104.018257872887
+        }
+      ]
+    },
+    {
+      "name": "HLP-2",
+      "center_m": [
+        -0.62876,
+        0.00245,
+        1.46443
+      ],
+      "r_hub_m": 0.07853721585457217,
+      "spinner_measurement": {
+        "at_x_disk_m": 0.07574561783194327,
+        "minimum_over_disk_slab_m": 0.07045715952425344,
+        "maximum_over_disk_slab_m": 0.07853721585457217,
+        "legacy_annulus_inner_radius_m": 0.10917
+      },
+      "r_tip_m": 0.28851,
+      "thickness_m": 0.05,
+      "nominal_rpm": 5400,
+      "positive_x_spin_sign": 1,
+      "measured_chord_slopes_deg": [
+        -28.84133784487034,
+        -28.988133825782437,
+        -28.95066761272568,
+        -29.14874366086575,
+        -28.779685707401523
+      ],
+      "ct": 0.3661677234576644,
+      "cq": 0.04207454427287099,
+      "continuum_norm_t_m3": 0.0034921228902586327,
+      "continuum_norm_q_m3": 0.004754060494512923,
+      "targets": [
+        {
+          "s": 0.5,
+          "rpm": 2700.0,
+          "thrust_N": 100.69424314124629,
+          "torque_magnitude_Nm": 6.67628502001932,
+          "shaft_power_W": 1887.675117494785
+        },
+        {
+          "s": 0.75,
+          "rpm": 4050.0,
+          "thrust_N": 226.56204706780417,
+          "torque_magnitude_Nm": 15.021641295043468,
+          "shaft_power_W": 6370.903521544899
+        },
+        {
+          "s": 1.0,
+          "rpm": 5400.0,
+          "thrust_N": 402.77697256498516,
+          "torque_magnitude_Nm": 26.70514008007728,
+          "shaft_power_W": 15101.40093995828
+        }
+      ]
+    },
+    {
+      "name": "HLP-3",
+      "center_m": [
+        -0.67906,
+        0.00245,
+        2.04055
+      ],
+      "r_hub_m": 0.07853220345339613,
+      "spinner_measurement": {
+        "at_x_disk_m": 0.07565362594785324,
+        "minimum_over_disk_slab_m": 0.07045163492307949,
+        "maximum_over_disk_slab_m": 0.07853220345339613,
+        "legacy_annulus_inner_radius_m": 0.10917
+      },
+      "r_tip_m": 0.28851,
+      "thickness_m": 0.05,
+      "nominal_rpm": 5400,
+      "positive_x_spin_sign": 1,
+      "measured_chord_slopes_deg": [
+        -28.842198330324905,
+        -28.989116769870773,
+        -28.95045006750515,
+        -29.14764161631008,
+        -28.829040083885847
+      ],
+      "ct": 0.3661677234576644,
+      "cq": 0.04207454427287099,
+      "continuum_norm_t_m3": 0.0034921684644479293,
+      "continuum_norm_q_m3": 0.004754109058823081,
+      "targets": [
+        {
+          "s": 0.5,
+          "rpm": 2700.0,
+          "thrust_N": 100.69424314124629,
+          "torque_magnitude_Nm": 6.67628502001932,
+          "shaft_power_W": 1887.675117494785
+        },
+        {
+          "s": 0.75,
+          "rpm": 4050.0,
+          "thrust_N": 226.56204706780417,
+          "torque_magnitude_Nm": 15.021641295043468,
+          "shaft_power_W": 6370.903521544899
+        },
+        {
+          "s": 1.0,
+          "rpm": 5400.0,
+          "thrust_N": 402.77697256498516,
+          "torque_magnitude_Nm": 26.70514008007728,
+          "shaft_power_W": 15101.40093995828
+        }
+      ]
+    },
+    {
+      "name": "HLP-4",
+      "center_m": [
+        -0.59121,
+        0.00245,
+        2.61666
+      ],
+      "r_hub_m": 0.07853433644513677,
+      "spinner_measurement": {
+        "at_x_disk_m": 0.07553875823805892,
+        "minimum_over_disk_slab_m": 0.0704528185123761,
+        "maximum_over_disk_slab_m": 0.07853433644513677,
+        "legacy_annulus_inner_radius_m": 0.10919
+      },
+      "r_tip_m": 0.28851,
+      "thickness_m": 0.05,
+      "nominal_rpm": 5400,
+      "positive_x_spin_sign": 1,
+      "measured_chord_slopes_deg": [
+        -29.602991254326405,
+        -28.762414943656392,
+        -28.7939376987273,
+        -29.862837016340777,
+        -28.710807766023247
+      ],
+      "ct": 0.3661677234576644,
+      "cq": 0.04207454427287099,
+      "continuum_norm_t_m3": 0.003492149070895689,
+      "continuum_norm_q_m3": 0.0047540883930044745,
+      "targets": [
+        {
+          "s": 0.5,
+          "rpm": 2700.0,
+          "thrust_N": 100.69424314124629,
+          "torque_magnitude_Nm": 6.67628502001932,
+          "shaft_power_W": 1887.675117494785
+        },
+        {
+          "s": 0.75,
+          "rpm": 4050.0,
+          "thrust_N": 226.56204706780417,
+          "torque_magnitude_Nm": 15.021641295043468,
+          "shaft_power_W": 6370.903521544899
+        },
+        {
+          "s": 1.0,
+          "rpm": 5400.0,
+          "thrust_N": 402.77697256498516,
+          "torque_magnitude_Nm": 26.70514008007728,
+          "shaft_power_W": 15101.40093995828
+        }
+      ]
+    },
+    {
+      "name": "HLP-5",
+      "center_m": [
+        -0.64151,
+        0.00245,
+        3.19277
+      ],
+      "r_hub_m": 0.07853728618009849,
+      "spinner_measurement": {
+        "at_x_disk_m": 0.07554209350023772,
+        "minimum_over_disk_slab_m": 0.07043396513678159,
+        "maximum_over_disk_slab_m": 0.07853728618009849,
+        "legacy_annulus_inner_radius_m": 0.10919
+      },
+      "r_tip_m": 0.28851,
+      "thickness_m": 0.05,
+      "nominal_rpm": 5400,
+      "positive_x_spin_sign": 1,
+      "measured_chord_slopes_deg": [
+        -29.476931712442436,
+        -28.762220061175526,
+        -28.7941108679126,
+        -29.834588762828357,
+        -28.71080221342724
+      ],
+      "ct": 0.3661677234576644,
+      "cq": 0.04207454427287099,
+      "continuum_norm_t_m3": 0.003492122250825942,
+      "continuum_norm_q_m3": 0.004754059813118703,
+      "targets": [
+        {
+          "s": 0.5,
+          "rpm": 2700.0,
+          "thrust_N": 100.69424314124629,
+          "torque_magnitude_Nm": 6.67628502001932,
+          "shaft_power_W": 1887.675117494785
+        },
+        {
+          "s": 0.75,
+          "rpm": 4050.0,
+          "thrust_N": 226.56204706780417,
+          "torque_magnitude_Nm": 15.021641295043468,
+          "shaft_power_W": 6370.903521544899
+        },
+        {
+          "s": 1.0,
+          "rpm": 5400.0,
+          "thrust_N": 402.77697256498516,
+          "torque_magnitude_Nm": 26.70514008007728,
+          "shaft_power_W": 15101.40093995828
+        }
+      ]
+    },
+    {
+      "name": "HLP-6",
+      "center_m": [
+        -0.55365,
+        0.00245,
+        3.76889
+      ],
+      "r_hub_m": 0.07847577797927707,
+      "spinner_measurement": {
+        "at_x_disk_m": 0.07541981863099077,
+        "minimum_over_disk_slab_m": 0.07025983780762649,
+        "maximum_over_disk_slab_m": 0.07847577797927707,
+        "legacy_annulus_inner_radius_m": 0.11658
+      },
+      "r_tip_m": 0.28851,
+      "thickness_m": 0.05,
+      "nominal_rpm": 5400,
+      "positive_x_spin_sign": 1,
+      "measured_chord_slopes_deg": [
+        -29.923302460145813,
+        -28.762531846545404,
+        -28.887899895404203,
+        -28.93736875329259,
+        -28.626375913078594
+      ],
+      "ct": 0.3661677234576644,
+      "cq": 0.04207454427287099,
+      "continuum_norm_t_m3": 0.0034926813765775023,
+      "continuum_norm_q_m3": 0.00475465554189024,
+      "targets": [
+        {
+          "s": 0.5,
+          "rpm": 2700.0,
+          "thrust_N": 100.69424314124629,
+          "torque_magnitude_Nm": 6.67628502001932,
+          "shaft_power_W": 1887.675117494785
+        },
+        {
+          "s": 0.75,
+          "rpm": 4050.0,
+          "thrust_N": 226.56204706780417,
+          "torque_magnitude_Nm": 15.021641295043468,
+          "shaft_power_W": 6370.903521544899
+        },
+        {
+          "s": 1.0,
+          "rpm": 5400.0,
+          "thrust_N": 402.77697256498516,
+          "torque_magnitude_Nm": 26.70514008007728,
+          "shaft_power_W": 15101.40093995828
+        }
+      ]
+    },
+    {
+      "name": "WT-1",
+      "center_m": [
+        -0.59053,
+        0.1339,
+        4.81917
+      ],
+      "r_hub_m": 0.12952645630618465,
+      "spinner_measurement": {
+        "at_x_disk_m": 0.12832008535293182,
+        "minimum_over_disk_slab_m": 0.12686002017656248,
+        "maximum_over_disk_slab_m": 0.12952645630618465,
+        "legacy_annulus_inner_radius_m": 0.17156
+      },
+      "r_tip_m": 0.76543,
+      "thickness_m": 0.05,
+      "nominal_rpm": 2700,
+      "positive_x_spin_sign": 1,
+      "measured_chord_slopes_deg": [
+        -32.9658558826364,
+        -32.61400322609307,
+        -32.16603691182799
+      ],
+      "ct": 0.11370086760860895,
+      "cq": 0.006113243449142455,
+      "continuum_norm_t_m3": 0.02625841989933407,
+      "continuum_norm_q_m3": 0.03510531815499323,
+      "targets": [
+        {
+          "s": 0.5,
+          "rpm": 1350.0,
+          "thrust_N": 387.2637133545816,
+          "torque_magnitude_Nm": 31.875000000000004,
+          "shaft_power_W": 4506.22196249286
+        },
+        {
+          "s": 0.75,
+          "rpm": 2025.0,
+          "thrust_N": 871.3433550478087,
+          "torque_magnitude_Nm": 71.71875000000001,
+          "shaft_power_W": 15208.499123413403
+        },
+        {
+          "s": 1.0,
+          "rpm": 2700.0,
+          "thrust_N": 1549.0548534183265,
+          "torque_magnitude_Nm": 127.50000000000001,
+          "shaft_power_W": 36049.77569994288
+        }
+      ]
+    }
+  ],
+  "fluent_discrete_integrals": null
+}

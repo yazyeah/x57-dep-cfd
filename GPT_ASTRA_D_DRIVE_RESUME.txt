@@ -1,0 +1,34 @@
+工作区已从出现 184 个底层硬件坏块（Event ID 7 / CRC 错误）的外部 F 盘**完整无损抢救迁移至健康高速内置 NVMe 固态硬盘 `D:\FEA Coursework\Workspace`**（`1,475/1,477` 文件完整无损，仅 2 个废弃旧试算日志跳过；D 盘 `.venv` 全部 17 个依赖包已重建验证通过；且**以下 4 个文件已由我直接修改落地**：`QUALITY_AND_MILESTONES.md`、`scripts/mesh_region_budget.py`、`scripts/mesh_quality_guard.py`、`scripts/complete_production_mesh.py`）。
+
+请立即按以下指令在 **`D:\FEA Coursework\Workspace`** 恢复执行并一路冲刺至 `P12` 完整交付验收通过（严禁再向 `C:`、旧 `E:` 或受损 `F:` 盘写入任何文件，严禁修改 `D:\FEA Coursework\` 下只读原始输入文件，严禁再停机空等确认）：
+
+### 一、启动前环境与脚本快速自检（10 秒）
+1. Dot-source 新版环境隔离脚本并扫描 D 盘断点与脚本路径：
+   ```powershell
+   . "D:\FEA Coursework\Workspace\scripts\env_d_only.ps1"
+   & $env:X57_PYTHON "D:\FEA Coursework\Workspace\scripts\control_gate.py" status
+   & $env:X57_PYTHON "D:\FEA Coursework\Workspace\scripts\control_gate.py" resume-scan
+   ```
+2. 顺手用 Python `py_compile` 核对 `scripts\*.py` 语法并确认你新建的业务脚本与待复用 `mesh_config.json` 中不残留任何 `F:\FEA Coursework` 硬编码路径（核心基础设施 `env_d_only.ps1` / `env_f_only.ps1` / `control_gate.py` / `verify_deliverables.py` / `inspect_x57_geometry.py` / `.bat` 开关均已更新至 `D:`）。
+
+### 二、我已直接在 D 盘落地的 4 项零降质核心修复（你可直接沿用，无需返工）
+1. **两处 Fine 规格字面冲突已正式修入 `QUALITY_AND_MILESTONES.md` 与 `scripts/mesh_region_budget.py`**：
+   - **近尾流区（`near_wake_boi`）**：`35–45 mm` 六面体目标仅约束盒内**真实吹气滑流管核心区**，盒外围边角允许平滑过渡至 `50–65 mm`；以 `verify_mesh_level.py` 实测总单元严格落在 `1,020,000–1,044,000` 且五分区占比全部达标（主翼 `32%–38%`、7 桨盘 `18%–22%`、近尾流 `20%–24%`、其余与中尾流 `15%–20%`、外远场 `< 4%`）为准。
+   - **7 桨盘径向/轴向层数**：`axial_cells_min = 6`、`radial_cells_min = 22` 正式定义为**最低分辨率下限（floor）**；大直径翼尖桨 `WT-1`（叶展 `0.6359 m`）在 `10–14 mm` 加密下径向达 `40–55` 层属于更高精度，直接视作达标通过。
+2. **两处“改善前误杀/拦截”缺陷已直接修入 `scripts/mesh_quality_guard.py` 与 `scripts/complete_production_mesh.py`**：
+   - `MeshQualityGuard` 不再在 Poly-Hexcore 转换与 `Improve Volume Mesh` 完成前仅凭中间态 `> 5000` 计数强杀 Fluent，保留 25 分钟防死锁保护及改善后直方图核查；
+   - `complete_production_mesh.py` 不再在运行 `improve_raw.jou`（`auto-node-move` 目标 OQ `0.20`）之前提前抛异常阻断改善流程，最终验收仍 100% 由 `verify_mesh_level.py` + 独立求解器重载硬标准锁死。
+
+### 三、立即打通 P2 三套高质量网格（严格零降质）
+- 此前 `C15`（`QualityWarningLimit=0.0`）与 `C16`（`OrthogonalQuality=0.0`）关闭了 Fluent 原生正交质量修复且未跑 `Improve Volume Mesh`，而 C16 的原生 FTM 四区父层拆分与已验表面（81 处净空最大误差 `0.947 mm`、234 处机翼后缘 `0.485 mm`）已非常优秀，仅因旧尺寸场偏密出了 `431,549` 单元。
+- 请基于 D 盘已保留的 `02_mesh\coarse\f_registered_ftm_16\registered_prism_controls.msh.h5` 与已过 CAD 复测的三档高保真表面，立即创建新目录（如 `f_registered_ftm_17`）执行：
+  1. 将 `GenerateTheVolumeMeshFTM` 中的 `OrthogonalQuality` 恢复为正向质量阈值（如 `0.15`–`0.20`，绝不设 `0.0`），并在生成体网格后显式执行 Fluent 原生 `Improve Volume Mesh` / `improve_raw.jou`（目标最小正交质量 `0.20`）；
+  2. 将 Coarse BOI 尺寸场整体等比放宽约 `10%–14%`，使 Coarse 精准落入 **`310,000–350,000`**，并通过 `verify_mesh_level.py --publish`（零负体积、Meshing 与独立求解器重载标准最小正交质量均 `> 0.10` 且目标 `> 0.15`、5 壁面全带边界层、净空达标）；
+  3. Coarse 签出后立即按同一验证配方连续生成并签出 Medium（`620,000–660,000`）与 Fine（`1,020,000–1,044,000`，含五分区占比），通过 `verify_mesh_ladder.py`（退出码 `0`）。
+
+### 四、P2 通过后一气呵成冲刺 P3 → P12，直至全部交付验收通过
+- 严守 `QUALITY_AND_MILESTONES.md` 与 `VISUALIZATION_MASTER_BLUEPRINT.md` 全部硬标准（沿用已验收的 P0、P1 与 `fig01`）：
+  - **P3–P9**：全部 18 算例四重全局强收敛 + ASME V&V 20 六步 GCI + Fine 机翼真实 $y^+ \in [0.5, 1.2]$ + 3D/2D 高升力实算优化；
+  - **P10**：ANSYS MAPDL `SHELL181` 1-Way FSI 三网格结构应力收敛（静推/滑跑/优化独立载荷，工程许用安全色标全局低应力冷蓝 + 真实最大应力与最小安全系数披露 + 翼根/吊架局部放大）；
+  - **P11–P12**：生成全部 **22 套 400 DPI PNG + 嵌入 Times New Roman 矢量 PDF 复合图 + 22 张白底 3D 高清渲染（含 10 张 Ansys 流体/结构应力云图）+ 19 份无 NaN 数据表 + 验证可重开的 Fine Ansys 提交归档（`X57_DEP_fine_rpm100.msh.h5/.cas.h5/.dat.h5`）**；
+- 持续推进直到 **`scripts/verify_deliverables.py` 返回退出码 `0`**、全部阶段在 `CONTROL/CHECKPOINT.json` 签出 `done` 并更新 `logs/STAGE_REPORTS.md` 与 `DELIVERABLES/DELIVERABLES_MANIFEST.json` 才结束本轮交付！

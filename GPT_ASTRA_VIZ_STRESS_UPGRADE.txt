@@ -1,0 +1,26 @@
+【增量升级通知——无需中断当前正在推进的 P2 网格工作，继续无缝推进直至 P12 全部交付验收！】
+
+我已根据任务书 `F:\FEA Coursework\CFD_Coursework.docx` 与 2025–2026 顶刊/顶会（AIAA / JFM / Nature / CVPR / ICCV / NeurIPS）最新绘图标准，在 F 盘工作区更新了以下 4 个文件，请在你推进到 P10（FSI 应力）/ P11（可视化）/ P12（最终验收）前阅读并全部落实：
+- 新增总蓝图：`F:\FEA Coursework\Workspace\VISUALIZATION_MASTER_BLUEPRINT.md`
+- 已升级技能：`F:\FEA Coursework\Workspace\skills\top-venue-scientific-visualization\SKILL.md`
+- 已升级技能：`F:\FEA Coursework\Workspace\skills\aero-structural-fsi-stress\SKILL.md`
+- 已升级验收脚本：`F:\FEA Coursework\Workspace\scripts\verify_deliverables.py`
+
+### 核心升级要点（将最终可视化从 36 套扩容至 44 套，以“全套 Ansys 应力云图 + 顶刊/顶会复杂复合脚本图”为绝对重点）：
+1. **Ansys 全套应力云图扩充至 10 张 3D 高清图（`render13`–`render22`）+ 4 套深度脚本图（`fig17`, `fig18`, `fig21`, `fig22`）**：
+   - **Fluent 流体应力 4 张 3D**：上表面壁面切应力 $\tau_w$（`render13`）、下表面壁面切应力 $\tau_w$（`render14`）、尾流湍动能 $k$ 与雷诺切应力 $-\rho\overline{u'v'}$（`render15`）、总压系数 $C_{p0}$ 与滑流能量核（`render16`）；
+   - **ANSYS MAPDL (`SHELL181`) 1-Way FSI 结构应力 6 张 3D**（必须完成 3 网格应力收敛 `GCI < 3%`）：
+     - `render17_fsi_von_mises_global_top_3d.png` & `render18_fsi_von_mises_global_bottom_3d.png`（工程安全色标：真实低载荷下**整机收敛为安全低应力冷蓝色，安全系数 $\text{FoS} \gg 20$**）；
+     - `render19_fsi_von_mises_root_pylon_zoom_3d.png`（翼根与 HLP 吊架根部自适应局部应力集中特写）；
+     - `render20_fsi_principal_stress_s1_s3_3d.png`（最大/最小主应力 $\sigma_1 / \sigma_3$ 翼面拉压双视图）；
+     - `render21_fsi_shear_stress_tresca_3d.png`（Tresca 最大切应力 / 翼盒面内切应力 $\tau_{\max}$）；
+     - `render22_fsi_deformation_and_safety_factor_3d.png`（结构总弹性变形 $U_{\text{sum}}$ 放大叠加 + 安全系数 $\text{FoS}$ 云图）。
+2. **2025–2026 顶刊/顶会复杂复合脚本绘图扩充至 22 套（`fig01`–`fig22`，全部 400 DPI PNG + 嵌入 Times New Roman 矢量 PDF）**：
+   - 保持全部字体为 **Times New Roman**（通过 `scripts\plot_style.py` / `publication_fonts.py`）；
+   - 按升级后的 `top-venue-scientific-visualization\SKILL.md`，综合运用 **Fabio Crameri 科学色图（`cmcrameri` 的 `batlow`/`vik`/`roma`，按需用 `uv` 装进 `F:\FEA Coursework\Workspace\.venv`）**、**`GridSpec/subfigures` 多面板复合排版**、**CVPR 风格 `inset_axes + mark_inset` 局部放大框**、**Nature/CVPR 风格 Raincloud + 重叠 KDE Ridge 分布图**、**多维雷达图 + Pareto 前沿 + 18 算例×10 KPI 消融热力图**、以及 **PyVista 纯白背景 `enable_ssao() + enable_anti_aliasing('ssaa') + smooth_shading + split_sharp_edges`** 工作室级 3D 渲染；
+   - 在原 20 套基础上新增两套压轴顶刊图：
+     - **`fig21_stress_envelope_and_ridge_distributions`**（5 部件 $\sigma_{\text{vM}}, \sigma_1, \tau_{\max}, \tau_w$ 重叠 KDE Ridge + Raincloud 分布，对比静推基线 / 滑跑 $V=10\text{ m/s}$ / 3D 优化方案的安全余量）；
+     - **`fig22_3d_2d_hybrid_aeropropulsive_synthesis`**（6 面板顶刊封面级全景总图：白底 PyVista SSAO 3D Pathlines + Q-criterion + FSI 低应力蓝云图联动 2D 展向 $C_p$、载荷差与高升力优化增益）。
+3. **继续全自动完成 P2 → P12 全部完整交付**：
+   - 严禁因此次升级重跑已验收的 P0、P1、图 1 或中断当前 P2 进度；
+   - 继续在 `F:\FEA Coursework\Workspace` 中零等待一口气连续推进，直到全部 **22 套复合脚本图（PNG+PDF）+ 22 张 3D 白底高清渲染图 + 19 份结构化数据 + 顶格 Fine Ansys 提交附件（`.msh.h5`/`.cas.h5`/`.dat.h5`）** 齐备，且新版 `scripts\verify_deliverables.py` 返回退出码 **`0`（`ALL CHECKS PASSED`）**！
