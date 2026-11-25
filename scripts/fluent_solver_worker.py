@@ -280,6 +280,12 @@ def configure():
         s.solution.monitor.report_plots['x57-force-live']={'report_defs':names[:-1], 'active':True, 'frequency':1, 'title':'Half-aircraft forces [N]'}
         s.solution.monitor.report_plots['x57-moment-live']={'report_defs':[pitch], 'active':True, 'frequency':1, 'title':'Half-aircraft pitching moment about CAD origin [N m]'}
     monitors=s.solution.monitor.report_files
+    hist=CASE/'force_history.out'
+    if hist.exists():
+        # configure() runs only for fresh (mesh/branch) starts, whose iteration count restarts at 1. An old
+        # history belongs to a discarded attempt and would also stop Fluent at an interactive
+        # "file already exists - create new file?" question (reproduced 2026-11-25), so supersede it.
+        hist.replace(CASE/f"force_history.out.superseded_{CFG['output_stem']}")
     monitors['x57-forces']={'report_defs':names,'file_name':str(CASE/'force_history.out'),'frequency':1}
     apply_disks()
     write_record('solver_physics.json',dict(methods=methods.get_state(),reference=refs.get_state(),
@@ -291,6 +297,11 @@ def configure():
 
 if CFG['mode'] != 'resume':
     configure()
+    if not fixture:
+        # Must precede initialization: enabling high-order term relaxation after the fields exist and
+        # then writing data crashes the Fluent host ("bad allocation", reproduced 2026-11-25). Resumed
+        # blocks read the setting back from their checkpoint case.
+        robust_numerics()
     if CFG['s']==0:
         initialization=s.solution.initialization
         initialization.initialization_type='standard'
@@ -319,8 +330,6 @@ if not CFG.get('extract_only'):
                  dict(iterations=CFG['iterations'],input_case=CFG['input_file'],input_data=CFG.get('input_data'),
                       requested_time_scale_factor=requested,effective_time_scale_factor=effective,
                       time_step_method=pseudo.time_step_method.get_state()))
-    if not fixture:
-        robust_numerics()
     # Apply autosave after reading the current case; reading a file restores its saved settings.
     auto=s.file.auto_save
     auto.data_frequency=100
