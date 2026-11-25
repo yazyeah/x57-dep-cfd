@@ -544,7 +544,19 @@ if CFG.get('export_full_fields') or (fixture or CFG.get('extract_only')) and (fu
                  data=Path(CFG['input_data']).name if CFG.get('extract_only') else stem+'.dat.h5'))
 if CFG.get('export_interpolation'):
     interp=s.file.interpolate.write_data
-    fields=['pressure','x-velocity','y-velocity','z-velocity','temperature','turb-kinetic-energy','specific-diss-rate']
+    # Fluent 25.2 names the turbulence fields 'k'/'omega' here (the long names are rejected as "disallowed
+    # entries", 2026-11-25); pick each field from the solver's own allowed list.
+    try:
+        allowed_ip=list(interp.fields.allowed_values())
+    except Exception:
+        allowed_ip=[]
+    fields=[]
+    for names in (['pressure'],['x-velocity'],['y-velocity'],['z-velocity'],['temperature'],
+                  ['k','turb-kinetic-energy','turbulent-kinetic-energy'],['omega','specific-diss-rate','specific-dissipation-rate']):
+        hit=[n for n in names if n in allowed_ip] if allowed_ip else names[:1]
+        if not hit:
+            raise RuntimeError(f'Interpolation field {names[0]} unavailable; allowed: {allowed_ip}')
+        fields.append(hit[0])
     target=CASE/(CFG['output_stem']+'.ip')
     import uuid
     pending=target.with_name(target.stem+'_'+uuid.uuid4().hex+'.ip')
