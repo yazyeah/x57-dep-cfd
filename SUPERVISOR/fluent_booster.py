@@ -82,6 +82,16 @@ def main():
     while time.time() - t0 < MAX_HOURS * 3600:
         ranks = {pid: c for pid, c in ranks.items() if psutil.pid_exists(pid)}
         procs = sorted(psutil.process_iter(["pid", "name", "exe"]), key=lambda p: p.pid)
+        if cores:   # non-rank Ansys work (Fluent host/GUI, MAPDL) keeps off the cores the live ranks own
+            taken = {lp for c in ranks.values() for lp in cores[c]}
+            free = [lp for lp in all_p if lp not in taken] or all_p
+            for p in procs:
+                if (p.pid in seen and p.pid not in ranks and str(p.info.get("exe") or "").lower().startswith("d:\\ansys")):
+                    try:
+                        if sorted(p.cpu_affinity()) != free:
+                            p.cpu_affinity(free)
+                    except psutil.Error:
+                        pass
         for p in procs:
             exe = str(p.info.get("exe") or "")
             if p.pid in seen or not exe.lower().startswith("d:\\ansys"):
@@ -100,8 +110,8 @@ def main():
                         p.cpu_affinity(all_p)
                         done.append("P-cores (all exclusive cores taken)")
                 elif cores:
-                    p.cpu_affinity(all_p)
-                    done.append("P-cores")
+                    p.cpu_affinity(free)
+                    done.append(f"P-cores not owned by ranks ({len(free)})")
                 p.nice(psutil.ABOVE_NORMAL_PRIORITY_CLASS)
                 done.append("above-normal")
                 if no_throttle(p.pid):

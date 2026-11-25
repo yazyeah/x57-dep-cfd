@@ -40,7 +40,8 @@ def main():
         if st.get("state") in TERMINAL and not alive():
             outcome = st.get("state")
             break
-        if st.get("stage") and st.get("stage") != stage and alive():
+        cur = st.get("current_stage") or st.get("stage")
+        if cur and cur != stage and alive():
             outcome = "advanced"
             break
         if alive():
@@ -53,7 +54,8 @@ def main():
         time.sleep(60)
     st = read()
     log = (WS / "logs" / "fasttrack_orchestrator.log").read_text(encoding="utf-8", errors="replace").splitlines()[-10:]
-    print(json.dumps(dict(outcome=outcome, waited_stage=stage, now_stage=st.get("stage"), state=st.get("state"),
+    print(json.dumps(dict(outcome=outcome, waited_stage=stage, now_stage=st.get("current_stage") or st.get("stage"),
+                          state=st.get("state"),
                           failed_stage=st.get("failed_stage"), history=st.get("history", [])[-6:], log_tail=log),
                      indent=1, ensure_ascii=False))
     return {"advanced": 0, "complete": 2, "complete_with_quality_failures": 2,
