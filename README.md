@@ -91,7 +91,7 @@ missed; the paper reports every item.
 | Force steadiness (last 200 iterations) | < 0.5 % | 0.07–0.43 % | ✅ |
 | Drag grid convergence (fine-grid uncertainty) | < 5 % | 6.0 % (monotonic) | ❌ |
 | Airframe-lift grid convergence | monotonic | oscillatory, −165.4 ± 4.8 N across the triplet | ❌ |
-| Surface-mesh refinement | refined surface solved | six refined grids meshed or attempted, all rejected (degenerate junction cell) | ❌ |
+| Surface-mesh refinement | refined surface solved | six attempts: 2 failed in prism generation, 3 rejected (degenerate junction cell), 1 not completed | ❌ |
 | Wall resolution | *y*⁺ ≈ 1 | wing area-weighted mean 142 (face median 15) | ❌ |
 | Specific-dissipation-rate residual | < 5×10⁻⁴ | plateau 1–3×10⁻³ (junction cells) | ❌ |
 | Skin area in the lowest von Mises band | ≥ 95 % | 98.6 % | ✅ |

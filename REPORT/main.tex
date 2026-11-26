@@ -30,8 +30,8 @@ speed ($R^2\geq0.997$), and slipstream swirl contributes \SI{270}{N} of wing lif
 a \ang{30} slotted flap in the blown slipstream gives the largest section lift increment ($\Delta c_l=+1.13$).
 A one-way fluid--structure analysis with a wing box carried through the fuselage keeps 98.6\,\% of the skin in the
 lowest stress band with a minimum yield safety factor of 1.81. The verification is reported honestly: the drag
-coefficient has a 6.0\,\% fine-grid uncertainty, but the airframe lift oscillates across the grid triplet; none of
-six surface-refined grids passed the mesh-quality check; the inflation layers give an area-weighted wing $y^+$ of
+coefficient has a 6.0\,\% fine-grid uncertainty, but the airframe lift oscillates across the grid triplet; no
+surface-refined grid passed the mesh-quality check in six attempts; the inflation layers give an area-weighted wing $y^+$ of
 142 instead of the targeted $y^+\approx1$; and the convergence criterion for the specific dissipation rate is not
 met, although all forces are steady to better than 0.5\,\%.
 \end{abstractbox}
@@ -248,14 +248,15 @@ span $\SI{-165.4}{N}\pm\SI{4.8}{N}$, i.e.\ a spread of only 0.06\,\% of the gros
 \paragraph{Surface refinement.} \versiontext{The brief asks for}{A complete study requires} both the surface and the
 volume mesh to be refined. The three grids above share one wall tessellation, so they test volume refinement only.
 Six surface-refined grids were attempted with the medium volume sizing and the same inflation. Two finer CAD
-tessellations failed during prism generation, leaving no valid fluid zone after stair-stepping. Four conformal
+tessellations failed during prism generation, leaving no valid fluid zone after stair-stepping. Three conformal
 subdivisions of the existing wall facets then meshed but were rejected by the mesh-admission check: 2.0$\times$ the
-wall faces (680,165 cells), 1.5$\times$ (613,503 cells), 1.74$\times$ with the nacelle facets left unchanged (638,227
-cells), and 1.81$\times$ with an additional \SI{0.12}{m} unrefined band around every component junction. Each
-contained at least one degenerate cell (minimum orthogonal quality 0) at a wing--nacelle or wing--fuselage junction
-that survived Fluent's boundary-repair passes. No surface-refined solution could therefore be obtained under the
-licence cell limit, and the effect of surface resolution on lift and drag remains unquantified. This is an unmet
-requirement of \versiontext{the brief}{the verification plan}.
+wall faces (680,165 cells), 1.5$\times$ (613,503 cells) and 1.74$\times$ with the nacelle facets left unchanged
+(638,227 cells). Each contained at least one degenerate cell (minimum orthogonal quality 0) at a wing--nacelle or
+wing--fuselage junction that survived Fluent's boundary-repair passes. A sixth subdivision (1.81$\times$, with an
+additional \SI{0.12}{m} unrefined band around every component junction) produced a raw mesh of 629,311 cells, but its
+mesh improvement and quality audit could not be completed in the time available. No surface-refined solution could
+therefore be obtained under the licence cell limit, and the effect of surface resolution on lift and drag remains
+unquantified. This is an unmet requirement of \versiontext{the brief}{the verification plan}.
 
 % ==============================================================================
 \section{Baseline Results at 100\,\% Propeller Speed}
@@ -583,8 +584,8 @@ should be read as the value at the present resolution rather than a converged li
   \item \textbf{Wall resolution.} The $y^+\approx1$ target was not achieved (area-weighted wing mean 142). Skin friction and
         the drag split between pressure and viscous parts are the most affected quantities.
   \item \textbf{Grid convergence.} The drag uncertainty is 6.0\,\%, but the airframe lift oscillates and has no valid
-        extrapolation. The cell limit of the Student licence prevents a fourth, finer level, and none of the six
-        surface-refined grids passed the mesh-admission check, so surface refinement was not quantified.
+        extrapolation. The cell limit of the Student licence prevents a fourth, finer level, and no surface-refined
+        grid passed the mesh-admission check in six attempts, so surface refinement was not quantified.
   \item \textbf{Iterative convergence.} The $\omega$ residual plateaus above its target. All forces are steady,
         but the cases are flagged rather than strictly converged.
   \item \textbf{Propeller model.} Steady actuator disks omit blade passing, blade-tip vortices and the HLP folding geometry.
