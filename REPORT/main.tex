@@ -67,7 +67,7 @@ $b=\SI{9.638}{m}$ and mean aerodynamic chord $\bar c=\SI{0.649}{m}$.
 
 Because the aircraft and the propeller loading are symmetric (all disks are modelled with the same, inboard-up sense
 of rotation on the starboard side, mirrored by the symmetry plane), a half model is solved with a symmetry plane at
-$z=0$. The fluid domain spans $x\in[-18,30]$\,m, $y\in[-1.70,18]$\,m and $z\in[0,20]$\,m, i.e.\ about 28 and 50
+$z=0$. The fluid domain spans $x\in[-18,30]$\,m, $y\in[-1.70,18]$\,m and $z\in[0,20]$\,m, i.e.\ about 28 and 46
 chord lengths upstream and downstream (Figure~\ref{fig:geometry}d). The boundary conditions were chosen for a
 static propulsor with no imposed free stream:
 \begin{itemize}[leftmargin=1.3em,itemsep=1pt,topsep=2pt]
@@ -219,7 +219,7 @@ observed order of 12.4 lies outside the asymptotic range). Wing lift behaves sim
 ($-169.9\to-160.7\to-170.2$\,N): it is a small difference between large positive wing lift and negative nacelle and
 tail loads, and its 6\,\% grid-to-grid changes have alternating sign. The Celik extrapolation is therefore not
 meaningful, and the reported fine-grid interval for $C_L$ is very wide (211\,\%). In absolute terms the three grids
-agree within $\pm\SI{5}{N}$ of $\SI{-167}{N}$, i.e.\ within 0.12\,\% of the gross thrust.
+span $\SI{-165.4}{N}\pm\SI{4.8}{N}$, i.e.\ a spread of only 0.06\,\% of the gross thrust.
 
 \paragraph{Surface refinement.} The brief asks for both the surface and the volume mesh to be refined. The three
 grids above share one wall tessellation, so they test volume refinement only. Five surface-refined grids were
@@ -256,7 +256,7 @@ resolution on lift and drag remains unquantified. This is an unmet requirement o
 The actuator disks deliver a gross thrust of $T_{\text{gross}}=\SI{7931.5}{N}$ (12 HLPs: \SI{4834}{N}, two wingtip
 propellers: \SI{3098}{N}). The airframe drag induced by the slipstreams is $D=\SI{194.9}{N}$ on the fine grid, so the
 net forward force available to accelerate the aircraft, i.e.\ the installed take-off thrust, is
-$T_{\text{net}}=\SI{7736.6}{N}$. Drag consumes 2.5\,\% of the gross thrust, 64\,\% of it on the wing, which sits in
+$T_{\text{net}}=\SI{7736.6}{N}$. Drag consumes 2.5\,\% of the gross thrust, 76\,\% of it on the wing, which sits in
 the slipstreams (Figure~\ref{fig:components}).
 
 \subsection{Static lift increment of the blown wing}
