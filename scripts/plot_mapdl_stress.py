@@ -6,6 +6,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.ticker
 import numpy as np
 from matplotlib.lines import Line2D
 from scipy.stats import gaussian_kde
@@ -73,38 +74,39 @@ def figure17():
     cases=study["shell_GCI"]
     mesh,fields,_=physical_shell()
     distribution=span_resultants(mesh,fields)
-    fig=plt.figure(figsize=(7.2,6.9),layout="constrained")
-    grid=fig.add_gridspec(3,2,height_ratios=(1,1.0,.92))
+    # 2026-11-26: panels d/e (render17/render19) dropped, the report shows those native MAPDL renders in full
+    # size; one row of the three plotted panels, plain-number log ticks (the minor-tick labels overlapped).
+    fig=plt.figure(figsize=(7.2,2.6),layout="constrained")
+    grid=fig.add_gridspec(1,3,width_ratios=(1.15,1,1))
     ax=fig.add_subplot(grid[0,0])
+    spacing=[]
     labels=(("peak_element_average_top_or_bottom_von_mises_Pa","Peak stress"),
             ("area_weighted_p99_von_mises_Pa","Area P99 stress"),
             ("wingtip_patch_mean_displacement_magnitude_m","Tip displacement"))
     for (key,label),color in zip(labels,COLORS):
         for domain,series,style in [("Shell",cases,"o-"),("CFD load",study["CFD_load_grid_GCI_fixed_structure"],"s--")]:
-            row=series[key];h=np.asarray(row["h_m"])*1000
+            row=series[key];h=np.asarray(row["h_m"])*1000;spacing.extend(h)
             normal=np.asarray(row["values"])/row["values"][-1]
             ax.plot(h,normal,style,ms=3,color=color,label=label if domain=="Shell" else None)
             ax.errorbar(h[-1],normal[-1],abs(normal[-1])*row["reported_fine_percent_uncertainty"]/100,fmt="none",ecolor=color,capsize=3)
     ax.set_xscale("log")
+    lo,hi=min(spacing)/1.15,max(spacing)*1.15
+    ticks=[t for t in (5,10,20,30,50,100,200,300,500,1000,2000) if lo<=t<=hi]
+    ax.set_xlim(lo,hi);ax.xaxis.set_major_locator(matplotlib.ticker.FixedLocator(ticks))
+    ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v,_:f"{v:g}"))
+    ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
     ax.axhline(1,color=".5",lw=.6)
     ax.set(xlabel="Effective spacing (mm)",ylabel="Value / fine-grid value",title="a   Structural and CFD-load convergence")
     handles,legend_labels=ax.get_legend_handles_labels()
     handles.extend([Line2D([],[],marker="o",color=".3",lw=.7,ms=3),Line2D([],[],marker="s",ls="--",color=".3",lw=.7,ms=3)])
-    ax.legend(handles,legend_labels+["Shell refinement","CFD-load refinement"],fontsize=6,frameon=False,ncol=2)
+    ax.legend(handles,legend_labels+["Shell refinement","CFD-load refinement"],fontsize=5.5,frameon=False,ncol=1,labelspacing=0.25,
+              loc="lower right",handlelength=1.6,borderaxespad=0.3)
     ax=fig.add_subplot(grid[0,1]);z,mx,mz,dy=distribution.T
     ax.plot(z,mx,label="Bending",color=COLORS[0]);ax.plot(z,mz,label="Torsion",color=COLORS[1])
     ax.set(xlabel="Span station, 2z/b",ylabel="Cut moment (N m)",title="b   Wing assembly resultants");ax.legend(fontsize=7,frameon=False)
-    ax=fig.add_subplot(grid[1,0])
+    ax=fig.add_subplot(grid[0,2])
     ax.plot(z,dy,color=COLORS[0]);ax.set(xlabel="Span station, 2z/b",ylabel="Vertical deflection (mm)",title="c   Spar-line displacement")
-    axins=inset_axes(ax,width="40%",height="38%",loc="upper left",borderpad=1.1)
-    axins.plot(z,dy,color=COLORS[0],lw=1)
-    axins.set_xlim(z[-8],z[-1]);ext=np.ptp(dy[-8:])*.12+1.e-13
-    axins.set_ylim(dy[-8:].min()-ext,dy[-8:].max()+ext);axins.tick_params(labelsize=6)
-    mark_inset(ax,axins,loc1=2,loc2=4,fc="none",ec=".5",lw=.5)
-    im=plt.imread(RENDERS/"render17_fsi_von_mises_global_top_3d.png")
-    unframed(fig.add_subplot(grid[1,1]),im,"d   Engineering stress scale")
-    zi=plt.imread(RENDERS/"render19_fsi_von_mises_root_pylon_zoom_3d.png")
-    unframed(fig.add_subplot(grid[2,:]),zi,"e   Local wing-root and pylon stresses")
+    ax.axhline(0,color=".5",lw=.6)
     save_dual_figure(fig,FIG/"fig17_stress_convergence_and_fsi_structural");plt.close(fig)
 
 

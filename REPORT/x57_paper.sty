@@ -13,8 +13,12 @@
 % --- Layout option: singlecol (arXiv / NeurIPS default) vs twocol ---
 \newif\ifx@twocol
 \x@twocolfalse
+\newif\ifx@arxiv
+\x@arxivfalse
 \DeclareOption{singlecol}{\x@twocolfalse}
 \DeclareOption{twocol}{\x@twocoltrue}
+% arxiv: preprint layout -- no course code in the running header and no coursework subtitle
+\DeclareOption{arxiv}{\x@arxivtrue}
 \ProcessOptions\relax
 
 % --- Core engines & fonts: strict Times New Roman across text, math, headers, captions ---
@@ -120,7 +124,9 @@
 \RequirePackage{lastpage}
 
 \newcommand{\x@dundeeheaderleft}{%
+  \ifx@arxiv\else
   \raisebox{2.2mm}{\fontsize{9.5}{11}\selectfont\textit{DI41015 - Computer Aided Engineering I}}%
+  \fi
 }
 \newcommand{\x@dundeeheaderright}{%
   \IfFileExists{assets/dundee_logo.png}{%
@@ -188,34 +194,65 @@
 \newcommand{\x@subtitle}{}
 \newcommand{\x@author}{}
 \newcommand{\x@authoremail}{}
+\newcommand{\x@affiliation}{}
 \newcommand{\papertitle}[1]{\renewcommand{\x@title}{#1}}
-\newcommand{\papersubtitle}[1]{\renewcommand{\x@subtitle}{#1}}
+\newcommand{\papersubtitle}[1]{\ifx@arxiv\else\renewcommand{\x@subtitle}{#1}\fi}
+\newcommand{\paperaffiliation}[1]{\renewcommand{\x@affiliation}{#1}}
+% \versiontext{coursework wording}{arXiv wording}
+\newcommand{\versiontext}[2]{\ifx@arxiv#2\else#1\fi}
 \newcommand{\paperauthor}[1]{\renewcommand{\x@author}{#1}}
 \newcommand{\paperauthoremail}[1]{\renewcommand{\x@authoremail}{#1}}
 
 \newcommand{\makepapertitle}{%
-  \vspace*{-3pt}%
+  \vspace*{-6mm}%
+  \begingroup\setlength{\parskip}{0pt}%
   \noindent\rule{\textwidth}{3.2pt}\par
-  \vspace{9pt}%
+  \vspace{6pt}%
   {\centering
-    {\fontsize{15.5}{19}\selectfont\bfseries\x@title\par}%
+    {\fontsize{15.5}{18.5}\selectfont\bfseries\x@title\par}%
     \if\relax\detokenize\expandafter{\x@subtitle}\relax\else
-      \vspace{4pt}%
+      \vspace{3pt}%
       {\fontsize{10.5}{13}\selectfont\x@subtitle\par}%
     \fi
   }%
-  \vspace{8pt}%
+  \vspace{5pt}%
   \noindent\rule{\textwidth}{0.9pt}\par
-  \vspace{8pt}%
+  \vspace{7pt}%
   {\centering
     {\normalsize\bfseries\x@author\par}%
+    \if\relax\detokenize\expandafter{\x@affiliation}\relax\else
+      \vspace{1pt}%
+      {\small\x@affiliation\par}%
+    \fi
     \if\relax\detokenize\expandafter{\x@authoremail}\relax\else
-      \vspace{1.5pt}%
+      \vspace{1pt}%
       {\small\href{mailto:\x@authoremail}{\x@authoremail}\par}%
     \fi
   }%
-  \vspace{10pt}%
+  \endgroup
+  \vspace{8pt}%
 }
+
+% --- Float placement tuned for dense pages (few, well-filled float pages; no half-empty pages) ---
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.06}
+\renewcommand{\floatpagefraction}{0.86}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{4}
+\setlength{\floatsep}{9pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{11pt plus 3pt minus 3pt}
+\setlength{\intextsep}{9pt plus 2pt minus 2pt}
+% float pages are filled from the top (the default centres them vertically)
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt plus 1fil}
+\setlength{\@fpbot}{0pt plus 1fil}
+
+% --- Full-width tables: every table spans \textwidth (tabularx; X-type columns absorb the slack) ---
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
 
 % --- Bibliography (IEEE Numbered Style) & Pure Black Clickable Cross-References ---
 \RequirePackage{cite}

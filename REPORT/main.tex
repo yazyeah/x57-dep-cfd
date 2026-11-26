@@ -1,6 +1,6 @@
 % ==============================================================================
-% main.tex -- Computer Aided Engineering I: Ansys CFD Coursework Report (40 %)
-% External aerodynamics of a distributed-electric-propulsion aircraft at the start of taxiing.
+% main.tex -- External aerodynamics and one-way structural response of a DEP aircraft at the start of taxiing
+% Coursework build: build_report.ps1 (XeLaTeX). arXiv build: build_arxiv.py (pdfLaTeX, package option "arxiv").
 % Every number in this report is taken from the converged Fluent / MAPDL outputs of the project workspace
 % (DELIVERABLES/data, 03_cases).
 % ==============================================================================
@@ -11,13 +11,14 @@
 \papertitle{External Aerodynamics and One-Way Structural Response of a\\Distributed-Electric-Propulsion Aircraft at the Start of Taxiing}
 \papersubtitle{Computer Aided Engineering I: Ansys CFD Coursework Report}
 \paperauthor{Yuang Zhou}
+\paperaffiliation{University of Dundee}
 \paperauthoremail{2617376@dundee.ac.uk}
 
 \begin{document}
 \makepapertitle
 
 \begin{abstractbox}
-A three-dimensional, steady RANS analysis of the supplied high-wing distributed-electric-propulsion (DEP) aircraft
+A three-dimensional, steady RANS analysis of a high-wing distributed-electric-propulsion (DEP) aircraft
 is performed in Ansys Fluent 2025~R2 for the start of taxiing at sea level ($V_\infty\approx0$). Twelve high-lift
 propellers (\SI{5400}{rpm}) and two wingtip propellers (\SI{2700}{rpm}) are represented by calibrated swirling
 actuator disks on a symmetric half model. The fine grid gives a gross take-off thrust of \SI{7.93}{kN} and a net
@@ -30,10 +31,23 @@ a \ang{30} slotted flap in the blown slipstream gives the largest section lift i
 A one-way fluid--structure analysis with a wing box carried through the fuselage keeps 98.6\,\% of the skin in the
 lowest stress band with a minimum yield safety factor of 1.81. The verification is reported honestly: the drag
 coefficient has a 6.0\,\% fine-grid uncertainty, but the airframe lift oscillates across the grid triplet; none of
-five surface-refined grids passed the mesh-quality check; the inflation layers give an area-weighted wing $y^+$ of
+six surface-refined grids passed the mesh-quality check; the inflation layers give an area-weighted wing $y^+$ of
 142 instead of the targeted $y^+\approx1$; and the convergence criterion for the specific dissipation rate is not
 met, although all forces are steady to better than 0.5\,\%.
 \end{abstractbox}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{.49\textwidth}\centering\includegraphics[height=37mm]{render04_pathlines_slipstreams_3d.png}\caption{Propeller-slipstream pathlines}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\centering\includegraphics[height=37mm]{render08_velocity_streamlines_3d.png}\caption{Velocity streamlines}\end{subfigure}\\[3pt]
+  \begin{subfigure}[t]{.49\textwidth}\centering\includegraphics[height=37mm]{render13_fluent_wall_shear_stress_top_3d.png}\caption{Wall shear stress, upper surfaces}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\centering\includegraphics[height=37mm]{render17_teaser.png}\caption{Skin von Mises stress, carry-through model}\end{subfigure}
+  \caption{Overview of the fine-grid solution at 100\,\% propeller speed (native Ansys Fluent and MAPDL views,
+  mirrored half model): (a) slipstream pathlines and (b) streamlines coloured by velocity magnitude
+  (\SIrange{0}{62}{m/s}); (c) wall shear stress (\SIrange{0}{11}{Pa}); (d) von Mises stress on the 0--\SI{335}{MPa}
+  allowable scale, with 98.6\,\% of the skin in the lowest band and a minimum yield safety factor of 1.81.}
+  \label{fig:teaser}
+\end{figure}
 
 % ==============================================================================
 \section{Introduction}
@@ -45,14 +59,15 @@ folding high-lift propellers (HLPs) along the leading edge and two wingtip cruis
 efficient cruise wing~\cite{borer2016sceptor,patterson2016hlp,deere2017x57wing,yoo2019modiii}. The aircraft
 analysed here has the same layout (Figure~\ref{fig:geometry}). At the start of taxiing the free stream is
 essentially zero, so every aerodynamic force is produced by the propellers: slipstream contraction and swirl,
-blowing over the wing, entrainment of still air and the proximity of the runway.
+blowing over the wing, entrainment of still air and the proximity of the runway (Figure~\ref{fig:teaser}).
 
-The coursework asks for the take-off thrust, the static lift increment produced by the blown wing, the wing
-pressure-coefficient distribution and its suction peak, visualisation of the velocity field, wingtip vortices and
-slipstreams, a mesh-convergence study, a discussion of lift versus propeller speed and suggested design
-modifications. This report answers each item from converged simulations and states plainly where the verification
-targets were not met. Beyond the brief, it adds a swirl on/off comparison, a propulsion decomposition, ground-effect
-and rolling-start sensitivities, two-dimensional high-lift section designs and a one-way structural analysis.
+\versiontext{The coursework asks for}{The study determines} the take-off thrust, the static lift increment produced
+by the blown wing, the wing pressure-coefficient distribution and its suction peak, visualisation of the velocity
+field, wingtip vortices and slipstreams, a mesh-convergence study, a discussion of lift versus propeller speed and
+suggested design modifications. This report answers each item from converged simulations and states plainly where
+the verification targets were not met. Beyond \versiontext{the brief}{these items}, it adds a swirl on/off
+comparison, a propulsion decomposition, ground-effect and rolling-start sensitivities, two-dimensional high-lift
+section designs and a one-way structural analysis.
 
 % ==============================================================================
 \section{Geometry, Computational Domain and Boundary Conditions}
@@ -64,6 +79,15 @@ spanwise symmetry error after de-rotation is \SI{0.006}{mm}. The propeller blade
 actuator disks (Section~\ref{sec:models}). Five wall groups remain: wing, fuselage, nacelles, main-gear sponson and
 empennage. The reference quantities are the full planform area $S_{\text{ref}}=\SI{6.193}{m^2}$, span
 $b=\SI{9.638}{m}$ and mean aerodynamic chord $\bar c=\SI{0.649}{m}$.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.9\textwidth]{fig01_geometry_and_domain.pdf}
+  \caption{De-rotated metric geometry and domain: (a) plan view, (b) front view with the six starboard high-lift
+  disks (\SI{5400}{rpm}) and the wingtip disk (\SI{2700}{rpm}), (c) side view, (d) half-model domain and boundary
+  types.}
+  \label{fig:geometry}
+\end{figure}
 
 Because the aircraft and the propeller loading are symmetric (all disks are modelled with the same, inboard-up sense
 of rotation on the starboard side, mirrored by the symmetry plane), a half model is solved with a symmetry plane at
@@ -82,15 +106,6 @@ needs a Mach number; the total-pressure openings are the standard choice for a s
 Operating pressure is \SI{101325}{Pa}; air is an ideal gas with $\mu=\SI{1.789e-5}{kg/(m.s)}$, giving
 $\rho=\SI{1.225}{kg/m^3}$ at the reference state.
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\textwidth]{fig01_geometry_and_domain.pdf}
-  \caption{De-rotated metric geometry and domain: (a) plan view, (b) front view with the six starboard high-lift
-  disks (\SI{5400}{rpm}) and the wingtip disk (\SI{2700}{rpm}), (c) side view, (d) half-model domain and boundary
-  types.}
-  \label{fig:geometry}
-\end{figure}
-
 % ==============================================================================
 \section{Physical Models and Numerical Method}
 \label{sec:models}
@@ -108,8 +123,8 @@ gradient correction~\cite{ansys2025fluent}.
 \subsection{Propeller model: calibrated swirling actuator disks}
 Blade-resolved sliding meshes for fourteen propellers are impossible within the Student licence limit of
 1,048,576 cells, and MRF zones would need a rotating fluid region around every rotor. The actuator-disk method was
-therefore used, as permitted by the brief. Each rotor is a \SI{0.05}{m} thick disk carrying axial and tangential
-momentum sources
+therefore used, as permitted by \versiontext{the brief}{the cell budget}. Each rotor is a \SI{0.05}{m} thick disk
+carrying axial and tangential momentum sources
 \begin{equation}
   S_x(r) = \frac{T}{\mathcal{I}_T}\,\hat r\sqrt{1-\hat r}, \qquad
   S_\theta(r) = \pm\frac{Q}{\mathcal{I}_Q}\,\frac{\sqrt{\hat r(1-\hat r)}}{r}, \qquad
@@ -118,7 +133,7 @@ momentum sources
 \end{equation}
 where $T$ and $Q$ are the rotor thrust and torque. The normalisation integrals $\mathcal I_T$ and $\mathcal I_Q$ are
 evaluated cell by cell on each mesh, so the discrete thrust and torque in Fluent match the targets to machine
-precision (largest error $2\times10^{-14}$ on every grid; Appendix~\ref{app:extra}). The HLP targets come from
+precision (largest relative error $2\times10^{-14}$ on every grid). The HLP targets come from
 NASA's fixed-mode high-lift propeller performance tables~\cite{nasa2024hlp} (sea-level thrust of 69.9 and
 \SI{68.8}{lbf} and torque of 21.1 and \SI{21.3}{N.m} at 5 and 10 knots, linearly extrapolated to zero speed and
 scaled by similarity from the fixed-mode speed of \SI{4800}{rpm}~\cite{nasa2024cruise} to \SI{5400}{rpm}): each HLP
@@ -151,8 +166,8 @@ artefact and removed, the vertical component that the tilted thrust line would a
 % ==============================================================================
 \subsection{Grid design}
 Fluent Meshing's Poly-Hexcore method was used: Cartesian hexahedra fill the far field and the refinement bodies
-around the disks and slipstreams (Figure~\ref{fig:mesh}c), polyhedra form the transition to the walls and to the
-domain boundaries, and prism inflation layers cover all aircraft surfaces (Figure~\ref{fig:mesh}b). The first-layer
+around the disks and slipstreams (Figure~\ref{fig:mesh}b), polyhedra form the transition to the walls and to the
+domain boundaries, and prism inflation layers cover all aircraft surfaces (Figure~\ref{fig:mesh}c). The first-layer
 height for $y^+\approx1$ was computed from the slipstream friction velocity ($u_\tau\approx\SI{2.2}{m/s}$) as
 \SI{1.3e-5}{m}. Inflation with \num{2.0e-5}--\SI{6.0e-5}{m} first layers was attempted on the medium and fine
 grids, but every attempt either produced inverted cells at the outboard nacelle--wing junction or exceeded the
@@ -166,18 +181,18 @@ $r>1.1$ requirement of the Celik GCI procedure~\cite{celik2008gci}. The fine gri
 \begin{figure}[t]
   \centering
   \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render01_mesh_farfield_hexcore.png}\caption{Symmetry-plane faces of the domain}\end{subfigure}\hfill
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render02_mesh_wing_inflation_closeup.png}\caption{Wing inflation layers, 100~mm field}\end{subfigure}\\[2pt]
-  \begin{subfigure}[t]{.62\textwidth}\includegraphics[width=\linewidth]{render03_mesh_sponson_and_disks_closeup.png}\caption{Hexahedral core and refinement at $z=\SI{0.86}{m}$ (sponson and HLP-1 disk)}\end{subfigure}
-  \caption{Fine Poly-Hexcore mesh (native Fluent views). The close-up (b) is centred on the upper-surface crest at
-  $z=\SI{2.098}{m}$ behind HLP-3.}
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render03_mesh_sponson_and_disks_closeup.png}\caption{Hexahedral core and disk refinement at $z=\SI{0.86}{m}$}\end{subfigure}\\[3pt]
+  \begin{subfigure}[t]{\textwidth}\includegraphics[width=\linewidth]{render02_wing_inflation_cropped.png}\caption{Prism inflation layers on the wing upper-surface crest at $z=\SI{2.098}{m}$ behind HLP-3 (\SI{100}{mm} field)}\end{subfigure}
+  \caption{Fine Poly-Hexcore mesh (native Fluent views; in (c) the solid wing interior below the prism stack is
+  cropped from the frame).}
   \label{fig:mesh}
 \end{figure}
 
 \begin{table}[t]
   \caption{Grid ladder at 100\,\% speed (full-aircraft forces; plateau means of the last 200 iterations).}
   \label{tab:mesh}
-  \centering\small\setlength{\tabcolsep}{4.5pt}
-  \begin{tabular}{lrcccrrrcc}
+  \centering\small\setlength{\tabcolsep}{3pt}
+  \begin{tabularx}{\textwidth}{l*{9}{R}}
     \toprule
     Grid & Half cells & $h$ (m) & $\text{OQ}_{\min}$ & Prism kept & $L_{\text{air}}$ (N) & $L_{\text{wing}}$ (N) & $D$ (N) & $C_L$ & $C_D$\\
     \midrule
@@ -185,7 +200,7 @@ $r>1.1$ requirement of the Celik GCI procedure~\cite{celik2008gci}. The fine gri
     Medium & 570,033 & 0.321 & 0.0102 & 29\,\% & $-160.7$ & 152.8 & 194.3 & $-0.0848$ & 0.1025\\
     \best{Fine} & 952,382 & 0.271 & 0.0004 & 29\,\% & $-170.2$ & 153.3 & 194.9 & $-0.0898$ & 0.1029\\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 \subsection{Mesh quality and wall resolution}
@@ -193,18 +208,18 @@ The minimum orthogonal quality is 0.0102 on the medium grid and below the Ansys 
 (0.0061) and fine (0.0004) grids. The poor cells are confined to fewer than 0.09\,\% of the cells at the
 nacelle--wing junctions, and all grids solved stably with the coupled solver. Only 29\,\% of the requested prism
 cells survive the mesher's stair-stepping at junctions and sharp edges. As a result the wall resolution falls well
-short of the brief: on the fine grid the face-median $y^+$ on the wing is 15, but the area-weighted mean is 142 and the
-95th percentile 981 (Figure~\ref{fig:yplus}). The highest values occur where the prism stack collapsed, mainly on
-the leading and trailing edges and behind the propellers. The correlation-based $\omega$ wall treatment of SST
-blends between the viscous sublayer and the log law, so the solution remains consistent for these $y^+$ values. Skin
-friction, however, is less accurate than it would be on a wall-resolved grid, and this is a recognised limitation
-of the results.
+short of \versiontext{the brief}{the target}: on the fine grid the face-median $y^+$ on the wing is 15, but the
+area-weighted mean is 142 and the 95th percentile 981 (Figures~\ref{fig:yplus}c and~\ref{fig:wall}a). The highest
+values occur where the prism stack collapsed, mainly on the leading and trailing edges and behind the propellers.
+The correlation-based $\omega$ wall treatment of SST blends between the viscous sublayer and the log law, so the
+solution remains consistent for these $y^+$ values. Skin friction, however, is less accurate than it would be on a
+wall-resolved grid, and this is a recognised limitation of the results.
 
 \subsection{Iterative convergence}
-Every case was iterated until the integrated forces settled (Figure~\ref{fig:conv}). The relative standard deviation
-of airframe lift over the last 200 iterations is 0.23\,\%, 0.07\,\% and 0.43\,\% on the coarse, medium and fine
-grids, and the mass imbalance is below $10^{-4}$. The scaled continuity and momentum residuals fall by four to five
-orders of magnitude. The specific-dissipation-rate residual, however, plateaus between $10^{-3}$ and
+Every case was iterated until the integrated forces settled (Appendix Figure~\ref{fig:conv}). The relative standard
+deviation of airframe lift over the last 200 iterations is 0.23\,\%, 0.07\,\% and 0.43\,\% on the coarse, medium
+and fine grids, and the mass imbalance is below $10^{-4}$. The scaled continuity and momentum residuals fall by four
+to five orders of magnitude. The specific-dissipation-rate residual, however, plateaus between $10^{-3}$ and
 $3\times10^{-3}$, against the target of $5\times10^{-4}$. The residual is driven by a few cells at the wingtip
 nacelle tail and the HLP nacelle/leading-edge junctions, where the inflation layers collapsed. These cases are
 therefore classed as \emph{flagged} rather than converged in the project's quality audit, and the reported loads are
@@ -221,32 +236,26 @@ tail loads, and its 6\,\% grid-to-grid changes have alternating sign. The Celik 
 meaningful, and the reported fine-grid interval for $C_L$ is very wide (211\,\%). In absolute terms the three grids
 span $\SI{-165.4}{N}\pm\SI{4.8}{N}$, i.e.\ a spread of only 0.06\,\% of the gross thrust.
 
-\paragraph{Surface refinement.} The brief asks for both the surface and the volume mesh to be refined. The three
-grids above share one wall tessellation, so they test volume refinement only. Five surface-refined grids were
-attempted with the medium volume sizing and the same inflation. Two finer CAD tessellations failed during prism
-generation, leaving no valid fluid zone after stair-stepping. Three conformal subdivisions of the existing wall
-facets then meshed but were rejected by the mesh-admission check: 2.0$\times$ the wall faces (680,165 cells),
-1.5$\times$ (613,503 cells), and 1.74$\times$ with the nacelle facets left unchanged (638,227 cells). Each contained at
-least one degenerate cell (minimum orthogonal quality 0) that survived Fluent's boundary-repair passes. No
-surface-refined solution could therefore be obtained under the licence cell limit, and the effect of surface
-resolution on lift and drag remains unquantified. This is an unmet requirement of the brief.
-
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\textwidth]{fig02_mesh_convergence_and_yplus.pdf}
+  \includegraphics[width=.9\textwidth]{fig02_mesh_convergence_and_yplus.pdf}
   \caption{Mesh convergence and wall resolution: (a,b) lift and drag coefficients against grid spacing with the
   reported uncertainty bands, (c) cumulative wetted-area distribution of $y^+$ by component on the fine grid, (d)
   solver-reported minimum orthogonal quality.}
   \label{fig:yplus}
 \end{figure}
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=.92\textwidth]{fig03_convergence_histories.pdf}
-  \caption{Fine-grid convergence: (a) scaled residuals, (b) force histories, (c) pitching moment, (d) final 300
-  iterations with $\pm1$ standard-deviation band.}
-  \label{fig:conv}
-\end{figure}
+\paragraph{Surface refinement.} \versiontext{The brief asks for}{A complete study requires} both the surface and the
+volume mesh to be refined. The three grids above share one wall tessellation, so they test volume refinement only.
+Six surface-refined grids were attempted with the medium volume sizing and the same inflation. Two finer CAD
+tessellations failed during prism generation, leaving no valid fluid zone after stair-stepping. Four conformal
+subdivisions of the existing wall facets then meshed but were rejected by the mesh-admission check: 2.0$\times$ the
+wall faces (680,165 cells), 1.5$\times$ (613,503 cells), 1.74$\times$ with the nacelle facets left unchanged (638,227
+cells), and 1.81$\times$ with an additional \SI{0.12}{m} unrefined band around every component junction. Each
+contained at least one degenerate cell (minimum orthogonal quality 0) at a wing--nacelle or wing--fuselage junction
+that survived Fluent's boundary-repair passes. No surface-refined solution could therefore be obtained under the
+licence cell limit, and the effect of surface resolution on lift and drag remains unquantified. This is an unmet
+requirement of \versiontext{the brief}{the verification plan}.
 
 % ==============================================================================
 \section{Baseline Results at 100\,\% Propeller Speed}
@@ -256,8 +265,27 @@ resolution on lift and drag remains unquantified. This is an unmet requirement o
 The actuator disks deliver a gross thrust of $T_{\text{gross}}=\SI{7931.5}{N}$ (12 HLPs: \SI{4834}{N}, two wingtip
 propellers: \SI{3098}{N}). The airframe drag induced by the slipstreams is $D=\SI{194.9}{N}$ on the fine grid, so the
 net forward force available to accelerate the aircraft, i.e.\ the installed take-off thrust, is
-$T_{\text{net}}=\SI{7736.6}{N}$. Drag consumes 2.5\,\% of the gross thrust, 76\,\% of it on the wing, which sits in
-the slipstreams (Figure~\ref{fig:components}).
+$T_{\text{net}}=\SI{7736.6}{N}$ (Table~\ref{tab:lift}). Drag consumes 2.5\,\% of the gross thrust, 76\,\% of it on
+the wing, which sits in the slipstreams.
+
+\begin{table}[t]
+  \caption{Fine-grid forces at 100\,\% speed (full aircraft, level frame).}
+  \label{tab:lift}
+  \centering\small\setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{L r L}
+    \toprule
+    Quantity & Value & Note\\
+    \midrule
+    Gross thrust $T_{\text{gross}}$ & \SI{7931.5}{N} & sum of calibrated disk loads\\
+    Airframe drag $D$ & \SI{194.9}{N} & pressure 148\,N + viscous 46\,N\\
+    Net take-off thrust $T_{\text{net}}$ & \SI{7736.6}{N} & $T_{\text{gross}}-D$\\
+    Wing lift increment $\Delta L_{\text{wing}}$ & \SI{+153.3}{N} & upper $+376$\,N, lower $-222$\,N\\
+    Airframe lift increment $\Delta L_{\text{air}}$ & \SI{-170.2}{N} & nacelles $-215$\,N, empennage $-99$\,N\\
+    Thrust-line vertical component (CAD attitude) & \SI{+747.6}{N} & analytic, not simulated\\
+    Peak suction $C_{p,\min}$ & $-11.05$ & $(x,y,z)=(-0.349,0.115,\pm1.497)$\,m\\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 \subsection{Static lift increment of the blown wing}
 At zero propeller speed every load is zero; the zero-rpm solution was checked to remain exactly at rest. The static
@@ -273,25 +301,6 @@ aircraft because the slipstream speed ($\approx\SI{22}{m/s}$ on average, up to \
 only part of the wing. This is consistent with the X-57 concept, in which the HLP lift augmentation is designed for
 approach and take-off speeds rather than standstill~\cite{patterson2016hlp,deere2017x57wing}.
 
-\begin{table}[t]
-  \caption{Fine-grid forces at 100\,\% speed (full aircraft, level frame).}
-  \label{tab:lift}
-  \centering\small
-  \begin{tabular}{lrl}
-    \toprule
-    Quantity & Value & Note\\
-    \midrule
-    Gross thrust $T_{\text{gross}}$ & \SI{7931.5}{N} & sum of calibrated disk loads\\
-    Airframe drag $D$ & \SI{194.9}{N} & pressure 148\,N + viscous 46\,N\\
-    Net take-off thrust $T_{\text{net}}$ & \SI{7736.6}{N} & $T_{\text{gross}}-D$\\
-    Wing lift increment $\Delta L_{\text{wing}}$ & \SI{+153.3}{N} & upper $+376$\,N, lower $-222$\,N\\
-    Airframe lift increment $\Delta L_{\text{air}}$ & \SI{-170.2}{N} & nacelles $-215$\,N, empennage $-99$\,N\\
-    Thrust-line vertical component (CAD attitude) & \SI{+747.6}{N} & analytic, not simulated\\
-    Peak suction $C_{p,\min}$ & $-11.05$ & $(x,y,z)=(-0.349,0.115,\pm1.497)$\,m\\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
 \subsection{Wing pressure distribution and region of highest suction}
 Figure~\ref{fig:cp} shows the chordwise $C_p$ at six spanwise stations and the full upper and lower wing maps.
 Behind each HLP the slipstream creates a band of low pressure on both surfaces. On the upper surface the
@@ -299,64 +308,47 @@ leading-edge suction peaks at $C_p\approx-1.4$ to $-1.8$ in the blown bands and 
 The global minimum, $C_p=-11.05$ ($p=\SI{-3379}{Pa}$), lies on the lower leading edge at $x/c=0.044$ and
 $z=\SI{1.497}{m}$ (31\,\% semi-span), directly behind HLP-2. There the slipstream wraps around the nacelle and the
 leading edge, and the swirl, which rises on the inboard side, raises the local angle of attack of the lower surface.
-The surface pressure renders (Figure~\ref{fig:pressure}) show the same pattern: suction concentrated on the
+The surface pressure contours (Figure~\ref{fig:pressure}) show the same pattern: suction concentrated on the
 nacelle noses and the leading edge behind every disk, and near-ambient pressure on the fuselage.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\textwidth]{fig06_wing_cp_and_suction.pdf}
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render06_surface_pressure_contour_top_3d.png}\caption{Upper surfaces}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render07_surface_pressure_contour_bottom_3d.png}\caption{Lower surfaces}\end{subfigure}
+  \caption{Static gauge-pressure contours on the aircraft (native Fluent, mirrored half model; colour limits at the
+  1st and 99th percentiles of the wall pressure, $-800$ to \SI{660}{Pa}).}
+  \label{fig:pressure}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.92\textwidth]{fig06_wing_cp_and_suction.pdf}
   \caption{Wing pressure coefficient: (a) upper and (b) lower surface sections at the HLP and wingtip stations, (c,d)
   upper and lower surface maps of the starboard wing (chordwise scale $\times3$; colour limits at the 1st and 99th
   percentiles). The star marks the global minimum $C_p=-11.05$.}
   \label{fig:cp}
 \end{figure}
 
-\begin{figure}[t]
-  \centering
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render06_surface_pressure_contour_top_3d.png}\caption{Upper surfaces}\end{subfigure}\hfill
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render07_surface_pressure_contour_bottom_3d.png}\caption{Lower surfaces}\end{subfigure}
-  \caption{Static gauge-pressure contours on the aircraft (Fluent, mirrored half model; colour limits at the 1st and
-  99th percentiles of the wall pressure, $-800$ to \SI{660}{Pa}).}
-  \label{fig:pressure}
-\end{figure}
-
 \subsection{Velocity field, slipstreams and wingtip vortices}
-Pathlines released from rakes across each disk (Figure~\ref{fig:pathlines}a) show the fourteen slipstreams
+Pathlines released from rakes across each disk (Figure~\ref{fig:teaser}a) show the fourteen slipstreams
 contracting and accelerating to \SIrange{40}{60}{m/s} and passing over and under the wing. The swirl gives each
 pathline a helical path. The wingtip propeller dominates the outboard flow: its large slipstream rotates against the
-wingtip vortex, and the pathlines in Figure~\ref{fig:pathlines}b roll up into a single tip-vortex/slipstream
-structure that sheds downstream. Global streamlines (Figure~\ref{fig:pathlines}c) show the still air drawn in from
-all directions, including from below the wing and along the runway, before it is accelerated through the disks.
-The $Q$-criterion iso-surface (Figure~\ref{fig:pathlines}d) shows the vortex rings shed by each disk tip and the
-helical tip vortices of the wingtip propeller. Cross-sections through the slipstreams (Figure~\ref{fig:slices};
-Appendix Figure~\ref{fig:wake}) show the jets bending around the nacelles, the near-wall acceleration under the
+wingtip vortex, and the pathlines in Figure~\ref{fig:flow}a roll up into a single tip-vortex/slipstream structure
+that sheds downstream. Velocity streamlines (Figure~\ref{fig:teaser}b) show the still air drawn in from all
+directions, including from below the wing and along the runway, before it is accelerated through the disks. The
+$Q$-criterion iso-surface (Figure~\ref{fig:flow}b) shows the vortex rings shed by each disk tip and the helical tip
+vortices of the wingtip propeller. Cross-sections through the slipstreams (Appendix Figures~\ref{fig:slices},
+\ref{fig:wake} and~\ref{fig:hplanes}) show the jets bending around the nacelles, the near-wall acceleration under the
 wing and the merged wake behind the trailing edge.
 
 \begin{figure}[t]
   \centering
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render04_pathlines_slipstreams_3d.png}\caption{Propeller slipstream pathlines}\end{subfigure}\hfill
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render05_pathlines_wingtip_vortex_3d.png}\caption{Wingtip propeller and tip vortex}\end{subfigure}\\[2pt]
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render08_velocity_streamlines_3d.png}\caption{Velocity streamlines}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render05_pathlines_wingtip_vortex_3d.png}\caption{Wingtip propeller slipstream and tip vortex}\end{subfigure}\hfill
   \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render09_qcriterion_vortices_3d.png}\caption{$Q=\SI{3.1e5}{s^{-2}}$ iso-surface}\end{subfigure}
-  \caption{Native Fluent flow visualisation of the fine solution, coloured by velocity magnitude (\SIrange{0}{62}{m/s},
-  99.9th percentile of the near-field cells). The $Q$ level is the 75th percentile of positive $Q$ in the near field.}
-  \label{fig:pathlines}
-\end{figure}
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=.92\textwidth]{fig04_spanwise_slices_vel_press.pdf}
-  \caption{Velocity (top) and gauge pressure (bottom) on chordwise planes through HLP-1, HLP-3 and the wingtip
-  propeller. Solid bodies are masked; streamlines are in-plane.}
-  \label{fig:slices}
-\end{figure}
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=.95\textwidth]{fig10_component_force_and_upper_lower_budget.pdf}
-  \caption{Fine-grid force budget: (a) lift and (b) drag of each component split into pressure and viscous parts,
-  (c) vertical pressure force on the upper and lower wing surfaces.}
-  \label{fig:components}
+  \caption{Native Fluent vortex visualisation of the fine solution, coloured by velocity magnitude
+  (\SIrange{0}{62}{m/s}, 99.9th percentile of the near-field cells). The $Q$ level is the 75th percentile of positive
+  $Q$ in the near field.}
+  \label{fig:flow}
 \end{figure}
 
 % ==============================================================================
@@ -376,8 +368,8 @@ force to about one quarter, and the wing lift increment rises from \SI{34}{N} at
 \begin{table}[t]
   \caption{Propeller-speed sweep (medium grid, full aircraft).}
   \label{tab:rpm}
-  \centering\small
-  \begin{tabular}{lrrrrr}
+  \centering\small\setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{l*{5}{R}}
     \toprule
     Speed $s=n/n_{\text{nom}}$ & $T_{\text{gross}}$ (N) & $L_{\text{air}}$ (N) & $L_{\text{wing}}$ (N) & $D$ (N) & $|L_{\text{air}}|/s^2$ (N)\\
     \midrule
@@ -387,77 +379,83 @@ force to about one quarter, and the wing lift increment rises from \SI{34}{N} at
     1.00 & 7931.5 & $-160.7$ & 152.8 & 194.3 & 160.7\\
     1.00, no swirl & 7931.5 & $-225.3$ & $-117.1$ & 133.8 & 225.3\\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
-
-The swirl has a large effect. With swirl removed (the same thrust but no tangential source), the wing loses
-\SI{270}{N} of lift and becomes a net download ($\SI{-117}{N}$), the airframe lift falls to \SI{-225}{N} and the
-drag falls by \SI{61}{N} (Figure~\ref{fig:swirl}). The inboard-up rotation raises the local angle of attack on the
-upwash side of each slipstream more than it lowers it on the downwash side, and the spanwise lift change in
-Figure~\ref{fig:swirl}c alternates with the period of the propeller spacing. Integrated over the wing, the change is
-\SI{+137}{N} inboard and \SI{+114}{N} outboard of the wingtip disk.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\textwidth]{fig07_rpm_sweep_scaling.pdf}
+  \includegraphics[width=.94\textwidth]{fig07_rpm_sweep_scaling.pdf}
   \caption{Propeller-speed scaling: (a) airframe lift, wing lift and drag against speed fraction with $k s^2$ fits
   (diamonds: swirl-free case), (b) gross and net thrust with the normalised loads $D/s^2$ and $|L|/s^2$ (inset).}
   \label{fig:rpm}
 \end{figure}
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\textwidth]{fig08_swirl_comparison_and_load_shift.pdf}
-  \caption{Effect of slipstream swirl: axial vorticity at $x=\SI{1.2}{m}$ with (a) and without (b) swirl
-  (symmetric-log scale), (c) spanwise lift-density change, swirl on minus off.}
-  \label{fig:swirl}
-\end{figure}
+The swirl has a large effect. With swirl removed (the same thrust but no tangential source), the wing loses
+\SI{270}{N} of lift and becomes a net download ($\SI{-117}{N}$), the airframe lift falls to \SI{-225}{N} and the
+drag falls by \SI{61}{N} (Appendix Figure~\ref{fig:swirl}). The inboard-up rotation raises the local angle of attack
+on the upwash side of each slipstream more than it lowers it on the downwash side, and the spanwise lift change
+alternates with the period of the propeller spacing. Integrated over the wing, the change is \SI{+137}{N} inboard and
+\SI{+114}{N} outboard of the wingtip disk.
 
 % ==============================================================================
 \section{Design Modifications}
 \label{sec:design}
 % ==============================================================================
 The baseline wing produces little lift at standstill because only the blown bands are loaded and the clean section
-works at low incidence. Two families of modification were evaluated (Figure~\ref{fig:design}).
+works at low incidence. Two families of modification were evaluated (Table~\ref{tab:design},
+Figure~\ref{fig:designrender}).
 
 \paragraph{Two-dimensional high-lift sections in the blown slipstream.} The wing section at HLP-3
 ($z=\SI{2.041}{m}$) was meshed in two dimensions with the inflow profile (velocity, $k$ and $\omega$) extracted from the
 fine 3D solution upstream of the leading edge, so each section sees the real slipstream. These section cases all
-converged to the \emph{engineering} tier with $y^+<1$. Per metre of span:
-\begin{itemize}[leftmargin=1.3em,itemsep=1pt,topsep=2pt]
-  \item clean section: $l'=\SI{28.8}{N/m}$, $d'=\SI{7.5}{N/m}$ ($c_l=0.14$);
-  \item \ang{15} plain flap: \SI{182.0}{N/m}, \SI{41.3}{N/m} ($\Delta c_l=+0.76$, $\Delta c_d=+0.17$);
-  \item \ang{30} slotted flap: \SI{256.8}{N/m}, \SI{123.7}{N/m} ($\Delta c_l=+1.13$, $\Delta c_d=+0.58$);
-  \item leading-edge slat with \ang{30} slotted flap: \SI{240.1}{N/m}, \SI{124.6}{N/m} ($\Delta c_l=+1.05$);
-  \item 3\,\% extra camber: \SI{73.6}{N/m}, \SI{12.2}{N/m} ($\Delta c_l=+0.22$, $\Delta c_d=+0.02$).
-\end{itemize}
-The slotted flap gives the largest lift; adding the slat lowers the lift by 6\,\% because, at the low angle of
-attack of the static case, the slat diverts slipstream momentum away from the main element. A slat is therefore not
-recommended for ground operation. The cambered section is the most efficient per unit drag. Since the
-slipstream--flap interaction is the purpose of a blown wing, a \ang{15}--\ang{30} slotted flap over the HLP span is the
-recommended modification. Judged by the section results, it would raise the blown-band lift by 6--9 times.
+converged to the \emph{engineering} tier with $y^+<1$. The results per metre of span are listed in
+Table~\ref{tab:design}. The slotted flap gives the largest lift; adding the slat lowers the lift by 6\,\% because, at
+the low angle of attack of the static case, the slat diverts slipstream momentum away from the main element
+(Figure~\ref{fig:designrender}b). A slat is therefore not recommended for ground operation. The cambered section is
+the most efficient per unit drag. Since the slipstream--flap interaction is the purpose of a blown wing, a
+\ang{15}--\ang{30} slotted flap over the HLP span is the recommended modification. Judged by the section results, it
+would raise the blown-band lift by 6--9 times.
+
+\begin{table}[t]
+  \caption{High-lift sections at HLP-3 in the extracted slipstream (2D, per metre of span; coefficients on the
+  baseline chord and $q_{\text{ref}}$).}
+  \label{tab:design}
+  \centering\small\setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{l*{6}{R}}
+    \toprule
+    Section & $l'$ (N/m) & $d'$ (N/m) & $c_l$ & $c_d$ & $\Delta c_l$ & $\Delta c_d$\\
+    \midrule
+    Clean (baseline) & 28.8 & 7.5 & 0.14 & 0.037 & -- & --\\
+    \ang{15} plain flap & 182.0 & 41.3 & 0.90 & 0.205 & $+0.76$ & $+0.17$\\
+    \best{\ang{30} slotted flap} & \best{256.8} & 123.7 & \best{1.27} & 0.613 & \best{$+1.13$} & $+0.58$\\
+    Slat and \ang{30} slotted flap & 240.1 & 124.6 & 1.19 & 0.617 & $+1.05$ & $+0.58$\\
+    3\,\% extra camber & 73.6 & 12.2 & 0.36 & 0.060 & $+0.22$ & $+0.02$\\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 \paragraph{Three-dimensional HLP thrust vectoring.} Tilting the HLP thrust lines \ang{10} downward was simulated on
-the medium grid. The vertical thrust component adds \SI{+840}{N}, but the tilted slipstreams now strike the lower
-surface of the wing and give a wetted download of \SI{-1059}{N}, so the installed vertical force becomes \SI{-219}{N}
-compared with \SI{-159}{N} at the nominal setting. Simple tilting is therefore counter-productive. A flap, which turns
-the slipstream downward \emph{behind} the wing, is the better way to use propeller momentum for lift.
+the medium grid (Figure~\ref{fig:designrender}a). The vertical thrust component adds \SI{+840}{N}, but the tilted
+slipstreams now strike the lower surface of the wing and give a wetted download of \SI{-1059}{N}, so the installed
+vertical force becomes \SI{-219}{N} compared with \SI{-159}{N} at the nominal setting. Simple tilting is therefore
+counter-productive. A flap, which turns the slipstream downward \emph{behind} the wing, is the better way to use
+propeller momentum for lift.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\textwidth]{fig16_highlift_design_optimization_cfd.pdf}
-  \caption{Design modifications: (a) velocity field around the \ang{30} slotted flap in the blown slipstream, (b)
-  section pressure distributions, (c) section lift and drag increments, (d) installed and wetted lift of the 3D
-  thrust-vectoring case.}
-  \label{fig:design}
+  \includegraphics[width=\textwidth]{render12_opt_highlift_flow_comparison_trimmed.png}
+  \caption{Design modifications, speed fields (native Fluent): (a) 3D case with the HLP axes deflected \ang{10}
+  downward, crossplane through the blown wing; (b) 2D slat and \ang{30} slotted flap in the slipstream extracted at
+  HLP-3.}
+  \label{fig:designrender}
 \end{figure}
 
 % ==============================================================================
 \section{Additional Sensitivity Studies}
 \label{sec:sensitivity}
 % ==============================================================================
-The following medium-grid studies extend the brief and are summarised in Appendix~\ref{app:extra}. All of them
-reached a force plateau but carry the same $\omega$-residual flag as the baseline.
+The following medium-grid studies extend \versiontext{the brief}{the baseline analysis}. All of them reached a force
+plateau but carry the same $\omega$-residual flag as the baseline.
 \begin{itemize}[leftmargin=1.3em,itemsep=2pt,topsep=2pt]
   \item \textbf{Propulsion decomposition.} With only the HLPs running, the wing lift is \SI{315.7}{N}; with only the
         wingtip propellers it is \SI{186.3}{N}; with both it is \SI{152.8}{N}. The interaction is strongly
@@ -467,9 +465,9 @@ reached a force plateau but carry the same $\omega$-residual flag as the baselin
         lowers the airframe lift to \SI{-103.8}{N} and the drag to \SI{169.6}{N}, because the counter-rotating swirl
         partly cancels on the nacelles.
   \item \textbf{Ground boundary.} Replacing the no-slip runway with an open (ambient-pressure) lower boundary raises
-        the airframe lift to about \SI{+0.8}{kN} and the wing lift to about \SI{1.2}{kN}. This is a boundary-model
-        sensitivity, not a free-air prediction, but it shows that the runway strongly suppresses blowing-induced
-        lift by limiting entrainment from below.
+        the airframe lift to about \SI{+0.8}{kN} and the wing lift to about \SI{1.2}{kN}
+        (Figure~\ref{fig:ground}). This is a boundary-model sensitivity, not a free-air prediction, but it shows
+        that the runway strongly suppresses blowing-induced lift by limiting entrainment from below.
   \item \textbf{Rolling start at \SI{10}{m/s}.} With a uniform \SI{10}{m/s} inflow and a moving runway, the airframe lift
         becomes positive (\SI{+311}{N}) and the wing lift rises to \SI{660}{N}. This case has a 6.2\,\% boundary mass
         imbalance after the change to symmetry side boundaries and is indicative only.
@@ -477,20 +475,40 @@ reached a force plateau but carry the same $\omega$-residual flag as the baselin
         treatment was run from the SST solution. With second-order convection for all equations it never settled
         (lift standard deviation \SI{296}{N}); with first-order upwind convection for $k$ and $\varepsilon$ only (momentum
         and energy kept second order) it gives an airframe lift of $\SI{-166}{N}\pm\SI{22}{N}$, a wing lift of
-        $\SI{170}{N}\pm\SI{19}{N}$ and a drag of $\SI{219}{N}\pm\SI{5}{N}$, against $-161$, 153 and \SI{194}{N} for SST. The
-        $C_p$ distributions, the spanwise loading and the slipstream profiles almost coincide (Appendix
-        Figure~\ref{fig:turb}). The model choice changes the wing lift by about 11\,\% and the drag by about 13\,\%,
-        which is larger than the drag grid uncertainty. The remaining $\pm13\,\%$ lift oscillation of the
-        $k$--$\varepsilon$ case reflects its known difficulty with strongly swirling jets.
+        $\SI{170}{N}\pm\SI{19}{N}$ and a drag of $\SI{219}{N}\pm\SI{5}{N}$, against $-161$, 153 and \SI{194}{N} for SST.
+        The $C_p$ distributions, the spanwise loading and the slipstream profiles almost coincide. The model
+        choice changes the wing lift by about 11\,\% and the drag by about 13\,\%, which is larger than the drag
+        grid uncertainty. The remaining $\pm13\,\%$ lift oscillation of the $k$--$\varepsilon$ case reflects its
+        known difficulty with strongly swirling jets.
 \end{itemize}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.86\textwidth]{render11_ige_vs_oge_wake_3d_trimmed.png}
+  \caption{Ground-boundary sensitivity, speed on crossplanes behind the wing (native Fluent, medium grid): (a)
+  stationary no-slip runway, (b) open lower boundary.}
+  \label{fig:ground}
+\end{figure}
 
 % ==============================================================================
 \section{Fluid Stresses and One-Way Structural Analysis}
 \label{sec:fsi}
 % ==============================================================================
 The wall shear stress on the aircraft is low: the 99th percentile is \SI{11}{Pa}, and the highest values occur in the
-jets on the leading edges (Appendix Figures~\ref{fig:shear}--\ref{fig:stressfields}). The modelled Reynolds shear
-stress $-\rho\overline{u'v'}$ reaches \SI{\pm31}{Pa} at the slipstream boundaries.
+jets on the leading edges, the nacelles and the fin (Figures~\ref{fig:teaser}c and~\ref{fig:wall}b). The oil-flow
+lines in Figure~\ref{fig:wall}a follow the spanwise-alternating slipstream bands on the wing. The modelled Reynolds
+shear stress $-\rho\overline{u'v'}$ reaches \SI{\pm31}{Pa} at the slipstream boundaries (Figure~\ref{fig:wall}c), and
+the total-pressure core of each slipstream decays only slowly along the wake (Figure~\ref{fig:wall}d).
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render10_surface_yplus_and_oilflow_3d.png}\caption{Wall $y^+$ (0--48) and oil-flow lines}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render14_fluent_wall_shear_stress_bottom_3d.png}\caption{Wall shear stress, lower surfaces}\end{subfigure}\\[3pt]
+  \begin{subfigure}[t]{\textwidth}\includegraphics[width=\linewidth]{render15_fluent_reynolds_stress_and_tke_3d.png}\caption{Modelled Reynolds shear on a turbulent-kinetic-energy shell and on crossplanes}\end{subfigure}\\[3pt]
+  \begin{subfigure}[t]{\textwidth}\includegraphics[width=\linewidth]{render16_fluent_total_pressure_loss_3d.png}\caption{Slipstream energy core and total-pressure coefficient on crossplanes}\end{subfigure}
+  \caption{Wall and wake stresses of the fine solution (native Fluent views).}
+  \label{fig:wall}
+\end{figure}
 
 For the structural check, the converged wall pressure and shear of the fine solution were mapped onto SHELL181 models
 of the airframe skin~\cite{ansys2025shell181}. The model uses aluminium 7075-T6 ($E=\SI{71.7}{GPa}$, yield
@@ -507,8 +525,8 @@ unchanged.
 \begin{table}[t]
   \caption{One-way structural results, fine shell mesh with fine-grid CFD loads.}
   \label{tab:fsi}
-  \centering\small
-  \begin{tabular}{lcc}
+  \centering\small\setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{L c c}
     \toprule
     & Model A (no carry-through) & \best{Model B (carry-through box)}\\
     \midrule
@@ -516,31 +534,45 @@ unchanged.
     Area-weighted 99th-percentile stress & \SI{82.0}{MPa} & \SI{50.2}{MPa}\\
     Skin area in lowest band ($<\SI{37.3}{MPa}$ of 0--\SI{335}{MPa}) & 96.2\,\% & 98.6\,\%\\
     Minimum yield safety factor & 0.62 & \best{1.81}\\
-    Wingtip displacement (forward, vertical; magnitude) & \SI{60.5}{mm}, \SI{-42.1}{mm}; \SI{73.7}{mm} & \SI{28.7}{mm}, \SI{+2.5}{mm}; \SI{28.8}{mm}\\
+    Wingtip displacement: forward, vertical (magnitude) & \SI{60.5}{mm}, \SI{-42.1}{mm} (\SI{73.7}{mm}) & \SI{28.7}{mm}, \SI{+2.5}{mm} (\SI{28.8}{mm})\\
     Shell-mesh uncertainty (p99 stress / tip deflection) & 13.1\,\% / 25.9\,\% & 7.6\,\% / 7.1\,\%\\
     \bottomrule
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 Table~\ref{tab:fsi} compares the two models. With the carry-through box, the peak stress falls by a factor of three,
 the minimum safety factor rises to 1.81, above the required 1.5, and 98.6\,\% of the skin lies in the lowest band of
-the allowable-stress scale (Figure~\ref{fig:fsi}). Without the carry-through, the whole wing rotated about the root
-(\SI{42}{mm} downward at the tip). With it, the tip moves mainly forward (\SI{28.7}{mm}) under the in-plane bending from
-the \SI{1549}{N} wingtip thrust, and only \SI{2.5}{mm} vertically. The structural mesh study now meets the engineering criterion
-(uncertainty below 10\,\% for the 99th-percentile stress and the tip deflection), although not the 3\,\% target. The
-peak element stress is not converged. It moves from the wingtip trailing edge on the coarse shell (\SI{308}{MPa}) to
-the wing-root trailing-edge junction on the medium and fine shells, where it rises from 238 to \SI{277}{MPa}. It is
-therefore a local concentration of the shell idealisation, and the safety factor of 1.81 should be read as the value
-at the present resolution rather than a converged limit.
+the allowable-stress scale (Figures~\ref{fig:teaser}d and~\ref{fig:fsi}). Without the carry-through, the whole wing
+rotated about the root (\SI{42}{mm} downward at the tip). With it, the tip moves mainly forward (\SI{28.7}{mm}) under
+the in-plane bending from the \SI{1549}{N} wingtip thrust, and only \SI{2.5}{mm} vertically. The wing box and the
+motor mounts carry the thrust with a Tresca shear stress below \SI{43}{MPa} (Figure~\ref{fig:fsi}d), and the
+principal stresses concentrate along the wing root and the fuselage keel (Figure~\ref{fig:fsidetail}c,d). The
+structural mesh study now meets the engineering criterion (uncertainty below 10\,\% for the 99th-percentile stress
+and the tip deflection; Appendix Figure~\ref{fig:stressconv}), although not the 3\,\% target. The peak element
+stress is not converged. It moves from the wingtip trailing edge on the coarse shell (\SI{308}{MPa}) to the
+wing-root trailing-edge junction on the medium and fine shells (Figure~\ref{fig:fsidetail}a), where it rises from
+238 to \SI{277}{MPa}. It is therefore a local concentration of the shell idealisation, and the safety factor of 1.81
+should be read as the value at the present resolution rather than a converged limit.
 
 \begin{figure}[t]
   \centering
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render17_fsi_von_mises_global_top_3d.png}\caption{Upper exterior}\end{subfigure}\hfill
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render18_fsi_von_mises_global_bottom_3d.png}\caption{Lower exterior}\end{subfigure}\\[2pt]
-  \includegraphics[width=\textwidth]{render22_fsi_deformation_and_safety_factor_3d.png}
-  \caption{Model B, native MAPDL: von Mises stress on the fixed 0--\SI{335}{MPa} allowable scale (top), deformed shape
-  and yield safety factor (bottom).}
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render18_fsi_von_mises_global_bottom_3d.png}\caption{von Mises stress, lower exterior}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render22_fsi_deformation_and_safety_factor_3d_L.png}\caption{Total displacement (deformation $\times8.6$)}\end{subfigure}\\[3pt]
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render22_fsi_deformation_and_safety_factor_3d_R.png}\caption{Yield safety factor}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render21_fsi_shear_stress_tresca_3d_L.png}\caption{Tresca shear in the wing box and motor mounts}\end{subfigure}
+  \caption{Model B (carry-through wing box), native MAPDL SHELL181 results for the fine-grid taxi loads.}
   \label{fig:fsi}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render19_fsi_von_mises_root_pylon_zoom_3d_L.png}\caption{Wing-root junction, von Mises}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render19_fsi_von_mises_root_pylon_zoom_3d_R.png}\caption{HLP-3 pylon attachment, von Mises}\end{subfigure}\\[3pt]
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render20_fsi_principal_stress_s1_s3_3d_L.png}\caption{Maximum principal stress}\end{subfigure}\hfill
+  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render20_fsi_principal_stress_s1_s3_3d_R.png}\caption{Minimum principal stress}\end{subfigure}
+  \caption{Model B, native MAPDL stress details: local von Mises fields at the critical junctions (local colour
+  ranges) and principal stresses with symmetric limits at the 99th percentile.}
+  \label{fig:fsidetail}
 \end{figure}
 
 % ==============================================================================
@@ -551,7 +583,7 @@ at the present resolution rather than a converged limit.
   \item \textbf{Wall resolution.} The $y^+\approx1$ target was not achieved (area-weighted wing mean 142). Skin friction and
         the drag split between pressure and viscous parts are the most affected quantities.
   \item \textbf{Grid convergence.} The drag uncertainty is 6.0\,\%, but the airframe lift oscillates and has no valid
-        extrapolation. The cell limit of the Student licence prevents a fourth, finer level, and none of the five
+        extrapolation. The cell limit of the Student licence prevents a fourth, finer level, and none of the six
         surface-refined grids passed the mesh-admission check, so surface refinement was not quantified.
   \item \textbf{Iterative convergence.} The $\omega$ residual plateaus above its target. All forces are steady,
         but the cases are flagged rather than strictly converged.
@@ -588,121 +620,64 @@ at the present resolution rather than a converged limit.
         by 11--13\,\%.
 \end{enumerate}
 
-\paragraph{Submitted files.} The fine-grid mesh (\texttt{X57\_DEP\_fine\_rpm100.msh.h5}), case and data files, verified
-to reload in Fluent and to reproduce the reported loads, are attached with this report.
-
-\clearpage
 \bibliographystyle{ieeetr}
 \bibliography{references}
 
 % ==============================================================================
-\clearpage
 \appendix
 \section{Supplementary Results}
 \label{app:extra}
 % ==============================================================================
+This appendix collects the plotted (non-native) supporting results: the iterative convergence of the fine grid,
+the structural mesh study, sections through the velocity, pressure and vorticity fields, and the effect of swirl.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=.9\textwidth]{fig09_wake_evolution_crossplanes.pdf}
+  \includegraphics[width=.74\textwidth]{fig03_convergence_histories.pdf}
+  \caption{Fine-grid convergence: (a) scaled residuals, (b) force histories, (c) pitching moment, (d) final 300
+  iterations with $\pm1$ standard-deviation band.}
+  \label{fig:conv}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.9\textwidth]{fig17_stress_convergence_and_fsi_structural.pdf}
+  \caption{Structural verification of model B: (a) peak stress, area-weighted 99th-percentile stress and tip
+  displacement against shell spacing and CFD-grid loads, (b) bending and torsion resultants along the wing, (c)
+  vertical displacement of the spar line.}
+  \label{fig:stressconv}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.86\textwidth]{fig04_spanwise_slices_vel_press.pdf}
+  \caption{Velocity (top) and gauge pressure (bottom) on chordwise planes through HLP-1, HLP-3 and the wingtip
+  propeller. Solid bodies are masked; streamlines are in-plane.}
+  \label{fig:slices}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{fig09_wake_evolution_crossplanes.pdf}
   \caption{Fine-grid crossplanes at $x=-0.30$, 0.35, 1.20 and \SI{3.00}{m}: speed (left) and axial vorticity
   (right, symmetric-log scale).}
   \label{fig:wake}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=.9\textwidth]{fig05_horizontal_planes_blown_wing.pdf}
+  \includegraphics[width=.72\textwidth]{fig05_horizontal_planes_blown_wing.pdf}
   \caption{Speed on horizontal planes through the HLP axes ($y=\SI{0.002}{m}$) and above the wing
   ($y=\SI{0.225}{m}$), mirrored full aircraft.}
   \label{fig:hplanes}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=.95\textwidth]{fig11_wall_yplus_and_shear_map.pdf}
-  \caption{Fine-grid wing $y^+$ (logarithmic, left) and wall shear stress (right) on the upper and lower surfaces.}
-  \label{fig:shear}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render10_surface_yplus_and_oilflow_3d.png}\caption{Wall $y^+$ (0--48) and oil-flow lines}\end{subfigure}\hfill
-  \begin{subfigure}[t]{.49\textwidth}\includegraphics[width=\linewidth]{render13_fluent_wall_shear_stress_top_3d.png}\caption{Wall shear stress, upper surfaces}\end{subfigure}
-  \caption{Native Fluent wall views of the fine solution.}
-  \label{fig:wallrenders}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.9\textwidth]{fig18_wall_shear_and_reynolds_stress_fields.pdf}
-  \caption{Fluid stresses: (a) projected wall shear stress, (b) turbulent kinetic energy and (c) modelled Reynolds shear
-  stress at $x=\SI{1.2}{m}$, (d) area-weighted total-pressure coefficient along the wake, (e) wall-shear distributions
-  by component.}
-  \label{fig:stressfields}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{render15_fluent_reynolds_stress_and_tke_3d.png}\\[2pt]
-  \includegraphics[width=\textwidth]{render16_fluent_total_pressure_loss_3d.png}
-  \caption{Native Fluent wake views: modelled Reynolds shear on a turbulent-kinetic-energy shell and on crossplanes
-  (top); slipstream energy core and total-pressure coefficient (bottom).}
-  \label{fig:wakerenders}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.95\textwidth]{fig12_actuator_disk_verification_and_design_concept.pdf}
-  \caption{Actuator-disk verification: (a) radial thrust and torque weights, (b) discrete integral error on the fine mesh,
-  (c) NASA HLP map and its static extrapolation, (d) calibrated and native torque.}
-  \label{fig:disks}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.95\textwidth]{fig13_propulsion_decomposition_and_synergy.pdf}
-  \caption{Propulsion decomposition and rotation-direction study (medium grid).}
-  \label{fig:decomp}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.95\textwidth]{fig14_ground_effect_and_takeoff_roll.pdf}
-  \caption{Ground-boundary and rolling-start sensitivities (medium grid).}
-  \label{fig:ground}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.95\textwidth]{fig15_turbulence_model_sensitivity.pdf}
-  \caption{Turbulence-model sensitivity on the medium grid: SST $k$--$\omega$ against realizable $k$--$\varepsilon$
-  (first-order $k$/$\varepsilon$ convection): (a) wing pressure at HLP-3, (b) slipstream velocity profile at
-  $x=\SI{0.35}{m}$ (cell-interval samples with midpoint line), (c) spanwise wing loading, (d) force coefficients.}
-  \label{fig:turb}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=.95\textwidth]{fig17_stress_convergence_and_fsi_structural.pdf}
-  \caption{Structural mesh study of model B: stress and deflection against shell spacing and CFD-grid load sensitivity.}
-  \label{fig:stressconv}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{render20_fsi_principal_stress_s1_s3_3d.png}\\[2pt]
-  \includegraphics[width=\textwidth]{render19_fsi_von_mises_root_pylon_zoom_3d.png}
-  \caption{Model B, native MAPDL: principal stresses (top, symmetric limits at the 99th percentile) and the wing-root and
-  HLP-3 pylon details (bottom).}
-  \label{fig:principal}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\textwidth]{fig19_multi_case_ablation_heatmap_and_radar.pdf}
-  \caption{Normalised key results of all simulated cases.}
-  \label{fig:heatmap}
+  \includegraphics[width=.97\textwidth]{fig08_swirl_comparison_and_load_shift.pdf}
+  \caption{Effect of slipstream swirl: axial vorticity at $x=\SI{1.2}{m}$ with (a) and without (b) swirl
+  (symmetric-log scale), (c) spanwise lift-density change, swirl on minus off.}
+  \label{fig:swirl}
 \end{figure}
 
 \end{document}

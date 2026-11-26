@@ -41,7 +41,7 @@ CASE = "surfref_rpm100"
 # HLP junction on 2026-11-24. The study therefore refines the SURFACE MESH on the identical coarse facet geometry
 # (scripts/build_subdivided_shell.py: planar edge-midpoint subdivision of wall facets, 2.0x wall faces, vertices
 # fixed, symmetry/ground/far field untouched), so size field, inflation AND geometry match the Medium grid.
-SHELLS = ("subdivC",)   # 11-26: subdivA 2.0x and subdivB 1.5x kept a zero-OQ cell; subdivC = 1.5x with the nacelle facets frozen
+SHELLS = ("subdivD",)   # 11-26: subdivA 2.0x, subdivB 1.5x and subdivC 1.74x (nacelles frozen) each kept a zero-OQ junction cell; subdivD = 1.81x with nacelles frozen and a 0.12 m unsplit band around every wall-zone junction
 REFINED_CAD_SHELL_ATTEMPTS = [
     dict(surface="p2_fine_prism_base_patches (78,482 wall faces)", attempt="sr_fine_1125_1408",
          result="volume meshing failed: No cell zones after prism stair-stepping (0 live hexcore regions)"),

@@ -29,3 +29,8 @@ __pycache__/
 
 # 250 MB per-face/per-cell table (above the GitHub file limit); regenerated locally by the post-processing
 /DELIVERABLES/data/stress_and_bl_profiles.csv
+
+# README figures are versioned; derived report renders and the arXiv bundle are rebuilt locally
+!/docs/
+/REPORT/arxiv/
+/REPORT/assets/render*

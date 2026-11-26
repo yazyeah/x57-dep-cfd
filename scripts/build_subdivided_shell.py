@@ -64,6 +64,34 @@ def split_faces(v, f, mid):
 
 
 FROZEN = []   # wall zones kept at the source tessellation (--frozen); their edges are protected like the far field
+JUNCTION_BUFFER = [0.0]   # --junction-buffer: wall faces within this distance [m] of a wall-zone junction stay unsplit
+
+
+def junction_frozen(v, f, zone, names):
+    """Faces with a vertex within JUNCTION_BUFFER of a vertex shared by two wall zones (or of a frozen zone).
+
+    2026-11-26: subdivA/B/C each kept a zero-orthogonal-quality sliver where the prism stacks of two wall zones
+    meet (HLP-6 nacelle/wing junction at z = 3.76 m, wing root z = 0.58 m, wingtip z = 4.67 m). Keeping the
+    source facets in a band around every junction leaves the junction prism stacks as in the admissible Medium
+    grid while the open wing, fuselage and tail surfaces are refined."""
+    d = JUNCTION_BUFFER[0]
+    if d <= 0:
+        return np.zeros(len(f), dtype=bool)
+    from scipy.spatial import cKDTree
+    zname = np.array(names)[zone]
+    is_wall = np.isin(zname, WALLS)
+    owners = {}
+    for fi in np.flatnonzero(is_wall):
+        for vi in f[fi]:
+            owners.setdefault(int(vi), set()).add(int(zone[fi]))
+    frozen_zone_faces = np.isin(zname, FROZEN)
+    seeds = {vi for vi, z in owners.items() if len(z) > 1}
+    seeds |= {int(vi) for vi in np.unique(f[frozen_zone_faces])}
+    if not seeds:
+        return np.zeros(len(f), dtype=bool)
+    tree = cKDTree(v[sorted(seeds)])
+    near = tree.query(v, k=1, distance_upper_bound=d)[0] <= d
+    return is_wall & near[f].any(axis=1)
 
 
 def refine(patches, threshold):
@@ -73,6 +101,7 @@ def refine(patches, threshold):
     v = v.astype(np.float64)
     f = f.astype(np.int64)
     wall = np.isin(np.array(names)[zone], WALLS) & ~np.isin(np.array(names)[zone], FROZEN)
+    wall &= ~junction_frozen(v, f, zone, names)
     u, inv = edge_table(f)
     touches_other = np.zeros(len(u), dtype=bool)
     touches_other[inv[~wall].ravel()] = True
@@ -95,6 +124,7 @@ def predicted_faces(patches, threshold):
     v, f = indices(np.concatenate([patches[k] for k in names]))
     v = v.astype(np.float64)
     wall = np.isin(np.array(names)[zone], WALLS) & ~np.isin(np.array(names)[zone], FROZEN)
+    wall &= ~junction_frozen(v, f.astype(np.int64), zone, names)
     u, inv = edge_table(f.astype(np.int64))
     other = np.zeros(len(u), dtype=bool)
     other[inv[~wall].ravel()] = True
@@ -109,8 +139,11 @@ def main():
     # 2026-11-26: subdivA (2.0x) and subdivB (1.5x) volume meshes kept a zero-OQ cell even after boundary repair;
     # the known failure site is the HLP nacelle/wing junction, so the nacelles can be kept at the source facets.
     ap.add_argument("--frozen", nargs="*", default=[], help="wall zones not subdivided, e.g. wall_nacelles")
+    ap.add_argument("--junction-buffer", type=float, default=0.0,
+                    help="keep wall faces within this distance [m] of a wall-zone junction at the source facets")
     args = ap.parse_args()
     FROZEN[:] = args.frozen
+    JUNCTION_BUFFER[0] = args.junction_buffer
     if "_" in args.label:
         raise SystemExit("label must not contain '_' (surfref folder naming)")
     patches = {k: stl_triangles(SRC / (k + ".stl")) for k in TYPES}
@@ -136,6 +169,7 @@ def main():
     meta = dict(source_shell=str(SRC / "aircraft_domain.msh"), method="planar edge-midpoint red/green/blue "
                 "subdivision of wall facets; vertices never move; symmetry/ground/far-field edges never split",
                 split_threshold_edge_length_m=threshold, requested_wall_face_ratio=args.wall_face_ratio,
+                frozen_zones=list(args.frozen), junction_buffer_m=args.junction_buffer,
                 wall_faces_before=base, wall_faces_after=walls_after, wall_face_ratio=walls_after / base,
                 linear_surface_refinement_ratio=(walls_after / base) ** 0.5,
                 min_shape_before={k: float(quality(patches[k]).min()) for k in WALLS},
