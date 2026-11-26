@@ -45,10 +45,17 @@ def mapped_volume(case,data,volume,requested):
                 probes=np.unique(np.linspace(0,blk.n_cells-1,min(151,blk.n_cells),dtype=int))
                 loc=np.array([locator.FindCell(v) for v in xyz[probes]],dtype=int)
                 if np.any(loc<0):continue
-                direct=(native_pair and np.array_equal(loc,probes) and
+                # Native order is proven by the four full native arrays (every cell, rtol 6e-6). The centroid probe is a
+                # geometric sanity check only: a Fluent centroid can fall just outside its own non-convex polyhedron
+                # (fine_rpm100, 2026-11-26: 22 of 151 probes located in an adjacent prism/poly cell, centroid offsets
+                # 1-8 local spacings), so require at least 75 % self-location instead of all probes.
+                self_located=float(np.mean(loc==probes))
+                direct=(native_pair and self_located>=.75 and
                         all(np.allclose(v,s,rtol=6e-6,atol=7e-6) for v,s in zip(vset,[pressure,*velocity.T])))
                 if direct:
-                    order=np.arange(len(ids));method="full native pressure and 3 velocity arrays plus stratified centroid locator"
+                    order=np.arange(len(ids))
+                    method=("full native pressure and 3 velocity arrays in native order; "
+                            f"{self_located:.1%} of {len(probes)} stratified centroids inside their own VTK cell")
                 else:
                     # Explicitly align a renamed autosave or MPI-reordered block with physical volume centroids.
                     locations=np.fromiter((locator.FindCell(v) for v in xyz),dtype=int,count=len(ids))

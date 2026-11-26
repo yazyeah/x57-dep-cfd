@@ -93,16 +93,17 @@ def span_slices():
     box=(-1.55,1.95,-1.15,.99)
     stations=[PROP[i] for i in (0,2,6)]
     fields=[clipped_field(DATA/"fine_rpm100"/(p["name"]+"_slice.npz"),box) for p in stations]
-    umax=max(np.max(f[1]["speed"]) for f in fields)
-    plim=max(np.max(np.abs(f[1]["p_gauge_Pa"])) for f in fields)
+    # Robust limits (2026-11-26): the disk-rim maxima (|p| up to ~1e4 Pa) left the pressure row white.
+    umax=float(np.percentile(np.concatenate([f[1]["speed"] for f in fields]),99.5))
+    plim=float(np.percentile(np.abs(np.concatenate([f[1]["p_gauge_Pa"] for f in fields])),99))
     fig,ax=plt.subplots(2,3,figsize=(7.2,4.65),layout="constrained")
     for k,(p,f) in enumerate(zip(stations,fields)):
         t=f"{p['name']}   $z={p['z_axis_m']:.3f}$ m"
         v=panel(ax[0,k],f,"speed",box,cm.batlow,Normalize(0,umax),t,("$x$ (m)","$y$ (m)"))
         stream(ax[0,k],f,box,"u_m_s","v_m_s",.012,1.05)
         pc=panel(ax[1,k],f,"p_gauge_Pa",box,cm.vik,TwoSlopeNorm(0,-plim,plim),"",("$x$ (m)","$y$ (m)"))
-    fig.colorbar(v,ax=ax[0].tolist(),label="Speed (m/s)",shrink=.86)
-    fig.colorbar(pc,ax=ax[1].tolist(),label="Gauge pressure (Pa)",shrink=.86)
+    fig.colorbar(v,ax=ax[0].tolist(),label="Speed (m/s)",shrink=.86,extend="max")
+    fig.colorbar(pc,ax=ax[1].tolist(),label="Gauge pressure (Pa)",shrink=.86,extend="both")
     finish(fig,"fig04_spanwise_slices_vel_press","fine_rpm100   [Solid bodies masked]   Clearance is measured at the adjacent $z=0.860$ m station.")
 
 
@@ -110,12 +111,12 @@ def horizontal_slices():
     # Domain axes on horizontal slices are x and z. Flip z and the spanwise velocity.
     box=(-2.15,3.2,-6.1,6.1)
     fields=[clipped_field(DATA/"fine_rpm100"/(name+"_slice.npz"),box,True) for name in ["hlp_axis","above_wing"]]
-    top=max(float(np.max(f[1]["speed"])) for f in fields)
+    top=float(np.percentile(np.concatenate([f[1]["speed"] for f in fields]),99.5))
     fig,ax=plt.subplots(1,2,figsize=(7.2,6.4),layout="constrained")
     for a,f,t in zip(ax,fields,[f"HLP axis   $y={PROP[0]['y_axis_m']:.4f}$ m","Above wing   $y=0.225$ m"]):
         c=panel(a,f,"speed",box,cm.batlow,Normalize(0,top),t,("$x$ (m)","$z$ (m)"))
         stream(a,f,box,"u_m_s","w_m_s",.027,1.26)
-    fig.colorbar(c,ax=ax.tolist(),shrink=.73,label="Speed (m/s)")
+    fig.colorbar(c,ax=ax.tolist(),shrink=.73,label="Speed (m/s)",extend="max")
     finish(fig,"fig05_horizontal_planes_blown_wing","fine_rpm100   [Solid bodies masked]   [Mirrored Full Aircraft]")
 
 

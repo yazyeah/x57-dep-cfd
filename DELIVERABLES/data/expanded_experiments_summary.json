@@ -1,0 +1,446 @@
+{
+  "accepted_3d_cases": 13,
+  "accepted_2d_cases": 5,
+  "cases": [
+    {
+      "case": "coarse_rpm100",
+      "dimension": "3D",
+      "native_case": "03_cases\\coarse_rpm100\\block_20261125_091951_091980.cas.h5",
+      "native_data": "03_cases\\coarse_rpm100\\block_20261125_091951_091980.dat.h5",
+      "qa_file": "03_cases\\coarse_rpm100\\iteration_qa.json",
+      "C_L": -0.08963965416344362,
+      "C_D": 0.09658158570349401,
+      "C_M": -0.13147561233749716,
+      "L_wall_N": -169.8466226133944,
+      "D_wall_N": 182.99999360187596,
+      "Mz_wall_Nm": -161.7308447772691,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm100",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm100\\block_20261125_101032_165903.cas.h5",
+      "native_data": "03_cases\\medium_rpm100\\block_20261125_101032_165903.dat.h5",
+      "qa_file": "03_cases\\medium_rpm100\\iteration_qa.json",
+      "C_L": -0.08463013320837785,
+      "C_D": 0.10256062445123486,
+      "C_M": -0.19200078198155518,
+      "L_wall_N": -160.35472727901978,
+      "D_wall_N": 194.32890319278943,
+      "Mz_wall_Nm": -236.184096165772,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "fine_rpm100",
+      "dimension": "3D",
+      "native_case": "03_cases\\fine_rpm100\\block_20261125_114009_154239.cas.h5",
+      "native_data": "03_cases\\fine_rpm100\\block_20261125_114009_154239.dat.h5",
+      "qa_file": "03_cases\\fine_rpm100\\iteration_qa.json",
+      "C_L": -0.08924087753997718,
+      "C_D": 0.10244162921155484,
+      "C_M": -0.24800682210016745,
+      "L_wall_N": -169.09103220750717,
+      "D_wall_N": 194.10343445626495,
+      "Mz_wall_Nm": -305.0782737244298,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm050",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm050\\block_20261125_125457_743356.cas.h5",
+      "native_data": "03_cases\\medium_rpm050\\block_20261125_125457_743356.dat.h5",
+      "qa_file": "03_cases\\medium_rpm050\\iteration_qa.json",
+      "C_L": -0.02272374812923191,
+      "C_D": 0.026660952623105846,
+      "C_M": -0.04311976084267687,
+      "L_wall_N": -43.0563003492874,
+      "D_wall_N": 50.51640148492388,
+      "Mz_wall_Nm": -53.04250137111548,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm075",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm075\\block_20261125_135021_909362.cas.h5",
+      "native_data": "03_cases\\medium_rpm075\\block_20261125_135021_909362.dat.h5",
+      "qa_file": "03_cases\\medium_rpm075\\iteration_qa.json",
+      "C_L": -0.048812313389472665,
+      "C_D": 0.058639916630929385,
+      "C_M": -0.10508340703244207,
+      "L_wall_N": -92.4881588234589,
+      "D_wall_N": 111.1092170428757,
+      "Mz_wall_Nm": -129.26525223403274,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm100_noswirl",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm100_noswirl\\block_20261125_144034_469454.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_noswirl\\block_20261125_144034_469454.dat.h5",
+      "qa_file": "03_cases\\medium_rpm100_noswirl\\iteration_qa.json",
+      "C_L": -0.11845622771614107,
+      "C_D": 0.07066460235362906,
+      "C_M": -0.0027152686298442487,
+      "L_wall_N": -224.4474322538686,
+      "D_wall_N": 133.8932435660497,
+      "Mz_wall_Nm": -3.3401075796068667,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm100_hlp_only",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm100_hlp_only\\block_20261125_152024_265954.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_hlp_only\\block_20261125_152024_265954.dat.h5",
+      "qa_file": "03_cases\\medium_rpm100_hlp_only\\iteration_qa.json",
+      "C_L": -0.026416868363217338,
+      "C_D": 0.11003192581582968,
+      "C_M": -0.20035173140902218,
+      "L_wall_N": -50.05391769287842,
+      "D_wall_N": 208.4853088053044,
+      "Mz_wall_Nm": -246.45677017416142,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm100_wt_only",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm100_wt_only\\block_20261125_162653_331093.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_wt_only\\block_20261125_162653_331093.dat.h5",
+      "qa_file": "03_cases\\medium_rpm100_wt_only\\iteration_qa.json",
+      "C_L": 0.13591977766491262,
+      "C_D": 0.008575198453248415,
+      "C_M": -0.009369043953273487,
+      "L_wall_N": 257.5368613164898,
+      "D_wall_N": 16.24803787025114,
+      "Mz_wall_Nm": -11.525052946158665,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm100_alt_swirl",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm100_alt_swirl\\block_20261125_170608_289493.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_alt_swirl\\block_20261125_170608_289493.dat.h5",
+      "qa_file": "03_cases\\medium_rpm100_alt_swirl\\iteration_qa.json",
+      "C_L": -0.055565200322594786,
+      "C_D": 0.08892544424019574,
+      "C_M": -0.036935988586415384,
+      "L_wall_N": -105.28333356152322,
+      "D_wall_N": 168.49335831945325,
+      "Mz_wall_Nm": -45.43571640822714,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm100_takeoff_v10",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm100_takeoff_v10\\block_20261125_203855_179668.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_takeoff_v10\\block_20261125_203855_179668.dat.h5",
+      "qa_file": "03_cases\\medium_rpm100_takeoff_v10\\iteration_qa.json",
+      "C_L": 0.16441572626989717,
+      "C_D": 0.17122850763603728,
+      "C_M": -0.3859702295316663,
+      "L_wall_N": 311.5301600846514,
+      "D_wall_N": 324.4388210611042,
+      "Mz_wall_Nm": -474.78988818696365,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm100_oge",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm100_oge\\block_20261125_181659_077209.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_oge\\block_20261125_181659_077209.dat.h5",
+      "qa_file": "03_cases\\medium_rpm100_oge\\iteration_qa.json",
+      "C_L": 0.42910165738688294,
+      "C_D": 0.15859653681637126,
+      "C_M": -0.7492482719136855,
+      "L_wall_N": 813.049402578955,
+      "D_wall_N": 300.5041283105136,
+      "Mz_wall_Nm": -921.6656519800025,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_rpm100_rke",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_rpm100_rke\\block_20261126_050624_479020.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_rke\\block_20261126_050624_479020.dat.h5",
+      "qa_file": "03_cases\\medium_rpm100_rke\\iteration_qa.json",
+      "C_L": -0.097043665136248,
+      "C_D": 0.11400898947119709,
+      "C_M": -0.2858772765392337,
+      "L_wall_N": -183.87552833887167,
+      "D_wall_N": 216.0209339266484,
+      "Mz_wall_Nm": -351.6634957259588,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "medium_opt_hlp_vector10",
+      "dimension": "3D",
+      "native_case": "03_cases\\medium_opt_hlp_vector10\\block_20261125_225441_739217.cas.h5",
+      "native_data": "03_cases\\medium_opt_hlp_vector10\\block_20261125_225441_739217.dat.h5",
+      "qa_file": "03_cases\\medium_opt_hlp_vector10\\iteration_qa.json",
+      "C_L": -0.5588478084388383,
+      "C_D": 0.03985586005749925,
+      "C_M": 0.18867832081198288,
+      "L_wall_N": -1058.888654848727,
+      "D_wall_N": 75.51773024219219,
+      "Mz_wall_Nm": 232.09706860118274,
+      "force_basis": "full symmetric airframe, N"
+    },
+    {
+      "case": "opt2d_01_clean",
+      "dimension": "2D",
+      "native_case": "03_cases\\opt2d_01_clean\\block_20261125_233112_921970.cas.h5",
+      "native_data": "03_cases\\opt2d_01_clean\\block_20261125_233112_921970.dat.h5",
+      "qa_file": "03_cases\\opt2d_01_clean\\iteration_qa.json",
+      "C_L": 0.1427569378802831,
+      "C_D": 0.03715100037241611,
+      "C_M": 0.25891953519028865,
+      "L_wall_N": 28.830137566787297,
+      "D_wall_N": 7.50274184487431,
+      "Mz_wall_Nm": 34.517000861934996,
+      "force_basis": "per unit span, N/m"
+    },
+    {
+      "case": "opt2d_02_flap15",
+      "dimension": "2D",
+      "native_case": "03_cases\\opt2d_02_flap15\\block_20261125_233438_476018.cas.h5",
+      "native_data": "03_cases\\opt2d_02_flap15\\block_20261125_233438_476018.dat.h5",
+      "qa_file": "03_cases\\opt2d_02_flap15\\iteration_qa.json",
+      "C_L": 0.9013084102667638,
+      "C_D": 0.20473329743106825,
+      "C_M": 0.25228064509603865,
+      "L_wall_N": 182.0215944943021,
+      "D_wall_N": 41.346425729511964,
+      "Mz_wall_Nm": 33.63195920242056,
+      "force_basis": "per unit span, N/m"
+    },
+    {
+      "case": "opt2d_03_flap30",
+      "dimension": "2D",
+      "native_case": "03_cases\\opt2d_03_flap30\\block_20261125_233807_103128.cas.h5",
+      "native_data": "03_cases\\opt2d_03_flap30\\block_20261125_233807_103128.dat.h5",
+      "qa_file": "03_cases\\opt2d_03_flap30\\iteration_qa.json",
+      "C_L": 1.2716080370902962,
+      "C_D": 0.6126711472329375,
+      "C_M": 0.1637410174809131,
+      "L_wall_N": 256.80457415729563,
+      "D_wall_N": 123.73054311895943,
+      "Mz_wall_Nm": 21.828591795397198,
+      "force_basis": "per unit span, N/m"
+    },
+    {
+      "case": "opt2d_04_slat_flap30",
+      "dimension": "2D",
+      "native_case": "03_cases\\opt2d_04_slat_flap30\\block_20261125_234133_545717.cas.h5",
+      "native_data": "03_cases\\opt2d_04_slat_flap30\\block_20261125_234133_545717.dat.h5",
+      "qa_file": "03_cases\\opt2d_04_slat_flap30\\iteration_qa.json",
+      "C_L": 1.1890015417700557,
+      "C_D": 0.6170752305264015,
+      "C_M": 0.20481259253221024,
+      "L_wall_N": 240.12197603383422,
+      "D_wall_N": 124.61995927688119,
+      "Mz_wall_Nm": 27.303912884648962,
+      "force_basis": "per unit span, N/m"
+    },
+    {
+      "case": "opt2d_05_camber_opt",
+      "dimension": "2D",
+      "native_case": "03_cases\\opt2d_05_camber_opt\\block_20261125_234504_767755.cas.h5",
+      "native_data": "03_cases\\opt2d_05_camber_opt\\block_20261125_234504_767755.dat.h5",
+      "qa_file": "03_cases\\opt2d_05_camber_opt\\iteration_qa.json",
+      "C_L": 0.364574179987278,
+      "C_D": 0.060469163247582586,
+      "C_M": 0.29392971411313373,
+      "L_wall_N": 73.62671067620026,
+      "D_wall_N": 12.211905921085924,
+      "Mz_wall_Nm": 39.18426698833297,
+      "force_basis": "per unit span, N/m"
+    }
+  ],
+  "two_dimensional_pareto_front": [
+    "opt2d_01_clean",
+    "opt2d_02_flap15",
+    "opt2d_03_flap30",
+    "opt2d_05_camber_opt"
+  ],
+  "matched_effects": [
+    {
+      "case": "medium_rpm100_hlp_only",
+      "baseline": "medium_rpm100",
+      "dimension": "3D",
+      "change": {
+        "C_L": 0.05821326484516051,
+        "C_D": 0.007471301364594826,
+        "C_M": -0.008350949427467003,
+        "L_wall_N": 110.30080958614136,
+        "D_wall_N": 14.156405612514988,
+        "Mz_wall_Nm": -10.27267400838943
+      }
+    },
+    {
+      "case": "medium_rpm100_wt_only",
+      "baseline": "medium_rpm100",
+      "dimension": "3D",
+      "change": {
+        "C_L": 0.22054991087329046,
+        "C_D": -0.09398542599798644,
+        "C_M": 0.1826317380282817,
+        "L_wall_N": 417.8915885955096,
+        "D_wall_N": -178.08086532253827,
+        "Mz_wall_Nm": 224.65904321961332
+      }
+    },
+    {
+      "case": "medium_rpm100_alt_swirl",
+      "baseline": "medium_rpm100",
+      "dimension": "3D",
+      "change": {
+        "C_L": 0.029064932885783067,
+        "C_D": -0.013635180211039113,
+        "C_M": 0.1550647933951398,
+        "L_wall_N": 55.07139371749656,
+        "D_wall_N": -25.835544873336175,
+        "Mz_wall_Nm": 190.74837975754485
+      }
+    },
+    {
+      "case": "medium_rpm100_oge",
+      "baseline": "medium_rpm100",
+      "dimension": "3D",
+      "change": {
+        "C_L": 0.5137317905952608,
+        "C_D": 0.0560359123651364,
+        "C_M": -0.5572474899321302,
+        "L_wall_N": 973.4041298579748,
+        "D_wall_N": 106.17522511772415,
+        "Mz_wall_Nm": -685.4815558142305
+      }
+    },
+    {
+      "case": "medium_rpm100_takeoff_v10",
+      "baseline": "medium_rpm100",
+      "dimension": "3D",
+      "change": {
+        "C_L": 0.249045859478275,
+        "C_D": 0.06866788318480242,
+        "C_M": -0.19396944755011114,
+        "L_wall_N": 471.88488736367117,
+        "D_wall_N": 130.10991786831477,
+        "Mz_wall_Nm": -238.60579202119166
+      }
+    },
+    {
+      "case": "medium_rpm100_rke",
+      "baseline": "medium_rpm100",
+      "dimension": "3D",
+      "change": {
+        "C_L": -0.012413531927870147,
+        "C_D": 0.011448365019962228,
+        "C_M": -0.09387649455767855,
+        "L_wall_N": -23.52080105985189,
+        "D_wall_N": 21.692030733858985,
+        "Mz_wall_Nm": -115.4793995601868
+      }
+    },
+    {
+      "case": "medium_opt_hlp_vector10",
+      "baseline": "medium_rpm100",
+      "dimension": "3D",
+      "change": {
+        "C_L": -0.47421767523046043,
+        "C_D": -0.06270476439373561,
+        "C_M": 0.38067910279353806,
+        "L_wall_N": -898.5339275697071,
+        "D_wall_N": -118.81117295059724,
+        "Mz_wall_Nm": 468.2811647669547
+      }
+    },
+    {
+      "case": "medium_rpm100_noswirl",
+      "baseline": "medium_rpm100",
+      "dimension": "3D",
+      "change": {
+        "C_L": -0.03382609450776322,
+        "C_D": -0.031896022097605795,
+        "C_M": 0.18928551335171093,
+        "L_wall_N": -64.09270497484883,
+        "D_wall_N": -60.43565962673972,
+        "Mz_wall_Nm": 232.84398858616512
+      }
+    },
+    {
+      "case": "opt2d_02_flap15",
+      "baseline": "opt2d_01_clean",
+      "dimension": "2D",
+      "change": {
+        "C_L": 0.7585514723864807,
+        "C_D": 0.16758229705865213,
+        "C_M": -0.006638890094250005,
+        "L_wall_N": 153.1914569275148,
+        "D_wall_N": 33.843683884637656,
+        "Mz_wall_Nm": -0.8850416595144353
+      }
+    },
+    {
+      "case": "opt2d_03_flap30",
+      "baseline": "opt2d_01_clean",
+      "dimension": "2D",
+      "change": {
+        "C_L": 1.1288510992100131,
+        "C_D": 0.5755201468605213,
+        "C_M": -0.09517851770937555,
+        "L_wall_N": 227.97443659050833,
+        "D_wall_N": 116.22780127408512,
+        "Mz_wall_Nm": -12.688409066537798
+      }
+    },
+    {
+      "case": "opt2d_04_slat_flap30",
+      "baseline": "opt2d_01_clean",
+      "dimension": "2D",
+      "change": {
+        "C_L": 1.0462446038897726,
+        "C_D": 0.5799242301539853,
+        "C_M": -0.054106942658078416,
+        "L_wall_N": 211.29183846704692,
+        "D_wall_N": 117.11721743200688,
+        "Mz_wall_Nm": -7.213087977286033
+      }
+    },
+    {
+      "case": "opt2d_05_camber_opt",
+      "baseline": "opt2d_01_clean",
+      "dimension": "2D",
+      "change": {
+        "C_L": 0.22181724210699488,
+        "C_D": 0.023318162875166477,
+        "C_M": 0.03501017892284508,
+        "L_wall_N": 44.79657310941296,
+        "D_wall_N": 4.709164076211613,
+        "Mz_wall_Nm": 4.667266126397976
+      }
+    }
+  ],
+  "augmented_unpowered_control": {
+    "case": "medium_rpm000",
+    "dimension": "3D",
+    "native_case": "03_cases\\medium_rpm000\\equilibrium_001.cas.h5",
+    "native_data": "03_cases\\medium_rpm000\\equilibrium_001.dat.h5",
+    "qa_file": "03_cases\\medium_rpm000\\static_equilibrium_audit.json",
+    "C_L": 0.0,
+    "C_D": 0.0,
+    "C_M": 0.0,
+    "L_wall_N": 0.0,
+    "D_wall_N": 0.0,
+    "Mz_wall_Nm": 0.0,
+    "force_basis": "full symmetric airframe, N"
+  },
+  "propulsion_interaction_full_minus_hlp_minus_wingtip_plus_unpowered": {
+    "L_wall_N": -367.8376709026312,
+    "L_wing_N": -348.87023505796617,
+    "D_wall_N": -30.404443482766126,
+    "Mz_wall_Nm": 21.797726954548097,
+    "L_installed_N": -367.83767090263143,
+    "C_L": -0.19413304251007313,
+    "C_D": -0.016046499817843243
+  },
+  "reference": "All coefficients use nominal disk-induced dynamic pressure. Dimensional 2D coefficients use the baseline section chord and a unit span. Deltas use the same dimensional cohort and reference across both endpoints."
+}

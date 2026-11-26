@@ -141,13 +141,17 @@ def set_enum(option, requested):
     raise ValueError(f'Choice {requested!r} outside available options {choices}')
 
 ORDER_EQUATIONS=['density','mom','k','epsilon' if is_rke else 'omega','temperature']
+# 2026-11-26 (user decision "研究后重算"): the realizable k-epsilon comparison keeps first-order upwind convection
+# for k and epsilon throughout; density, momentum and energy stay second order. The all-second-order run of
+# 2026-11-25 never settled (lift standard deviation 296 N over the last 200 iterations).
+TURB_FIRST_ORDER=('k','epsilon') if is_rke else ()
 
 def set_scheme_order(first):
     """Switch convective schemes; first-order is used only for short warm-up/recovery spans."""
     disc=s.solution.methods.spatial_discretization
     applied={}
     for eq in ORDER_EQUATIONS:
-        value='first-order-upwind' if first else 'second-order-upwind'
+        value='first-order-upwind' if first or eq in TURB_FIRST_ORDER else 'second-order-upwind'
         try:
             disc.discretization_scheme[eq]=value
             applied[eq]=value
@@ -201,45 +205,53 @@ def configure():
     bounds=s.setup.boundary_conditions
     types={zone:('pressure_outlet' if zone=='farfield_outlet' else 'pressure_inlet') for zone in ambient_zones}
     if is_roll:
-        types={zone:'pressure_far_field' for zone in ambient_zones}
+        # 10 m/s ground roll. Pressure far-field on all four ambient faces (Mach 0.029 Riemann invariants next
+        # to the ~40 m/s rotor jets) diverged in every block on 2026-11-25 (continuity 1e2 -> 1e9 within
+        # 25-75 iterations at pseudo-time scales 1, 0.5 and 0.25). Standard low-speed external-flow set instead:
+        # uniform 10 m/s velocity inlet upstream, gauge-0 pressure outlet downstream, slip (symmetry) top and
+        # side faces 18-20 m from the aircraft, moving runway; prepare_solver_case.ZONE_TYPES converts them.
+        types={'farfield_inlet':'velocity_inlet','farfield_top':'symmetry','farfield_side':'symmetry',
+               'farfield_outlet':'pressure_outlet'}
     types['symmetry']='symmetry'
     for zone,ztype in types.items():
         if zone not in getattr(bounds,ztype).get_object_names():
             bounds.set_zone_type(zone_list=[zone],new_type=ztype.replace('_','-'))
+        if zone not in getattr(bounds,ztype).get_object_names():
+            # settings-API set_zone_type is a silent no-op in this build; prepare_solver_case.ZONE_TYPES
+            # converts the zone by TUI in the journal before this worker runs.
+            raise RuntimeError(f'{zone} is not a {ztype} zone (journal zone-type conversion missing)')
     if is_roll:
-        mach=10./math.sqrt(1.4*287.058*288.15)
-        for zone in ambient_zones:
-            bc=bounds.pressure_far_field[zone]
-            bc.momentum.gauge_pressure.value=0.
-            bc.momentum.mach_number.value=mach
-            for i,value in enumerate((1.,0.,0.)):
-                bc.momentum.flow_direction[i].value=value
-            bc.thermal.temperature.value=288.15
-            bc.turbulence.turbulence_specification='Intensity and Viscosity Ratio'
-            bc.turbulence.turbulent_intensity=.01
-            bc.turbulence.turbulent_viscosity_ratio=5.
+        bc=bounds.velocity_inlet['farfield_inlet']   # x = -18 m face, inward normal +x
+        set_enum(bc.momentum.velocity_specification_method,'Magnitude, Normal to Boundary')
+        bc.momentum.velocity_magnitude.value=10.
+        bc.thermal.temperature.value=288.15
+        bc.turbulence.turbulence_specification='Intensity and Viscosity Ratio'
+        bc.turbulence.turbulent_intensity=.01
+        bc.turbulence.turbulent_viscosity_ratio=5.
         runway=bounds.wall['runway_ground'].momentum
         set_enum(runway.wall_motion,'Moving Wall')
         runway.relative=False
         runway.rotating=False
         runway.speed.value=10.
-        for i,value in enumerate((1.,0.,0.)):
-            runway.direction[i].value=value
-    else:
-        for zone in bounds.pressure_inlet.get_object_names():
-            bc=bounds.pressure_inlet[zone]
-            bc.momentum.gauge_total_pressure.value=0.
-            bc.thermal.total_temperature.value=288.15
-            bc.turbulence.turbulence_specification='Intensity and Viscosity Ratio'
-            bc.turbulence.turbulent_intensity=.01
-            bc.turbulence.turbulent_viscosity_ratio=5.
-        bc=bounds.pressure_outlet['farfield_outlet']
-        bc.momentum.gauge_pressure.value=0.
-        set_enum(bc.momentum.backflow_dir_spec_method,'From Neighboring Cell')
-        bc.thermal.backflow_total_temperature.value=288.15
+        # Wall-motion direction is a plain real list in the 25.2 settings API (no per-component .value;
+        # logs/probe_zonetype/probe5, 2026-11-25), unlike the far-field flow_direction expressions.
+        runway.direction=[1.,0.,0.]
+        if [float(v) for v in runway.direction.get_state()]!=[1.,0.,0.]:
+            raise RuntimeError(f'Runway wall direction not applied: {runway.direction.get_state()}')
+    for zone in bounds.pressure_inlet.get_object_names():   # none in the ground-roll set
+        bc=bounds.pressure_inlet[zone]
+        bc.momentum.gauge_total_pressure.value=0.
+        bc.thermal.total_temperature.value=288.15
         bc.turbulence.turbulence_specification='Intensity and Viscosity Ratio'
-        bc.turbulence.backflow_turbulent_intensity=.01
-        bc.turbulence.backflow_turbulent_viscosity_ratio=5.
+        bc.turbulence.turbulent_intensity=.01
+        bc.turbulence.turbulent_viscosity_ratio=5.
+    bc=bounds.pressure_outlet['farfield_outlet']
+    bc.momentum.gauge_pressure.value=0.
+    set_enum(bc.momentum.backflow_dir_spec_method,'From Neighboring Cell')
+    bc.thermal.backflow_total_temperature.value=288.15
+    bc.turbulence.turbulence_specification='Intensity and Viscosity Ratio'
+    bc.turbulence.backflow_turbulent_intensity=.01
+    bc.turbulence.backflow_turbulent_viscosity_ratio=5.
     walls=bounds.wall.get_object_names()
     aft=[name for name in walls if name.startswith('wall_')]
     wing=[name for name in aft if name.startswith('wall_wing')]
@@ -252,7 +264,8 @@ def configure():
     disc=methods.spatial_discretization
     disc.gradient_scheme='least-square-cell-based'
     for eq in ['density','mom','k','epsilon' if is_rke else 'omega','temperature','pressure']:
-        disc.discretization_scheme[eq]='second-order' if eq=='pressure' else 'second-order-upwind'
+        disc.discretization_scheme[eq]=('second-order' if eq=='pressure' else
+                                        'first-order-upwind' if eq in TURB_FIRST_ORDER else 'second-order-upwind')
     # Half-model forces are doubled outside Fluent; Cp uses one constant disk-induced velocity.
     rr=model['rotors']
     area=sum(math.pi*(p['r_tip_m']**2-p['r_hub_m']**2) for p in rr)

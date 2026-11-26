@@ -166,9 +166,17 @@ Path("reload_forces.json").write_text(json.dumps({k:report.compute(report_defs=[
     m=qa["half_model_endpoint_pitch_Nm"]
     expected={"airframe-lift-half":f["airframe"]["ForceY"],"airframe-drag-half":f["airframe"]["ForceX"],
               "wing-lift-half":f["wing"]["ForceY"],"airframe-pitch-mz-half":m}
+    def bare(value,key):
+        # Fluent 2025 R2 reports.compute returns [{key: [value, unit]}]; the protected assess_fluent_case.flux_value
+        # does not accept the [value, unit] pair (P12 halted 2026-11-26 03:28), so pass it the bare number.
+        r=value
+        if isinstance(r,(list,tuple)) and len(r)==1 and isinstance(r[0],dict):r=r[0]
+        if isinstance(r,dict):r=r[key]
+        if isinstance(r,(list,tuple)) and len(r)==2 and isinstance(r[1],str):r=r[0]
+        return {key:float(r)}
     if not isinstance(m,(int,float)):
-        expected["airframe-pitch-mz-half"]=flux_value(m,"airframe-pitch-mz-half")
-    actual={key:flux_value(value,key) for key,value in recorded.items()}
+        expected["airframe-pitch-mz-half"]=flux_value(bare(m,"airframe-pitch-mz-half"),"airframe-pitch-mz-half")
+    actual={key:flux_value(bare(value,key),key) for key,value in recorded.items()}
     if any(not np.isclose(actual[k],float(expected[k]),atol=1.e-5,rtol=1.e-6) for k in expected):
         raise ValueError("Native reload did not reproduce the accepted Fine aerodynamic loads")
     atomic_write_json(SOURCE/"submission_qa.json",dict(passed=True,source_sha256=sources,
@@ -304,7 +312,8 @@ def finish():
     control()
     with (ROOT/"logs"/"final_deliverables_verification.log").open("w",encoding="utf-8") as out:
         managed_step([sys.executable,"-B",str(ROOT/"scripts/verify_deliverables.py")],stdout=out)
-    print((ROOT/"logs"/"final_deliverables_verification.log").read_text(encoding="utf-8").splitlines()[-2])
+    # errors="replace": the verifier's subprocess output can carry GBK console bytes on this Windows locale (2026-11-26)
+    print((ROOT/"logs"/"final_deliverables_verification.log").read_text(encoding="utf-8",errors="replace").splitlines()[-2])
     control()
 
 

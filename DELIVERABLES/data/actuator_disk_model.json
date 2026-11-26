@@ -732,5 +732,3373 @@
       ]
     }
   ],
-  "fluent_discrete_integrals": null
+  "fluent_discrete_integrals": {
+    "coarse_rpm100": {
+      "native_case": "03_cases\\coarse_rpm100\\block_20261125_091951_091980.cas.h5",
+      "native_data": "03_cases\\coarse_rpm100\\block_20261125_091951_091980.dat.h5",
+      "source": "03_cases\\coarse_rpm100\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.8328178270463,
+            -0.6622691933620118,
+            0.4842485928874741
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70976851434119,
+            1.268115301843088,
+            -0.1390398727048017
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.004411625172553681,
+          "raw_torque_weight_volume_m3": 0.00597580687586825,
+          "discrete_thrust_N": 402.8328178270463,
+          "discrete_torque_Nm": 26.70976851434119,
+          "thrust_error_fraction": 8.46655232819884e-16,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.330117734600715e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649862,
+            -0.3638261935909103,
+            0.1714810428653467
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007726,
+            -0.03377289933630145,
+            -0.009476906336435463
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003372732482962844,
+          "raw_torque_weight_volume_m3": 0.004599235176284795,
+          "discrete_thrust_N": 402.7769725649862,
+          "discrete_torque_Nm": 26.70514008007726,
+          "thrust_error_fraction": 2.5403178661845206e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 6.651741327975502e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649844,
+            -0.03525703719510176,
+            0.1645147930124775
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007732,
+            0.01844621315145289,
+            -0.05013600285016917
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.004465465907067322,
+          "raw_torque_weight_volume_m3": 0.006036782561661835,
+          "discrete_thrust_N": 402.7769725649844,
+          "discrete_torque_Nm": 26.70514008007732,
+          "thrust_error_fraction": 1.8346740144665982e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.5964179187141206e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649863,
+            0.4625246947895921,
+            -0.336759320879126
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007725,
+            0.05568595702317267,
+            0.06588988577806722
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003374811862644979,
+          "raw_torque_weight_volume_m3": 0.004599581792416874,
+          "discrete_thrust_N": 402.7769725649863,
+          "discrete_torque_Nm": 26.70514008007725,
+          "thrust_error_fraction": 2.8225754068716895e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.0642786124760804e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649862,
+            -0.08157036363737546,
+            -0.617113189477219
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007729,
+            0.01934590266052183,
+            0.09016270423552136
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003375592207237097,
+          "raw_torque_weight_volume_m3": 0.004595234311247124,
+          "discrete_thrust_N": 402.7769725649862,
+          "discrete_torque_Nm": 26.70514008007729,
+          "thrust_error_fraction": 2.5403178661845206e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.9910447967853016e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649849,
+            -0.4886044096625423,
+            -0.4325056957098893
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007726,
+            -0.05997737288992381,
+            0.1336782377896268
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003379359444419282,
+          "raw_torque_weight_volume_m3": 0.004608198112759687,
+          "discrete_thrust_N": 402.7769725649849,
+          "discrete_torque_Nm": 26.70514008007726,
+          "thrust_error_fraction": 7.056438517179224e-16,
+          "thrust_passes": true,
+          "torque_error_fraction": 6.651741327975502e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418329,
+            0.07634886862111755,
+            -0.1998633063919261
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.4999999999999,
+            0.1636413382781407,
+            0.1555591231132041
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.0337488681835145,
+          "raw_torque_weight_volume_m3": 0.04494757310242763,
+          "discrete_thrust_N": 1549.054853418329,
+          "discrete_torque_Nm": 127.4999999999999,
+          "thrust_error_fraction": 1.6146041725742045e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 8.916614723264002e-16,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm100": {
+      "native_case": "03_cases\\medium_rpm100\\block_20261125_101032_165903.cas.h5",
+      "native_data": "03_cases\\medium_rpm100\\block_20261125_101032_165903.dat.h5",
+      "source": "03_cases\\medium_rpm100\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.8328178270427,
+            -0.04460931486821795,
+            -0.06872284317709719
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70976851434113,
+            0.2868177260241657,
+            0.080335621698775
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 402.8328178270427,
+          "discrete_torque_Nm": 26.70976851434113,
+          "thrust_error_fraction": 9.877644382898647e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.3942119222812867e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649835,
+            -0.1237218913260991,
+            0.1159945690160725
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007727,
+            0.008643947833549267,
+            0.004343392054391748
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 402.7769725649835,
+          "discrete_torque_Nm": 26.70514008007727,
+          "thrust_error_fraction": 4.0927343399639496e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.660696531190201e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649842,
+            -0.02480426053144669,
+            -0.1241970673188485
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007714,
+            0.006606317070330547,
+            0.07676555082721676
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 402.7769725649842,
+          "discrete_torque_Nm": 26.70514008007714,
+          "thrust_error_fraction": 2.399189095840936e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.188358235820892e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649883,
+            -0.04408937499167359,
+            -0.2770991203035675
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007718,
+            0.003833014796200451,
+            0.01012564734436322
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 402.7769725649883,
+          "discrete_torque_Nm": 26.70514008007718,
+          "thrust_error_fraction": 7.762082368897146e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.724975143666282e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649837,
+            -0.06677125949053453,
+            0.04455279706970278
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007732,
+            0.03817260004729441,
+            0.07456568094429065
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 402.7769725649837,
+          "discrete_torque_Nm": 26.70514008007732,
+          "thrust_error_fraction": 3.6693480289331965e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.5964179187141206e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649865,
+            -0.3249822322679297,
+            0.1421861489104667
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007737,
+            -0.039958241189332,
+            0.05191956517086027
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 402.7769725649865,
+          "discrete_torque_Nm": 26.70514008007737,
+          "thrust_error_fraction": 3.3870904882460272e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.4589054905472613e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418308,
+            -0.2651398207990367,
+            0.1409900478507671
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.5000000000011,
+            0.2655637519444016,
+            0.06064649496182317
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 1549.054853418308,
+          "discrete_torque_Nm": 127.5000000000011,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 8.4707839871008e-15,
+          "torque_passes": true
+        }
+      ]
+    },
+    "fine_rpm100": {
+      "native_case": "03_cases\\fine_rpm100\\block_20261125_114009_154239.cas.h5",
+      "native_data": "03_cases\\fine_rpm100\\block_20261125_114009_154239.dat.h5",
+      "source": "03_cases\\fine_rpm100\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.832817827044,
+            0.1632449808074052,
+            -0.02530390497903628
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70976851434111,
+            -0.08014021880060843,
+            0.01795619612367542
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.003184085089257935,
+          "raw_torque_weight_volume_m3": 0.004344188469313525,
+          "discrete_thrust_N": 402.832817827044,
+          "discrete_torque_Nm": 26.70976851434111,
+          "thrust_error_fraction": 6.632132657089091e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.059270789581644e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649856,
+            -0.1401616371483407,
+            0.07640757302587937
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007779,
+            0.003820729002591648,
+            -0.004886620328694751
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003706096621983531,
+          "raw_torque_weight_volume_m3": 0.005044870338386513,
+          "discrete_thrust_N": 402.7769725649856,
+          "discrete_torque_Nm": 26.70514008007779,
+          "thrust_error_fraction": 1.1290301627486759e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.9157015024569447e-14,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.776972564982,
+            -0.1135085635591011,
+            -0.02839955538839689
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007728,
+            0.02355258077618672,
+            -0.005461956260437439
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003182924917177496,
+          "raw_torque_weight_volume_m3": 0.004342891870871921,
+          "discrete_thrust_N": 402.776972564982,
+          "discrete_torque_Nm": 26.70514008007728,
+          "thrust_error_fraction": 7.90321113924073e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 0.0,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649836,
+            -0.05898754381750929,
+            -0.1040494051694542
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007736,
+            0.0236082390558106,
+            -0.009670355588767849
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003706831019957921,
+          "raw_torque_weight_volume_m3": 0.005040725139207254,
+          "discrete_thrust_N": 402.7769725649836,
+          "discrete_torque_Nm": 26.70514008007736,
+          "thrust_error_fraction": 3.810476799276781e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.059801010868731e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649923,
+            -0.05734042013772119,
+            -0.2454415530644981
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007725,
+            0.01282093298128922,
+            -0.002157856234368796
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.00318257643424249,
+          "raw_torque_weight_volume_m3": 0.004338167328850989,
+          "discrete_thrust_N": 402.7769725649923,
+          "discrete_torque_Nm": 26.70514008007725,
+          "thrust_error_fraction": 1.7782225063291643e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.0642786124760804e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649858,
+            -0.2198174204962406,
+            0.1321894647794193
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007712,
+            0.003588326407425025,
+            -0.006815830948431961
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003707450501115542,
+          "raw_torque_weight_volume_m3": 0.005036986763775194,
+          "discrete_thrust_N": 402.7769725649858,
+          "discrete_torque_Nm": 26.70514008007712,
+          "thrust_error_fraction": 1.5524164737794292e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.986567195177952e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418305,
+            -0.09788330758414662,
+            -0.0135585893500764
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.4999999999991,
+            -0.08405156958924406,
+            -0.0791371689090654
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.02395561500368214,
+          "raw_torque_weight_volume_m3": 0.03211536410239359,
+          "discrete_thrust_N": 1549.054853418305,
+          "discrete_torque_Nm": 127.4999999999991,
+          "thrust_error_fraction": 1.3944308763140857e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 7.133291778611202e-15,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm050": {
+      "native_case": "03_cases\\medium_rpm050\\block_20261125_125457_743356.cas.h5",
+      "native_data": "03_cases\\medium_rpm050\\block_20261125_125457_743356.dat.h5",
+      "source": "03_cases\\medium_rpm050\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            100.7082044567606,
+            -0.01115232871705221,
+            -0.0171807107942671
+          ],
+          "discrete_moment_about_center_Nm": [
+            6.677442128585276,
+            0.07170443150604888,
+            0.02008390542469573
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 100.70820445676166,
+          "torque_target_Nm": 6.677442128585298,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 100.7082044567606,
+          "discrete_torque_Nm": 6.677442128585276,
+          "thrust_error_fraction": 1.058319041024855e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.3252943365017873e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            100.6942431412462,
+            -0.03093047283152934,
+            0.02899864225402082
+          ],
+          "discrete_moment_about_center_Nm": [
+            6.676285020019296,
+            0.0021609869583901,
+            0.001085848013594067
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 100.69424314124629,
+          "torque_target_Nm": 6.67628502001932,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 100.6942431412462,
+          "discrete_torque_Nm": 6.676285020019296,
+          "thrust_error_fraction": 8.467726220615068e-16,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.591940317106771e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            100.6942431412461,
+            -0.006201065132859451,
+            -0.03104926682971303
+          ],
+          "discrete_moment_about_center_Nm": [
+            6.676285020019259,
+            0.001651579267583525,
+            0.01919138770680558
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 100.69424314124629,
+          "torque_target_Nm": 6.67628502001932,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 100.6942431412461,
+          "discrete_torque_Nm": 6.676285020019259,
+          "thrust_error_fraction": 1.8346740144665982e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 9.046368206046683e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            100.6942431412468,
+            -0.0110223437479184,
+            -0.06927478007589187
+          ],
+          "discrete_moment_about_center_Nm": [
+            6.676285020019294,
+            0.0009582536990570421,
+            0.002531411836092318
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 100.69424314124629,
+          "torque_target_Nm": 6.67628502001932,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 100.6942431412468,
+          "discrete_torque_Nm": 6.676285020019294,
+          "thrust_error_fraction": 5.080635732369041e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.8580099702257915e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            100.6942431412454,
+            -0.01669281487263427,
+            0.01113819926743157
+          ],
+          "discrete_moment_about_center_Nm": [
+            6.67628502001931,
+            0.009543150011826186,
+            0.01864142023606859
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 100.69424314124629,
+          "torque_target_Nm": 6.67628502001932,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 100.6942431412454,
+          "discrete_torque_Nm": 6.67628502001931,
+          "thrust_error_fraction": 8.891112531645822e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.4633830921546104e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            100.6942431412462,
+            -0.08124555806698108,
+            0.03554653722760628
+          ],
+          "discrete_moment_about_center_Nm": [
+            6.676285020019354,
+            -0.009989560297336553,
+            0.01297989129271568
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 100.69424314124629,
+          "torque_target_Nm": 6.67628502001932,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 100.6942431412462,
+          "discrete_torque_Nm": 6.676285020019354,
+          "thrust_error_fraction": 8.467726220615068e-16,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.188358235820892e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            387.263713354577,
+            -0.06628495519977165,
+            0.03524751196268889
+          ],
+          "discrete_moment_about_center_Nm": [
+            31.87500000000022,
+            0.06639093798610039,
+            0.01516162374045579
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 387.2637133545816,
+          "torque_target_Nm": 31.875000000000004,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 387.263713354577,
+          "discrete_torque_Nm": 31.87500000000022,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 6.798918726488801e-15,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm075": {
+      "native_case": "03_cases\\medium_rpm075\\block_20261125_135021_909362.cas.h5",
+      "native_data": "03_cases\\medium_rpm075\\block_20261125_135021_909362.dat.h5",
+      "source": "03_cases\\medium_rpm075\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            226.5934600277119,
+            -0.0250927396136016,
+            -0.0386565992871229
+          ],
+          "discrete_moment_about_center_Nm": [
+            15.02424478931694,
+            0.1613349708887085,
+            0.04518878720555901
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 226.59346002771375,
+          "torque_target_Nm": 15.02424478931692,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 226.5934600277119,
+          "discrete_torque_Nm": 15.02424478931694,
+          "thrust_error_fraction": 8.152976316043327e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.300559562720699e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            226.5620470678056,
+            -0.06959356387092255,
+            0.06524694507150336
+          ],
+          "discrete_moment_about_center_Nm": [
+            15.02164129504349,
+            0.004862220656266849,
+            0.002443158030591065
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 226.56204706780414,
+          "torque_target_Nm": 15.02164129504347,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 226.5620470678056,
+          "discrete_torque_Nm": 15.02164129504349,
+          "thrust_error_fraction": 6.3978375889091634e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.4190381499681072e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            226.562047067804,
+            -0.01395239654889746,
+            -0.06986085036689757
+          ],
+          "discrete_moment_about_center_Nm": [
+            15.02164129504324,
+            0.003716053352021298,
+            0.0431806223402838
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 226.56204706780414,
+          "torque_target_Nm": 15.02164129504347,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 226.562047067804,
+          "discrete_torque_Nm": 15.02164129504324,
+          "thrust_error_fraction": 6.272389793048199e-16,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.5254660112157153e-14,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            226.5620470678029,
+            -0.02480027343269684,
+            -0.1558682551706572
+          ],
+          "discrete_moment_about_center_Nm": [
+            15.02164129504355,
+            0.002156070822908774,
+            0.005695676631159744
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 226.56204706780414,
+          "torque_target_Nm": 15.02164129504347,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 226.5620470678029,
+          "discrete_torque_Nm": 15.02164129504355,
+          "thrust_error_fraction": 5.519703017882415e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.321393062380402e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            226.5620470678026,
+            -0.03755883346341783,
+            0.0250609483517194
+          ],
+          "discrete_moment_about_center_Nm": [
+            15.02164129504356,
+            0.02147208752659795,
+            0.04194319553118395
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 226.56204706780414,
+          "torque_target_Nm": 15.02164129504347,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 226.5620470678026,
+          "discrete_torque_Nm": 15.02164129504356,
+          "thrust_error_fraction": 6.774180976492055e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 6.0309121373644556e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            226.5620470678038,
+            -0.1828025056507432,
+            0.07997970876212684
+          ],
+          "discrete_moment_about_center_Nm": [
+            15.02164129504331,
+            -0.02247651066899348,
+            0.02920475540862853
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 226.56204706780414,
+          "torque_target_Nm": 15.02164129504347,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 226.5620470678038,
+          "discrete_torque_Nm": 15.02164129504331,
+          "thrust_error_fraction": 1.5053735503315677e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.0642786124760803e-14,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            871.3433550477989,
+            -0.1491411491996898,
+            0.07930690191595055
+          ],
+          "discrete_moment_about_center_Nm": [
+            71.71874999999923,
+            0.1493796104689674,
+            0.03411365341558679
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 871.3433550478087,
+          "torque_target_Nm": 71.71875000000001,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 871.3433550477989,
+          "discrete_torque_Nm": 71.71874999999923,
+          "thrust_error_fraction": 1.1220683542737906e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.0898084661767112e-14,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm100_noswirl": {
+      "native_case": "03_cases\\medium_rpm100_noswirl\\block_20261125_144034_469454.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_noswirl\\block_20261125_144034_469454.dat.h5",
+      "source": "03_cases\\medium_rpm100_noswirl\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.8328178270427,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.2871811712643617,
+            0.08521346233899786
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 402.8328178270427,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": 9.877644382898647e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649835,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.01346851784464792,
+            0.006860050373844006
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 402.7769725649835,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": 4.0927343399639496e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649842,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.002543684139103775,
+            0.07512586106871377
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 402.7769725649842,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": 2.399189095840936e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649883,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.001791504343510338,
+            0.01196105350902826
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 402.7769725649883,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": 7.762082368897146e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649837,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.04266690051313194,
+            0.07366879084320968
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 402.7769725649837,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": 3.6693480289331965e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649865,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            -0.04076038204740229,
+            0.05457140248795231
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 402.7769725649865,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": 3.3870904882460272e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418308,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.2689250723570821,
+            0.06356477299700648
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 1549.054853418308,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm100_hlp_only": {
+      "native_case": "03_cases\\medium_rpm100_hlp_only\\block_20261125_152024_265954.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_hlp_only\\block_20261125_152024_265954.dat.h5",
+      "source": "03_cases\\medium_rpm100_hlp_only\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.8328178270427,
+            -0.04460931486821795,
+            -0.06872284317709719
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70976851434113,
+            0.2868177260241657,
+            0.080335621698775
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 402.8328178270427,
+          "discrete_torque_Nm": 26.70976851434113,
+          "thrust_error_fraction": 9.877644382898647e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.3942119222812867e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649835,
+            -0.1237218913260991,
+            0.1159945690160725
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007727,
+            0.008643947833549267,
+            0.004343392054391748
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 402.7769725649835,
+          "discrete_torque_Nm": 26.70514008007727,
+          "thrust_error_fraction": 4.0927343399639496e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.660696531190201e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649842,
+            -0.02480426053144669,
+            -0.1241970673188485
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007714,
+            0.006606317070330547,
+            0.07676555082721676
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 402.7769725649842,
+          "discrete_torque_Nm": 26.70514008007714,
+          "thrust_error_fraction": 2.399189095840936e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.188358235820892e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649883,
+            -0.04408937499167359,
+            -0.2770991203035675
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007718,
+            0.003833014796200451,
+            0.01012564734436322
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 402.7769725649883,
+          "discrete_torque_Nm": 26.70514008007718,
+          "thrust_error_fraction": 7.762082368897146e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.724975143666282e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649837,
+            -0.06677125949053453,
+            0.04455279706970278
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007732,
+            0.03817260004729441,
+            0.07456568094429065
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 402.7769725649837,
+          "discrete_torque_Nm": 26.70514008007732,
+          "thrust_error_fraction": 3.6693480289331965e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.5964179187141206e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649865,
+            -0.3249822322679297,
+            0.1421861489104667
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007737,
+            -0.039958241189332,
+            0.05191956517086027
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 402.7769725649865,
+          "discrete_torque_Nm": 26.70514008007737,
+          "thrust_error_fraction": 3.3870904882460272e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.4589054905472613e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": false,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 0.0,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 0.0,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": null,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm100_wt_only": {
+      "native_case": "03_cases\\medium_rpm100_wt_only\\block_20261125_162653_331093.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_wt_only\\block_20261125_162653_331093.dat.h5",
+      "source": "03_cases\\medium_rpm100_wt_only\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": false,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 0.0,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 0.0,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": null,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": false,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 0.0,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 0.0,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": null,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": false,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 0.0,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 0.0,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": null,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": false,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 0.0,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 0.0,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": null,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": false,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 0.0,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 0.0,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": null,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "discrete_moment_about_center_Nm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": false,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 0.0,
+          "torque_target_Nm": 0.0,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 0.0,
+          "discrete_torque_Nm": 0.0,
+          "thrust_error_fraction": null,
+          "thrust_passes": true,
+          "torque_error_fraction": null,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418308,
+            -0.2651398207990367,
+            0.1409900478507671
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.5000000000011,
+            0.2655637519444016,
+            0.06064649496182317
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 1549.054853418308,
+          "discrete_torque_Nm": 127.5000000000011,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 8.4707839871008e-15,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm100_alt_swirl": {
+      "native_case": "03_cases\\medium_rpm100_alt_swirl\\block_20261125_170608_289493.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_alt_swirl\\block_20261125_170608_289493.dat.h5",
+      "source": "03_cases\\medium_rpm100_alt_swirl\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.8328178270427,
+            -0.04460931486821795,
+            -0.06872284317709719
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70976851434113,
+            0.2868177260241657,
+            0.080335621698775
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 402.8328178270427,
+          "discrete_torque_Nm": 26.70976851434113,
+          "thrust_error_fraction": 9.877644382898647e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.3942119222812867e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649835,
+            0.1237218913260991,
+            -0.1159945690160725
+          ],
+          "discrete_moment_about_center_Nm": [
+            -26.70514008007727,
+            0.0182930878559782,
+            0.009376708693237683
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": -1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": -26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 402.7769725649835,
+          "discrete_torque_Nm": -26.70514008007727,
+          "thrust_error_fraction": 4.0927343399639496e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.660696531190201e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649842,
+            -0.02480426053144669,
+            -0.1241970673188485
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007714,
+            0.006606317070330547,
+            0.07676555082721676
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 402.7769725649842,
+          "discrete_torque_Nm": 26.70514008007714,
+          "thrust_error_fraction": 2.399189095840936e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.188358235820892e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649883,
+            0.04408937499167359,
+            0.2770991203035675
+          ],
+          "discrete_moment_about_center_Nm": [
+            -26.70514008007718,
+            -0.0002500061092685275,
+            0.01379645967375567
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": -1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": -26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 402.7769725649883,
+          "discrete_torque_Nm": -26.70514008007718,
+          "thrust_error_fraction": 7.762082368897146e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.724975143666282e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649837,
+            -0.06677125949053453,
+            0.04455279706970278
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007732,
+            0.03817260004729441,
+            0.07456568094429065
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 402.7769725649837,
+          "discrete_torque_Nm": 26.70514008007732,
+          "thrust_error_fraction": 3.6693480289331965e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.5964179187141206e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649865,
+            0.3249822322679297,
+            -0.1421861489104667
+          ],
+          "discrete_moment_about_center_Nm": [
+            -26.70514008007737,
+            -0.04156252290545837,
+            0.0572232398049862
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": -1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": -26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 402.7769725649865,
+          "discrete_torque_Nm": -26.70514008007737,
+          "thrust_error_fraction": 3.3870904882460272e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.4589054905472613e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418308,
+            -0.2651398207990367,
+            0.1409900478507671
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.5000000000011,
+            0.2655637519444016,
+            0.06064649496182317
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 1549.054853418308,
+          "discrete_torque_Nm": 127.5000000000011,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 8.4707839871008e-15,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm100_oge": {
+      "native_case": "03_cases\\medium_rpm100_oge\\block_20261125_181659_077209.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_oge\\block_20261125_181659_077209.dat.h5",
+      "source": "03_cases\\medium_rpm100_oge\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.8328178270427,
+            -0.04460931486821795,
+            -0.06872284317709719
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70976851434113,
+            0.2868177260241657,
+            0.080335621698775
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 402.8328178270427,
+          "discrete_torque_Nm": 26.70976851434113,
+          "thrust_error_fraction": 9.877644382898647e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.3942119222812867e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649835,
+            -0.1237218913260991,
+            0.1159945690160725
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007727,
+            0.008643947833549267,
+            0.004343392054391748
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 402.7769725649835,
+          "discrete_torque_Nm": 26.70514008007727,
+          "thrust_error_fraction": 4.0927343399639496e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.660696531190201e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649842,
+            -0.02480426053144669,
+            -0.1241970673188485
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007714,
+            0.006606317070330547,
+            0.07676555082721676
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 402.7769725649842,
+          "discrete_torque_Nm": 26.70514008007714,
+          "thrust_error_fraction": 2.399189095840936e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.188358235820892e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649883,
+            -0.04408937499167359,
+            -0.2770991203035675
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007718,
+            0.003833014796200451,
+            0.01012564734436322
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 402.7769725649883,
+          "discrete_torque_Nm": 26.70514008007718,
+          "thrust_error_fraction": 7.762082368897146e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.724975143666282e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649837,
+            -0.06677125949053453,
+            0.04455279706970278
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007732,
+            0.03817260004729441,
+            0.07456568094429065
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 402.7769725649837,
+          "discrete_torque_Nm": 26.70514008007732,
+          "thrust_error_fraction": 3.6693480289331965e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.5964179187141206e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649865,
+            -0.3249822322679297,
+            0.1421861489104667
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007737,
+            -0.039958241189332,
+            0.05191956517086027
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 402.7769725649865,
+          "discrete_torque_Nm": 26.70514008007737,
+          "thrust_error_fraction": 3.3870904882460272e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.4589054905472613e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418308,
+            -0.2651398207990367,
+            0.1409900478507671
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.5000000000011,
+            0.2655637519444016,
+            0.06064649496182317
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 1549.054853418308,
+          "discrete_torque_Nm": 127.5000000000011,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 8.4707839871008e-15,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm100_takeoff_v10": {
+      "native_case": "03_cases\\medium_rpm100_takeoff_v10\\block_20261125_203855_179668.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_takeoff_v10\\block_20261125_203855_179668.dat.h5",
+      "source": "03_cases\\medium_rpm100_takeoff_v10\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.8328178270427,
+            -0.04460931486821795,
+            -0.06872284317709719
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70976851434113,
+            0.2868177260241657,
+            0.080335621698775
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 402.8328178270427,
+          "discrete_torque_Nm": 26.70976851434113,
+          "thrust_error_fraction": 9.877644382898647e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.3942119222812867e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649835,
+            -0.1237218913260991,
+            0.1159945690160725
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007727,
+            0.008643947833549267,
+            0.004343392054391748
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 402.7769725649835,
+          "discrete_torque_Nm": 26.70514008007727,
+          "thrust_error_fraction": 4.0927343399639496e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.660696531190201e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649842,
+            -0.02480426053144669,
+            -0.1241970673188485
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007714,
+            0.006606317070330547,
+            0.07676555082721676
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 402.7769725649842,
+          "discrete_torque_Nm": 26.70514008007714,
+          "thrust_error_fraction": 2.399189095840936e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.188358235820892e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649883,
+            -0.04408937499167359,
+            -0.2770991203035675
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007718,
+            0.003833014796200451,
+            0.01012564734436322
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 402.7769725649883,
+          "discrete_torque_Nm": 26.70514008007718,
+          "thrust_error_fraction": 7.762082368897146e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.724975143666282e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649837,
+            -0.06677125949053453,
+            0.04455279706970278
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007732,
+            0.03817260004729441,
+            0.07456568094429065
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 402.7769725649837,
+          "discrete_torque_Nm": 26.70514008007732,
+          "thrust_error_fraction": 3.6693480289331965e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.5964179187141206e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649865,
+            -0.3249822322679297,
+            0.1421861489104667
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007737,
+            -0.039958241189332,
+            0.05191956517086027
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 402.7769725649865,
+          "discrete_torque_Nm": 26.70514008007737,
+          "thrust_error_fraction": 3.3870904882460272e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.4589054905472613e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418308,
+            -0.2651398207990367,
+            0.1409900478507671
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.5000000000011,
+            0.2655637519444016,
+            0.06064649496182317
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 1549.054853418308,
+          "discrete_torque_Nm": 127.5000000000011,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 8.4707839871008e-15,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_rpm100_rke": {
+      "native_case": "03_cases\\medium_rpm100_rke\\block_20261126_050624_479020.cas.h5",
+      "native_data": "03_cases\\medium_rpm100_rke\\block_20261126_050624_479020.dat.h5",
+      "source": "03_cases\\medium_rpm100_rke\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            402.8328178270427,
+            -0.04460931486821795,
+            -0.06872284317709719
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70976851434113,
+            0.2868177260241657,
+            0.080335621698775
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.003488411959163152,
+          "raw_torque_weight_volume_m3": 0.004749765366133671,
+          "discrete_thrust_N": 402.8328178270427,
+          "discrete_torque_Nm": 26.70976851434113,
+          "thrust_error_fraction": 9.877644382898647e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.3942119222812867e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649835,
+            -0.1237218913260991,
+            0.1159945690160725
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007727,
+            0.008643947833549267,
+            0.004343392054391748
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499944572943206,
+          "raw_torque_weight_volume_m3": 0.004764384257778424,
+          "discrete_thrust_N": 402.7769725649835,
+          "discrete_torque_Nm": 26.70514008007727,
+          "thrust_error_fraction": 4.0927343399639496e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.660696531190201e-16,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649842,
+            -0.02480426053144669,
+            -0.1241970673188485
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007714,
+            0.006606317070330547,
+            0.07676555082721676
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003499038685454767,
+          "raw_torque_weight_volume_m3": 0.004761076544772211,
+          "discrete_thrust_N": 402.7769725649842,
+          "discrete_torque_Nm": 26.70514008007714,
+          "thrust_error_fraction": 2.399189095840936e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.188358235820892e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649883,
+            -0.04408937499167359,
+            -0.2770991203035675
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007718,
+            0.003833014796200451,
+            0.01012564734436322
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003503723521319828,
+          "raw_torque_weight_volume_m3": 0.00477526866744367,
+          "discrete_thrust_N": 402.7769725649883,
+          "discrete_torque_Nm": 26.70514008007718,
+          "thrust_error_fraction": 7.762082368897146e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.724975143666282e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649837,
+            -0.06677125949053453,
+            0.04455279706970278
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007732,
+            0.03817260004729441,
+            0.07456568094429065
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502920600695756,
+          "raw_torque_weight_volume_m3": 0.004769538133285832,
+          "discrete_thrust_N": 402.7769725649837,
+          "discrete_torque_Nm": 26.70514008007732,
+          "thrust_error_fraction": 3.6693480289331965e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 1.5964179187141206e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            402.7769725649865,
+            -0.3249822322679297,
+            0.1421861489104667
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.70514008007737,
+            -0.039958241189332,
+            0.05191956517086027
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003502380344916945,
+          "raw_torque_weight_volume_m3": 0.004767023241453102,
+          "discrete_thrust_N": 402.7769725649865,
+          "discrete_torque_Nm": 26.70514008007737,
+          "thrust_error_fraction": 3.3870904882460272e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.4589054905472613e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418308,
+            -0.2651398207990367,
+            0.1409900478507671
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.5000000000011,
+            0.2655637519444016,
+            0.06064649496182317
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 1549.054853418308,
+          "discrete_torque_Nm": 127.5000000000011,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 8.4707839871008e-15,
+          "torque_passes": true
+        }
+      ]
+    },
+    "medium_opt_hlp_vector10": {
+      "native_case": "03_cases\\medium_opt_hlp_vector10\\block_20261125_225441_739217.cas.h5",
+      "native_data": "03_cases\\medium_opt_hlp_vector10\\block_20261125_225441_739217.dat.h5",
+      "source": "03_cases\\medium_opt_hlp_vector10\\fluent_discrete_disk_integrals.json",
+      "disks": [
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            0.88832
+          ],
+          "discrete_force_vector_N": [
+            396.6981157927186,
+            -70.03492897212136,
+            1.596849139987007
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.34625248208648,
+            -4.398403815270579,
+            -1.041244817659251
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            0.984807753012208,
+            -0.17364817766693033,
+            0.0
+          ],
+          "thrust_target_N": 402.83281782704665,
+          "torque_target_Nm": 26.709768514341192,
+          "raw_thrust_weight_volume_m3": 0.003451817931129137,
+          "raw_torque_weight_volume_m3": 0.004698237300526134,
+          "discrete_thrust_N": 402.8328178270484,
+          "discrete_torque_Nm": 26.70976851434101,
+          "thrust_error_fraction": 4.374385369569401e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 6.783600446463646e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.62876,
+            0.00245,
+            1.46443
+          ],
+          "discrete_force_vector_N": [
+            396.6247863033563,
+            -70.12920112521701,
+            -0.3236328008728953
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.29845626209261,
+            -4.642815558147551,
+            0.07976620321771377
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-2",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            0.984807753012208,
+            -0.17364817766693033,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003518129137669052,
+          "raw_torque_weight_volume_m3": 0.004775096036805569,
+          "discrete_thrust_N": 402.7769725649858,
+          "discrete_torque_Nm": 26.70514008007713,
+          "thrust_error_fraction": 1.5524164737794292e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 5.587462715499422e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.67906,
+            0.00245,
+            2.04055
+          ],
+          "discrete_force_vector_N": [
+            396.6805929454397,
+            -69.81270593055899,
+            1.835684636641652
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.31141271196257,
+            -4.56933587955344,
+            -1.142808020336923
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-3",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            0.984807753012208,
+            -0.17364817766693033,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.00346782420527811,
+          "raw_torque_weight_volume_m3": 0.004718756453694689,
+          "discrete_thrust_N": 402.7769725649855,
+          "discrete_torque_Nm": 26.70514008007709,
+          "thrust_error_fraction": 8.467726220615068e-16,
+          "thrust_passes": true,
+          "torque_error_fraction": 7.050845807654032e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59121,
+            0.00245,
+            2.61666
+          ],
+          "discrete_force_vector_N": [
+            396.6872533187117,
+            -69.77493307669172,
+            0.5299444765130759
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.29834625625733,
+            -4.643439432241627,
+            -0.1092047048858863
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-4",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            0.984807753012208,
+            -0.17364817766693033,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003459056665285923,
+          "raw_torque_weight_volume_m3": 0.004704456967092141,
+          "discrete_thrust_N": 402.7769725649888,
+          "discrete_torque_Nm": 26.70514008007722,
+          "thrust_error_fraction": 9.032241301989407e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.128557224952161e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.64151,
+            0.00245,
+            3.19277
+          ],
+          "discrete_force_vector_N": [
+            396.6799010290606,
+            -69.8166299833398,
+            0.5821466679683746
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.32007006307164,
+            -4.520237601601377,
+            -0.2406587146502821
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-5",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            0.984807753012208,
+            -0.17364817766693033,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003449946728254075,
+          "raw_torque_weight_volume_m3": 0.004703075784938399,
+          "discrete_thrust_N": 402.776972564985,
+          "discrete_torque_Nm": 26.70514008007722,
+          "thrust_error_fraction": 4.233863110307534e-16,
+          "thrust_passes": true,
+          "torque_error_fraction": 2.128557224952161e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.55365,
+            0.00245,
+            3.76889
+          ],
+          "discrete_force_vector_N": [
+            396.5988381256726,
+            -70.27636055357875,
+            0.04150244542877329
+          ],
+          "discrete_moment_about_center_Nm": [
+            26.29842194159269,
+            -4.643010199376137,
+            0.2827203146548197
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "HLP-6",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            0.984807753012208,
+            -0.17364817766693033,
+            0.0
+          ],
+          "thrust_target_N": 402.77697256498516,
+          "torque_target_Nm": 26.70514008007728,
+          "raw_thrust_weight_volume_m3": 0.003457801362390501,
+          "raw_torque_weight_volume_m3": 0.004703427686948248,
+          "discrete_thrust_N": 402.7769725649861,
+          "discrete_torque_Nm": 26.70514008007737,
+          "thrust_error_fraction": 2.399189095840936e-15,
+          "thrust_passes": true,
+          "torque_error_fraction": 3.4589054905472613e-15,
+          "torque_passes": true
+        },
+        {
+          "center_m": [
+            -0.59053,
+            0.1339,
+            4.81917
+          ],
+          "discrete_force_vector_N": [
+            1549.054853418308,
+            -0.2651398207990367,
+            0.1409900478507671
+          ],
+          "discrete_moment_about_center_Nm": [
+            127.5000000000011,
+            0.2655637519444016,
+            0.06064649496182317
+          ],
+          "vector_load_convention": "Momentum source on fluid; negate for structural reaction.",
+          "name": "WT-1",
+          "active": true,
+          "spin_sign": 1,
+          "thrust_axis": [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_target_N": 1549.0548534183265,
+          "torque_target_Nm": 127.50000000000001,
+          "raw_thrust_weight_volume_m3": 0.03158463248524987,
+          "raw_torque_weight_volume_m3": 0.04216672324870411,
+          "discrete_thrust_N": 1549.054853418308,
+          "discrete_torque_Nm": 127.5000000000011,
+          "thrust_error_fraction": 1.1889357998046415e-14,
+          "thrust_passes": true,
+          "torque_error_fraction": 8.4707839871008e-15,
+          "torque_passes": true
+        }
+      ]
+    }
+  }
 }

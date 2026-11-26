@@ -87,6 +87,11 @@ if not run["resume"]:
         reports.force[report] = dict(zones=zones,force_vector=axis)
     reports.moment["section-pitch"] = dict(zones=airfoils,mom_axis=[0,0,1],mom_center=[0,0,0])
     names = ["section-lift","section-drag","main-lift","section-pitch"]
+    hist = work/"force_history.out"
+    if hist.exists():
+        # Fresh (mesh) start: an old history belongs to a discarded block and makes Fluent stop at the interactive
+        # "file already exists - create new file?" question (P10, 2026-11-25 23:15); same fix as the 3D worker.
+        hist.replace(work/("force_history.out.superseded_"+stem))
     s.solution.monitor.report_files["section-history"] = dict(report_defs=names,file_name=str(work/"force_history.out"),frequency=1)
     s.solution.monitor.report_plots["section-forces"] = dict(report_defs=names[:3],active=True,frequency=1,title="Section forces per metre span")
     s.solution.monitor.report_plots["section-moment"] = dict(report_defs=names[3:],active=True,frequency=1,title="Pitch moment per metre span")
@@ -140,9 +145,28 @@ with (work/(stem+"_residuals.csv")).open("w",newline="") as stream:
     writer=csv.writer(stream)
     writer.writerow(header)
     writer.writerows(rows)
+def report_value(raw, name):
+    """reports.compute returns [{name: [value, unit]}] in 25.2; assess_fluent_case.flux_value needs the bare value."""
+    r = raw
+    if isinstance(r, (list, tuple)) and len(r) == 1 and isinstance(r[0], dict):
+        r = r[0]
+    if isinstance(r, dict):
+        r = r[name]
+    unit = ""
+    if isinstance(r, (list, tuple)):
+        r, unit = r[0], (str(r[1]) if len(r) > 1 else "")
+    value = float(r)
+    if value != value or value in (float("inf"), float("-inf")):
+        raise ValueError(f"Nonfinite native report {name}")
+    return value, unit
+
+
 flux={}
+units={}
 for zone in ["ambient_top","outlet"]+[b["zone"] for b in inlet["open_bands"]]:
-    flux[zone]=reports.compute(report_defs=["mass-"+zone])
+    flux[zone],units[zone]=report_value(reports.compute(report_defs=["mass-"+zone]),"mass-"+zone)
+    flux[zone]={"mass-"+zone:flux[zone]}
 (work/(stem+"_flux.json")).write_text(json.dumps(flux,indent=2),encoding="utf-8")
+(work/(stem+"_flux_units.json")).write_text(json.dumps(units,indent=2),encoding="utf-8")
 print("X57-SECTION-BLOCK-SAVED",stem,flush=True)
 

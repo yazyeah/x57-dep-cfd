@@ -1,0 +1,9 @@
+case,part,faces,full_area_m2,D_pressure_N,D_viscous_N,L_pressure_N,L_viscous_N,source
+fine_rpm100,wall_empennage,5784,8.27570476423191,31.14253725047228,9.374294605454999,-98.53589463128054,-0.08301075890391843,Fluent terminal face pressures and integrated shear; full-aircraft x/y loads
+fine_rpm100,wall_fuselage,2305,24.598045793633833,-8.266792352830963,3.432902908800311,-7.958770049708016,-0.013540870972800408,Fluent terminal face pressures and integrated shear; full-aircraft x/y loads
+fine_rpm100,wall_nacelles,9170,7.692479074475825,0.6391255054704937,8.585982668690576,-214.64283351285428,-2.9813797219676217,Fluent terminal face pressures and integrated shear; full-aircraft x/y loads
+fine_rpm100,wall_sponson,955,1.180448399977167,0.4209831688826149,0.02193073072712685,1.1152851609620211,0.008048705816508402,Fluent terminal face pressures and integrated shear; full-aircraft x/y loads
+fine_rpm100,wall_wing,12201,10.535836437353131,124.5215772369557,24.230892733642325,153.25916076778933,0.7419027036129892,Fluent terminal face pressures and integrated shear; full-aircraft x/y loads
+fine_rpm100,wing_upper,5593,5.672979386435474,49.50594609900749,9.797643983172259,375.5433233563648,1.2541966713001482,Fluent terminal face pressures and integrated shear; full-aircraft x/y loads
+fine_rpm100,wing_lower,6588,4.862603582876443,75.0044124192017,14.433247702703952,-222.28416258857843,-0.5121163530204087,Fluent terminal face pressures and integrated shear; full-aircraft x/y loads
+fine_rpm100,wing_edge,20,0.00025346804121375725,0.011218718746244938,1.0477661327679964e-06,0.0,-0.00017761466674790364,Fluent terminal face pressures and integrated shear; full-aircraft x/y loads

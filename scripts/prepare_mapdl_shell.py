@@ -13,8 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / '03_cases/fsi_structural'
 GEO = ROOT / '01_geometry'
 WALLS = ['wall_wing','wall_fuselage','wall_nacelles','wall_sponson','wall_empennage']
-SECTIONS = WALLS + ['main_web','aft_web','wing_ribs']
-GAUGES = [.0025,.0018,.0035,.0020,.0018,.003,.0025,.002]
+SECTIONS = WALLS + ['main_web','aft_web','wing_ribs','carry_covers']
+GAUGES = [.0025,.0018,.0035,.0020,.0018,.003,.0025,.002,.0025]
+# Model B (2026-11-26): the 30 %/65 % chord spar webs continue from the first exposed rib (z = 0.67 m) through the
+# fuselage to the symmetry plane, closed by upper/lower carry-through covers (wing-skin gauge 2.5 mm) where the
+# fuselage replaces the wing skin, with a side-of-body rib at the wing/fuselage junction. Model A ended the box at
+# z = 0.67 m, so the wing bending and the thrust in-plane moment reached the symmetry plane only through the thin
+# fuselage skin (singular junction peak, minimum yield FoS 0.62).
+CARRY_THROUGH = True
 DT = np.dtype([('normal','<f4',3),('v','<f4',(3,3)),('attr','<u2')])
 
 def canonical_faces(t):
@@ -116,19 +122,43 @@ def add_wingbox(v,f,tag,step):
     for a,b in zip(ribs,ribs[1:]):
         segments.extend(np.linspace(a,b,1+round((b-a)/step))[:-1]);rib_indices.append(len(segments))
     stations=np.r_[segments,ribs[-1]]
+    junction=None
+    if CARRY_THROUGH:
+        # Inboard stations from the symmetry plane (z = 0 exactly, so they join the symmetry constraint set) to the
+        # first exposed rib. Where the structural wing skin exists the webs are tied to skin nodes as outboard;
+        # inside the fuselage (below the lowest wing-skin node) they get their own cap nodes at the CAD section.
+        inboard=np.linspace(0.,ribs[0],1+max(2,round(ribs[0]/step)))[:-1]
+        stations=np.r_[inboard,stations];rib_indices=[i+len(inboard) for i in rib_indices]
+        # Side-of-body station: the first inboard station from which every station out to the first exposed rib
+        # has all four web caps (both webs, top and bottom) within 0.75 step of a wing-skin node.
+        def cap_distance(z):
+            cut=section_segments(cad,max(z,.005));worst=0.
+            for frac in (.30,.65):
+                x=cut[:,:,0].min()+frac*np.ptp(cut[:,:,0]);e=heights(cut,x)
+                for tree,y in zip(trees,[e.max(),e.min()]):worst=max(worst,float(tree.query([x,y,z])[0]))
+            return worst
+        tied=[cap_distance(z)<=.75*step for z in inboard]
+        junction=len(inboard)
+        while junction>0 and tied[junction-1]:junction-=1
     maxerr=0.;webs=[]
     for g,frac in [(5,.30),(6,.65)]:
         grid=[]
-        for z in stations:
-            cut=section_segments(cad,z);x=cut[:,:,0].min()+frac*np.ptp(cut[:,:,0])
+        for i,z in enumerate(stations):
+            cut=section_segments(cad,max(z,.005));x=cut[:,:,0].min()+frac*np.ptp(cut[:,:,0])
             elevations=heights(cut,x)
             if len(elevations)<2:raise ValueError(('Wing box CAD section missing',x,z))
-            anchors=[]
-            for tree,ids,y in zip(trees,surf,[elevations.max(),elevations.min()]):
-                dist,ix=tree.query([x,y,z]);maxerr=max(maxerr,float(dist));anchors.append(ids[ix])
-            top,bottom=anchors
-            assert v[top,1]>v[bottom,1]
-            mid=len(output);output.append(((v[top]+v[bottom])*.5).tolist())
+            if junction is not None and i<junction:
+                top=len(output);output.append([x,float(elevations.max()),z])
+                bottom=len(output);output.append([x,float(elevations.min()),z])
+                pts=np.array(output)
+            else:
+                anchors=[]
+                for tree,ids,y in zip(trees,surf,[elevations.max(),elevations.min()]):
+                    dist,ix=tree.query([x,y,z]);maxerr=max(maxerr,float(dist));anchors.append(ids[ix])
+                top,bottom=anchors
+                pts=v
+            assert pts[top,1]>pts[bottom,1]
+            mid=len(output);output.append(((np.asarray(output[top])+np.asarray(output[bottom]))*.5).tolist())
             grid.append([top,mid,bottom])
         grid=np.array(grid);webs.append(grid)
         for a,b in zip(grid,grid[1:]):
@@ -136,10 +166,16 @@ def add_wingbox(v,f,tag,step):
                 loop=list(dict.fromkeys([a[k],b[k],b[k+1],a[k+1]]))
                 if len(loop)==3:loop.append(loop[-1])
                 if len(loop)==4:elements.append(loop);groups.append(g)
-    for i in rib_indices:
+    for i in rib_indices+([junction] if junction else []):
         a,b=webs[0][i],webs[1][i]
         for k in (0,1):
             elements.append([a[k],b[k],b[k+1],a[k+1]]);groups.append(7)
+    if junction:
+        # Carry-through covers between the two webs, from the symmetry plane to the side-of-body rib.
+        for i in range(junction):
+            for k in (0,2):
+                a,b,c,d=webs[0][i][k],webs[1][i][k],webs[1][i+1][k],webs[0][i+1][k]
+                elements.append([a,b,c,d]);groups.append(8)
     return np.array(output),np.array(elements),np.array(groups),maxerr
 
 def build(level):
@@ -214,7 +250,7 @@ def build(level):
         for ele,group in zip(elements,sect):
             if group!=current:
                 # Spar webs use +span; ribs and nacelles use +chord as their in-plane reference.
-                h.write(f'SECNUM,{group+1}\nESYS,{11 if group in (0,5,6) else 12}\n')
+                h.write(f'SECNUM,{group+1}\nESYS,{11 if group in (0,5,6,8) else 12}\n')
                 current=group
             h.write('E,'+','.join(str(int(index+1)) for index in ele)+'\n')
         for key,mask in [('PYLON',is_pylon),('WINGBOX',is_box)]+[(name.replace('wall_','').upper(),sect==j) for j,name in enumerate(WALLS)]:
@@ -234,9 +270,9 @@ def build(level):
         'tail_attachment_rigid_pairs_1based':(np.asarray(lug_pairs)+1).tolist(),'max_surrogate_lug_length_m':float(max(np.linalg.norm(v[a]-v[b]) for a,b in lug_pairs)),'components':list(SECTIONS),'shell_gauges_m':GAUGES,'area_by_section_m2':np.bincount(sect,weights=area).tolist(),
         'maximum_web_anchor_distance_from_section_target_m':tie_error,'gear_patch_nodes':[len(nose),len(main)],
         'symmetry_nodes':len(sym),'wingtip_readout_nodes':len(tip),'geometric_source':source['source_surface_dir'],'geometry_signature':source['signature'],'geometry_lock':str(lock),
-        'shear_axes':'SHELL181 local x is the projected positive span for wing skin and spar webs, positive chord for ribs and other exterior shells. MAPDL uses local y where x is nearly normal. Local y completes the right-handed x, y, shell normal frame. Spar normals point approximately aft; rib normals approximately inboard.',
+        'carry_through':CARRY_THROUGH,'shear_axes':'SHELL181 local x is the projected positive span for wing skin, spar webs and carry-through covers, positive chord for ribs and other exterior shells. MAPDL uses local y where x is nearly normal. Local y completes the right-handed x, y, shell normal frame. Spar normals point approximately aft; rib normals approximately inboard.',
         'material':{'name':'assumed homogeneous 7075-T6','E_Pa':71.7e9,'nu':.33,'density_kg_m3':2810,'nominal_yield_Pa':503e6},
-        'assumptions':'Half airframe. Actual exterior CAD represented by the qualified P2 coarse surface, fixed across the structural refinement study. No measured internal structure or material layup. Shell midsurfaces coincide with the exterior, component joints are bonded via shared nodes. The separated horizontal stabilizer root uses four assumed rigid offsets at two chord and span stations, with all six DOFs coupled. Where topologically separate, the trim-fixed inboard control surface uses three assumed hinge links to the stabilizer. PYLON is an engineering subregion of the nacelle skins at the wing attachment; WINGBOX comprises the two internal webs and ribs. Skin triangle pairs form SHELL181 quadrilaterals only below the MAPDL warping limit (diagonal gap < shell thickness); the rest stay triangles. Two surrogate webs at 30%/65% chord joined to skin nodes; eight ribs on exposed semi-wing. Nose and main gear attach to assumed finite patches. Static symmetric taxi load only; no gravity, gear dynamics, cabin pressure or design flight loads.'}
+        'assumptions':'Half airframe. Actual exterior CAD represented by the qualified P2 coarse surface, fixed across the structural refinement study. No measured internal structure or material layup. Shell midsurfaces coincide with the exterior, component joints are bonded via shared nodes. The separated horizontal stabilizer root uses four assumed rigid offsets at two chord and span stations, with all six DOFs coupled. Where topologically separate, the trim-fixed inboard control surface uses three assumed hinge links to the stabilizer. PYLON is an engineering subregion of the nacelle skins at the wing attachment; WINGBOX comprises the two internal webs, ribs and (model B) the carry-through covers. Skin triangle pairs form SHELL181 quadrilaterals only below the MAPDL warping limit (diagonal gap < shell thickness); the rest stay triangles. Two surrogate webs at 30%/65% chord joined to skin nodes; eight ribs on exposed semi-wing. Model B: webs continued through the fuselage to the symmetry plane with upper/lower carry-through covers (2.5 mm) and a side-of-body rib; the inboard box section follows the CAD wing section, cap nodes inside the fuselage are not tied to the fuselage skin. Nose and main gear attach to assumed finite patches. Static symmetric taxi load only; no gravity, gear dynamics, cabin pressure or design flight loads.'}
     if geometry()!=source:raise ValueError('Accepted source changed while generating the structural model')
     files=hashes([out/'model.inp',out/'shell_mesh.npz'])
     stats['model_generator_sha256']=source_hash(Path(__file__))

@@ -1,0 +1,1634 @@
+{
+  "CFD_load_grid_fluid_volume_m3": [
+    18908.235965991924,
+    18908.235689104986,
+    18908.235610487558
+  ],
+  "CFD_mesh_sha256": [
+    "ce3e289be40943f45370aedf985f22a0bb0d41cd6dc7f97f815d73b17ad56e11",
+    "9e823d3ec4e1463819d23831663c8ac5f985f7afa2f8c7c3fba17b1914e6d9cd",
+    "83fabc220d093ce22289021b1d81bb9d978e511a84f09a9250a67b989857101e"
+  ],
+  "CFD_load_grid_cells": [
+    292178,
+    570033,
+    952382
+  ],
+  "CFD_load_grid_GCI_fixed_structure": {
+    "peak_element_average_top_or_bottom_von_mises_Pa": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118264,
+        0.321304644167111,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        277426720.5457,
+        277419419.72,
+        277225487.6654
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479738,
+      "r21": 1.1865983152479738,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": 7300.825699985027,
+      "epsilon21": 193932.05460000038,
+      "epsilon32_over_epsilon21": 0.037646307182397136,
+      "observed_order": 27.523296939911184,
+      "order_candidates": [
+        27.523296939911184
+      ],
+      "celik_log_branch": "noncontracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 27.523296939911184,
+        "extrapolated": 277223723.66565955,
+        "extrapolated_32": 277419403.81934685,
+        "fine_absolute_GCI": 2204.999675628115,
+        "medium_absolute_GCI": 19.875816447726166,
+        "fine_percent_GCI": 0.0007953812956366625,
+        "medium_percent_GCI": 7.164536811369178e-06,
+        "approximate_relative_error_21_pct": 0.06995462655081287,
+        "approximate_relative_error_32_pct": 0.0026316923693928008,
+        "extrapolated_relative_error_21_pct": 0.000636309085376088,
+        "extrapolated_relative_error_32_pct": 5.731629777611123e-06,
+        "asymptotic_ratio": 8.119498241789342e-05
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 276750182.13105094,
+        "extrapolated_32": 277406414.0007346,
+        "fine_absolute_GCI": 594131.9179363352,
+        "medium_absolute_GCI": 16257.149081738089,
+        "fine_percent_GCI": 0.21431359826966143,
+        "medium_percent_GCI": 0.005860133763579516,
+        "approximate_relative_error_21_pct": 0.06995462655081287,
+        "approximate_relative_error_32_pct": 0.0026316923693928008,
+        "extrapolated_relative_error_21_pct": 0.1717453375058645,
+        "extrapolated_relative_error_32_pct": 0.004688326804641233,
+        "asymptotic_ratio": 0.01942005012532485
+      },
+      "half_range_U_osc": 100616.4401499927,
+      "range_midpoint": 277326104.10555005,
+      "observed_range_interval": [
+        277225487.6654,
+        277426720.5457
+      ],
+      "reported_fine_absolute_uncertainty": 594131.9179363352,
+      "reported_medium_absolute_uncertainty": 193932.05459997058,
+      "reported_fine_percent_uncertainty": 0.21431359826966143,
+      "reported_medium_percent_uncertainty": 0.06990572426245667,
+      "reported_fine_interval": [
+        276631355.7474637,
+        277819619.58333635
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 277223723.66565955,
+      "extrapolated_32": 277419403.81934685,
+      "fine_absolute_GCI": 2204.999675628115,
+      "medium_absolute_GCI": 19.875816447726166,
+      "fine_percent_GCI": 0.0007953812956366625,
+      "medium_percent_GCI": 7.164536811369178e-06,
+      "approximate_relative_error_21_pct": 0.06995462655081287,
+      "approximate_relative_error_32_pct": 0.0026316923693928008,
+      "extrapolated_relative_error_21_pct": 0.000636309085376088,
+      "extrapolated_relative_error_32_pct": 5.731629777611123e-06,
+      "asymptotic_ratio": 8.119498241789342e-05,
+      "h_m": [
+        0.4014836223118264,
+        0.321304644167111,
+        0.2707779372668039
+      ],
+      "values": [
+        277426720.5457,
+        277419419.72,
+        277225487.6654
+      ],
+      "refinement_ratios": [
+        1.249541921040563,
+        1.1865983152479738
+      ],
+      "GCI_fine_percent": 0.0007953812956366625,
+      "passed_3_percent": true
+    },
+    "area_weighted_p99_von_mises_Pa": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118264,
+        0.321304644167111,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        50539693.33834,
+        50287524.83061,
+        50228243.32593
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479738,
+      "r21": 1.1865983152479738,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": 252168.50772999972,
+      "epsilon21": 59281.504680000246,
+      "epsilon32_over_epsilon21": 4.25374674767784,
+      "observed_order": 5.866291240678982,
+      "order_candidates": [
+        5.866291240678982
+      ],
+      "celik_log_branch": "contracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 5.866291240678982,
+        "extrapolated": 50193942.25385953,
+        "extrapolated_32": 50193942.25385953,
+        "fine_absolute_GCI": 42876.340088090714,
+        "medium_absolute_GCI": 116978.22093809102,
+        "fine_percent_GCI": 0.08536300943249608,
+        "medium_percent_GCI": 0.23261876843635468,
+        "approximate_relative_error_21_pct": 0.11802424443818157,
+        "approximate_relative_error_32_pct": 0.5014534093284798,
+        "extrapolated_relative_error_21_pct": 0.06833707521316496,
+        "extrapolated_relative_error_32_pct": 0.186441973968038,
+        "asymptotic_ratio": 0.998821148885739
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 50082951.06201282,
+        "extrapolated_32": 49838310.87127448,
+        "fine_absolute_GCI": 181615.32989647554,
+        "medium_absolute_GCI": 561517.4491694052,
+        "fine_percent_GCI": 0.361580094923841,
+        "medium_percent_GCI": 1.1166138143820705,
+        "approximate_relative_error_21_pct": 0.11802424443818157,
+        "approximate_relative_error_32_pct": 0.5014534093284798,
+        "extrapolated_relative_error_21_pct": 0.29010324039667557,
+        "extrapolated_relative_error_32_pct": 0.9013426648743819,
+        "asymptotic_ratio": 2.19326459123168
+      },
+      "half_range_U_osc": 155725.00620499998,
+      "range_midpoint": 50383968.332135,
+      "observed_range_interval": [
+        50228243.32593,
+        50539693.33834
+      ],
+      "reported_fine_absolute_uncertainty": 311450.01240999997,
+      "reported_medium_absolute_uncertainty": 561517.4491694052,
+      "reported_fine_percent_uncertainty": 0.6200694903642309,
+      "reported_medium_percent_uncertainty": 1.1166138143820705,
+      "reported_fine_interval": [
+        49916793.31352,
+        50539693.33834
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 50193942.25385953,
+      "extrapolated_32": 50193942.25385953,
+      "fine_absolute_GCI": 42876.340088090714,
+      "medium_absolute_GCI": 116978.22093809102,
+      "fine_percent_GCI": 0.08536300943249608,
+      "medium_percent_GCI": 0.23261876843635468,
+      "approximate_relative_error_21_pct": 0.11802424443818157,
+      "approximate_relative_error_32_pct": 0.5014534093284798,
+      "extrapolated_relative_error_21_pct": 0.06833707521316496,
+      "extrapolated_relative_error_32_pct": 0.186441973968038,
+      "asymptotic_ratio": 0.998821148885739,
+      "h_m": [
+        0.4014836223118264,
+        0.321304644167111,
+        0.2707779372668039
+      ],
+      "values": [
+        50539693.33834,
+        50287524.83061,
+        50228243.32593
+      ],
+      "refinement_ratios": [
+        1.249541921040563,
+        1.1865983152479738
+      ],
+      "GCI_fine_percent": 0.08536300943249608,
+      "passed_3_percent": true
+    },
+    "wingtip_patch_mean_displacement_magnitude_m": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118264,
+        0.321304644167111,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        0.02893713108056322,
+        0.02887233222947066,
+        0.0288110921591945
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479738,
+      "r21": 1.1865983152479738,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": 6.479885109256234e-05,
+      "epsilon21": 6.124007027615702e-05,
+      "epsilon32_over_epsilon21": 1.0581119649333728,
+      "observed_order": 1.4406427440510396,
+      "order_candidates": [
+        1.4406427440510396
+      ],
+      "celik_log_branch": "noncontracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 1.4406427440510396,
+        "extrapolated": 0.028591997529452445,
+        "extrapolated_32": 0.028701099568017436,
+        "fine_absolute_GCI": 0.00027386828717757163,
+        "medium_absolute_GCI": 0.00021404082681652608,
+        "fine_percent_GCI": 0.9505654477252153,
+        "medium_percent_GCI": 0.7413354249160713,
+        "approximate_relative_error_21_pct": 0.21255726765850297,
+        "approximate_relative_error_32_pct": 0.2244323408914665,
+        "extrapolated_relative_error_21_pct": 0.7662795490814143,
+        "extrapolated_relative_error_32_pct": 0.596606624939314,
+        "asymptotic_ratio": 0.6095194992769657
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 0.02866099967249229,
+        "extrapolated_32": 0.028756899304393235,
+        "fine_absolute_GCI": 0.0001876156083777656,
+        "medium_absolute_GCI": 0.00014429115634678052,
+        "fine_percent_GCI": 0.6511922815737192,
+        "medium_percent_GCI": 0.4997558049692266,
+        "approximate_relative_error_21_pct": 0.21255726765850297,
+        "approximate_relative_error_32_pct": 0.2244323408914665,
+        "extrapolated_relative_error_21_pct": 0.5236819664956257,
+        "extrapolated_relative_error_32_pct": 0.40140949778889956,
+        "asymptotic_ratio": 0.5450560296030318
+      },
+      "half_range_U_osc": 6.301946068435968e-05,
+      "range_midpoint": 0.02887411161987886,
+      "observed_range_interval": [
+        0.0288110921591945,
+        0.02893713108056322
+      ],
+      "reported_fine_absolute_uncertainty": 0.00027386828717757163,
+      "reported_medium_absolute_uncertainty": 0.00021404082681652608,
+      "reported_fine_percent_uncertainty": 0.9505654477252153,
+      "reported_medium_percent_uncertainty": 0.7413354249160713,
+      "reported_fine_interval": [
+        0.02853722387201693,
+        0.02908496044637207
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 0.028591997529452445,
+      "extrapolated_32": 0.028701099568017436,
+      "fine_absolute_GCI": 0.00027386828717757163,
+      "medium_absolute_GCI": 0.00021404082681652608,
+      "fine_percent_GCI": 0.9505654477252153,
+      "medium_percent_GCI": 0.7413354249160713,
+      "approximate_relative_error_21_pct": 0.21255726765850297,
+      "approximate_relative_error_32_pct": 0.2244323408914665,
+      "extrapolated_relative_error_21_pct": 0.7662795490814143,
+      "extrapolated_relative_error_32_pct": 0.596606624939314,
+      "asymptotic_ratio": 0.6095194992769657,
+      "h_m": [
+        0.4014836223118264,
+        0.321304644167111,
+        0.2707779372668039
+      ],
+      "values": [
+        0.02893713108056322,
+        0.02887233222947066,
+        0.0288110921591945
+      ],
+      "refinement_ratios": [
+        1.249541921040563,
+        1.1865983152479738
+      ],
+      "GCI_fine_percent": 0.9505654477252153,
+      "passed_3_percent": true
+    }
+  },
+  "component_shell_and_material": [
+    {
+      "level": "coarse",
+      "nodes": 19094,
+      "elements": 25361,
+      "quadrilaterals": 12499,
+      "tail_attachment_rigid_pairs_1based": [
+        [
+          16163,
+          16186
+        ],
+        [
+          16163,
+          16232
+        ],
+        [
+          16666,
+          16674
+        ],
+        [
+          16666,
+          16678
+        ],
+        [
+          17288,
+          17402
+        ],
+        [
+          17221,
+          17412
+        ],
+        [
+          17222,
+          17421
+        ]
+      ],
+      "max_surrogate_lug_length_m": 0.061386624138033447,
+      "components": [
+        "wall_wing",
+        "wall_fuselage",
+        "wall_nacelles",
+        "wall_sponson",
+        "wall_empennage",
+        "main_web",
+        "aft_web",
+        "wing_ribs",
+        "carry_covers"
+      ],
+      "shell_gauges_m": [
+        0.0025,
+        0.0018,
+        0.0035,
+        0.002,
+        0.0018,
+        0.003,
+        0.0025,
+        0.002,
+        0.0025
+      ],
+      "area_by_section_m2": [
+        5.275424107310703,
+        12.33903549883944,
+        3.8925962691316487,
+        0.5928061879050166,
+        4.145967889692364,
+        0.45007718463490753,
+        0.34261965018609186,
+        0.16969973201229363,
+        0.27183846489993657
+      ],
+      "maximum_web_anchor_distance_from_section_target_m": 0.0449736735154767,
+      "gear_patch_nodes": [
+        6,
+        13
+      ],
+      "symmetry_nodes": 564,
+      "wingtip_readout_nodes": 13,
+      "geometric_source": "D:\\FEA Coursework\\Workspace\\01_geometry\\p2_coarse_prism_base_patches",
+      "geometry_signature": "3f23db859e34910b1b9d08c1d1b473ea2a80961f48c267c097e82e4de3c7e24a",
+      "geometry_lock": "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\geometry_locks\\3f23db859e34910b1b9d08c1d1b473ea2a80961f48c267c097e82e4de3c7e24a.json",
+      "carry_through": true,
+      "shear_axes": "SHELL181 local x is the projected positive span for wing skin, spar webs and carry-through covers, positive chord for ribs and other exterior shells. MAPDL uses local y where x is nearly normal. Local y completes the right-handed x, y, shell normal frame. Spar normals point approximately aft; rib normals approximately inboard.",
+      "material": {
+        "name": "assumed homogeneous 7075-T6",
+        "E_Pa": 71700000000.0,
+        "nu": 0.33,
+        "density_kg_m3": 2810,
+        "nominal_yield_Pa": 503000000.0
+      },
+      "assumptions": "Half airframe. Actual exterior CAD represented by the qualified P2 coarse surface, fixed across the structural refinement study. No measured internal structure or material layup. Shell midsurfaces coincide with the exterior, component joints are bonded via shared nodes. The separated horizontal stabilizer root uses four assumed rigid offsets at two chord and span stations, with all six DOFs coupled. Where topologically separate, the trim-fixed inboard control surface uses three assumed hinge links to the stabilizer. PYLON is an engineering subregion of the nacelle skins at the wing attachment; WINGBOX comprises the two internal webs, ribs and (model B) the carry-through covers. Skin triangle pairs form SHELL181 quadrilaterals only below the MAPDL warping limit (diagonal gap < shell thickness); the rest stay triangles. Two surrogate webs at 30%/65% chord joined to skin nodes; eight ribs on exposed semi-wing. Model B: webs continued through the fuselage to the symmetry plane with upper/lower carry-through covers (2.5 mm) and a side-of-body rib; the inboard box section follows the CAD wing section, cap nodes inside the fuselage are not tied to the fuselage skin. Nose and main gear attach to assumed finite patches. Static symmetric taxi load only; no gravity, gear dynamics, cabin pressure or design flight loads.",
+      "model_generator_sha256": "9ea6a9536891e690ae36210452fb667be8d9ea6497c7ca935da5d4db7af190d4",
+      "model_files_sha256": {
+        "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\coarse\\model.inp": "db0376e8da5d2c77efa28c9fde51841ad2a0fe9fedf680084d80151497b52dd2",
+        "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\coarse\\shell_mesh.npz": "256ddd1877dcb77aa7786649821f9d4e2a66d69ded944924f1ca8d190af2a84c"
+      },
+      "model_signature": "79c0e368ad0d1bf850e1304f9126390558a3892565a91319e5fdb1a4a1610912"
+    },
+    {
+      "level": "medium",
+      "nodes": 44495,
+      "elements": 55643,
+      "quadrilaterals": 32706,
+      "tail_attachment_rigid_pairs_1based": [
+        [
+          16163,
+          16186
+        ],
+        [
+          16163,
+          16232
+        ],
+        [
+          16666,
+          16674
+        ],
+        [
+          16666,
+          16678
+        ],
+        [
+          17288,
+          17402
+        ],
+        [
+          17221,
+          17412
+        ],
+        [
+          17222,
+          17421
+        ]
+      ],
+      "max_surrogate_lug_length_m": 0.061386624138033447,
+      "components": [
+        "wall_wing",
+        "wall_fuselage",
+        "wall_nacelles",
+        "wall_sponson",
+        "wall_empennage",
+        "main_web",
+        "aft_web",
+        "wing_ribs",
+        "carry_covers"
+      ],
+      "shell_gauges_m": [
+        0.0025,
+        0.0018,
+        0.0035,
+        0.002,
+        0.0018,
+        0.003,
+        0.0025,
+        0.002,
+        0.0025
+      ],
+      "area_by_section_m2": [
+        5.275170935681452,
+        12.338268904259161,
+        3.890986870057077,
+        0.5927795638030766,
+        4.145905357582389,
+        0.44249888180021574,
+        0.331285420141047,
+        0.1677766632217506,
+        0.27095060940900473
+      ],
+      "maximum_web_anchor_distance_from_section_target_m": 0.04750503200672106,
+      "gear_patch_nodes": [
+        15,
+        45
+      ],
+      "symmetry_nodes": 992,
+      "wingtip_readout_nodes": 49,
+      "geometric_source": "D:\\FEA Coursework\\Workspace\\01_geometry\\p2_coarse_prism_base_patches",
+      "geometry_signature": "3f23db859e34910b1b9d08c1d1b473ea2a80961f48c267c097e82e4de3c7e24a",
+      "geometry_lock": "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\geometry_locks\\3f23db859e34910b1b9d08c1d1b473ea2a80961f48c267c097e82e4de3c7e24a.json",
+      "carry_through": true,
+      "shear_axes": "SHELL181 local x is the projected positive span for wing skin, spar webs and carry-through covers, positive chord for ribs and other exterior shells. MAPDL uses local y where x is nearly normal. Local y completes the right-handed x, y, shell normal frame. Spar normals point approximately aft; rib normals approximately inboard.",
+      "material": {
+        "name": "assumed homogeneous 7075-T6",
+        "E_Pa": 71700000000.0,
+        "nu": 0.33,
+        "density_kg_m3": 2810,
+        "nominal_yield_Pa": 503000000.0
+      },
+      "assumptions": "Half airframe. Actual exterior CAD represented by the qualified P2 coarse surface, fixed across the structural refinement study. No measured internal structure or material layup. Shell midsurfaces coincide with the exterior, component joints are bonded via shared nodes. The separated horizontal stabilizer root uses four assumed rigid offsets at two chord and span stations, with all six DOFs coupled. Where topologically separate, the trim-fixed inboard control surface uses three assumed hinge links to the stabilizer. PYLON is an engineering subregion of the nacelle skins at the wing attachment; WINGBOX comprises the two internal webs, ribs and (model B) the carry-through covers. Skin triangle pairs form SHELL181 quadrilaterals only below the MAPDL warping limit (diagonal gap < shell thickness); the rest stay triangles. Two surrogate webs at 30%/65% chord joined to skin nodes; eight ribs on exposed semi-wing. Model B: webs continued through the fuselage to the symmetry plane with upper/lower carry-through covers (2.5 mm) and a side-of-body rib; the inboard box section follows the CAD wing section, cap nodes inside the fuselage are not tied to the fuselage skin. Nose and main gear attach to assumed finite patches. Static symmetric taxi load only; no gravity, gear dynamics, cabin pressure or design flight loads.",
+      "model_generator_sha256": "9ea6a9536891e690ae36210452fb667be8d9ea6497c7ca935da5d4db7af190d4",
+      "model_files_sha256": {
+        "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\medium\\model.inp": "88ded322ea28067c26ac03c07a1dadddcf27953d683a4d99b7a71bba6c30e7a8",
+        "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\medium\\shell_mesh.npz": "8832c80277f6d91e65574b0a8a02549a1d7d00ca3fd864299161cc4812dc99fe"
+      },
+      "model_signature": "d7f01d3553cb78f06b2fe52c4bda34a3216ce2db52d835d51209b250ffa9ba90"
+    },
+    {
+      "level": "fine",
+      "nodes": 75529,
+      "elements": 91921,
+      "quadrilaterals": 58478,
+      "tail_attachment_rigid_pairs_1based": [
+        [
+          16163,
+          16186
+        ],
+        [
+          16163,
+          16232
+        ],
+        [
+          16666,
+          16674
+        ],
+        [
+          16666,
+          16678
+        ],
+        [
+          17288,
+          17402
+        ],
+        [
+          17221,
+          17412
+        ],
+        [
+          17222,
+          17421
+        ]
+      ],
+      "max_surrogate_lug_length_m": 0.061386624138033447,
+      "components": [
+        "wall_wing",
+        "wall_fuselage",
+        "wall_nacelles",
+        "wall_sponson",
+        "wall_empennage",
+        "main_web",
+        "aft_web",
+        "wing_ribs",
+        "carry_covers"
+      ],
+      "shell_gauges_m": [
+        0.0025,
+        0.0018,
+        0.0035,
+        0.002,
+        0.0018,
+        0.003,
+        0.0025,
+        0.002,
+        0.0025
+      ],
+      "area_by_section_m2": [
+        5.275081087569488,
+        12.33827135837363,
+        3.890805716842191,
+        0.5927586590698819,
+        4.145856060953105,
+        0.44848176029644815,
+        0.3360069654035812,
+        0.16740615760941124,
+        0.27289060806416815
+      ],
+      "maximum_web_anchor_distance_from_section_target_m": 0.04903072326606169,
+      "gear_patch_nodes": [
+        17,
+        46
+      ],
+      "symmetry_nodes": 1122,
+      "wingtip_readout_nodes": 50,
+      "geometric_source": "D:\\FEA Coursework\\Workspace\\01_geometry\\p2_coarse_prism_base_patches",
+      "geometry_signature": "3f23db859e34910b1b9d08c1d1b473ea2a80961f48c267c097e82e4de3c7e24a",
+      "geometry_lock": "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\geometry_locks\\3f23db859e34910b1b9d08c1d1b473ea2a80961f48c267c097e82e4de3c7e24a.json",
+      "carry_through": true,
+      "shear_axes": "SHELL181 local x is the projected positive span for wing skin, spar webs and carry-through covers, positive chord for ribs and other exterior shells. MAPDL uses local y where x is nearly normal. Local y completes the right-handed x, y, shell normal frame. Spar normals point approximately aft; rib normals approximately inboard.",
+      "material": {
+        "name": "assumed homogeneous 7075-T6",
+        "E_Pa": 71700000000.0,
+        "nu": 0.33,
+        "density_kg_m3": 2810,
+        "nominal_yield_Pa": 503000000.0
+      },
+      "assumptions": "Half airframe. Actual exterior CAD represented by the qualified P2 coarse surface, fixed across the structural refinement study. No measured internal structure or material layup. Shell midsurfaces coincide with the exterior, component joints are bonded via shared nodes. The separated horizontal stabilizer root uses four assumed rigid offsets at two chord and span stations, with all six DOFs coupled. Where topologically separate, the trim-fixed inboard control surface uses three assumed hinge links to the stabilizer. PYLON is an engineering subregion of the nacelle skins at the wing attachment; WINGBOX comprises the two internal webs, ribs and (model B) the carry-through covers. Skin triangle pairs form SHELL181 quadrilaterals only below the MAPDL warping limit (diagonal gap < shell thickness); the rest stay triangles. Two surrogate webs at 30%/65% chord joined to skin nodes; eight ribs on exposed semi-wing. Model B: webs continued through the fuselage to the symmetry plane with upper/lower carry-through covers (2.5 mm) and a side-of-body rib; the inboard box section follows the CAD wing section, cap nodes inside the fuselage are not tied to the fuselage skin. Nose and main gear attach to assumed finite patches. Static symmetric taxi load only; no gravity, gear dynamics, cabin pressure or design flight loads.",
+      "model_generator_sha256": "9ea6a9536891e690ae36210452fb667be8d9ea6497c7ca935da5d4db7af190d4",
+      "model_files_sha256": {
+        "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\fine\\model.inp": "f524c71b1c624dd5c366b6befa5490f55e22f080cbc2c7e215bb6235458d03ce",
+        "D:\\FEA Coursework\\Workspace\\03_cases\\fsi_structural\\models\\fine\\shell_mesh.npz": "6f44af4a4342571f6dbaf9db88d374cf8d16607d9c981bba2f775d4ea86912f6"
+      },
+      "model_signature": "2f44138b78a11baef4ec4972dea117015cdd31abd73102c1e46948ec77e6610f"
+    }
+  ],
+  "structural_mesh_study_fixed_fine_CFD_loads": [
+    {
+      "grid": "coarse",
+      "equilibrium": {
+        "reactions_wrench": [
+          3868.7208244999993,
+          84.02105689999973,
+          -478.66954990384147,
+          322.9049614373982,
+          12614.779126872945,
+          -60.58502457047052
+        ],
+        "residual_wrench": [
+          7.657853075215826e-06,
+          -5.291819519470664e-06,
+          6.291596946539357e-06,
+          -5.277268883219222e-06,
+          2.592827513581142e-06,
+          2.0903833103602665e-05
+        ],
+        "normalization_force_N": 6916.041834651974,
+        "normalization_moment_Nm": 19000.231163334895,
+        "relative_force_moment_errors": [
+          1.6245164978677563e-09,
+          1.1428824495827908e-09
+        ],
+        "passed": true
+      },
+      "component_envelopes": {
+        "wall_wing": {
+          "elems": 11059,
+          "peak_vm_Pa": 307680406.0515,
+          "max_S1_Pa": 281429986.4047,
+          "min_S3_Pa": -241767545.3771,
+          "peak_tresca_max_shear_Pa": 173167851.3771,
+          "peak_abs_local_sxy_Pa": 171863600.0,
+          "max_displacement_m": 0.02715798176157813,
+          "min_von_mises_yield_factor": 1.634813235119714
+        },
+        "wall_fuselage": {
+          "elems": 2322,
+          "peak_vm_Pa": 123714363.2618,
+          "max_S1_Pa": 132700457.805,
+          "min_S3_Pa": -100821131.6852,
+          "peak_tresca_max_shear_Pa": 69271739.70308,
+          "peak_abs_local_sxy_Pa": 53390924.0,
+          "max_displacement_m": 0.023724345639045987,
+          "min_von_mises_yield_factor": 4.065817312865839
+        },
+        "wall_nacelles": {
+          "elems": 6022,
+          "peak_vm_Pa": 49321012.33751,
+          "max_S1_Pa": 56928135.33652,
+          "min_S3_Pa": -29192896.29412,
+          "peak_tresca_max_shear_Pa": 28464067.66826,
+          "peak_abs_local_sxy_Pa": 13024603.0,
+          "max_displacement_m": 0.029628308007876823,
+          "min_von_mises_yield_factor": 10.198493018713943
+        },
+        "wall_sponson": {
+          "elems": 899,
+          "peak_vm_Pa": 110285481.5313,
+          "max_S1_Pa": 114823678.4125,
+          "min_S3_Pa": -59498823.86146,
+          "peak_tresca_max_shear_Pa": 60031514.10435,
+          "peak_abs_local_sxy_Pa": 16543552.75,
+          "max_displacement_m": 0.004379508243830365,
+          "min_von_mises_yield_factor": 4.560890454626561
+        },
+        "wall_empennage": {
+          "elems": 4639,
+          "peak_vm_Pa": 30236928.09753,
+          "max_S1_Pa": 24418399.66963,
+          "min_S3_Pa": -29809506.88471,
+          "peak_tresca_max_shear_Pa": 16910595.2321285,
+          "peak_abs_local_sxy_Pa": 15861009.0,
+          "max_displacement_m": 0.028751152497078034,
+          "min_von_mises_yield_factor": 16.63528776394085
+        },
+        "WINGBOX": {
+          "elems": 420,
+          "peak_vm_Pa": 59995381.83114,
+          "max_S1_Pa": 63399943.58569,
+          "min_S3_Pa": -53451522.0654,
+          "peak_tresca_max_shear_Pa": 31699971.792845,
+          "peak_abs_local_sxy_Pa": 7007298.5,
+          "max_displacement_m": 0.02647982270736056,
+          "min_von_mises_yield_factor": 8.383978643818264
+        },
+        "PYLON": {
+          "elems": 1950,
+          "peak_vm_Pa": 28571574.68411,
+          "max_S1_Pa": 26264353.22151,
+          "min_S3_Pa": -29192896.29412,
+          "peak_tresca_max_shear_Pa": 14596448.14706,
+          "peak_abs_local_sxy_Pa": 10432568.0,
+          "max_displacement_m": 0.029421038945882837,
+          "min_von_mises_yield_factor": 17.604909969478932
+        }
+      },
+      "peak_element_average_top_or_bottom_von_mises_Pa": 307680406.0515,
+      "peak_element_1based": 16248,
+      "peak_element_centroid_m": [
+        0.2579957942167918,
+        0.11601973821719487,
+        4.648687203725179
+      ],
+      "area_weighted_p99_von_mises_Pa": 46420385.62843,
+      "wingtip_patch_mean_displacement_m": [
+        -0.026644990280964616,
+        0.00249212356978377,
+        0.00035287622384916535
+      ],
+      "wingtip_patch_mean_displacement_magnitude_m": 0.026763607914276594,
+      "linear_elastic_nominal_yield_ratio": 1.634813235119714,
+      "interpretation": "Section gauges, wing box, rigid empennage lugs and gear attachment patches are assumed. Yield ratio is specific to modeled static loads; local support peaks and surface discretization depend on the idealization."
+    },
+    {
+      "grid": "medium",
+      "equilibrium": {
+        "reactions_wrench": [
+          3868.7208431020003,
+          84.02106271999861,
+          -478.66959606189357,
+          322.9049543266833,
+          12614.779134815804,
+          -60.58500833809126
+        ],
+        "residual_wrench": [
+          2.6259854166710284e-05,
+          5.281793562517123e-07,
+          -3.986645515396958e-05,
+          -1.2387983758799237e-05,
+          1.0535686669754796e-05,
+          3.713621237011466e-05
+        ],
+        "normalization_force_N": 7019.455971879594,
+        "normalization_moment_Nm": 19191.69156258859,
+        "relative_force_moment_errors": [
+          6.801224524444721e-09,
+          2.1124170889891316e-09
+        ],
+        "passed": true
+      },
+      "component_envelopes": {
+        "wall_wing": {
+          "elems": 23094,
+          "peak_vm_Pa": 237774508.0953,
+          "max_S1_Pa": 273273685.5243,
+          "min_S3_Pa": -261888677.3093,
+          "peak_tresca_max_shear_Pa": 136636842.76215,
+          "peak_abs_local_sxy_Pa": 74131024.0,
+          "max_displacement_m": 0.02888166787498852,
+          "min_von_mises_yield_factor": 2.1154496502980784
+        },
+        "wall_fuselage": {
+          "elems": 7592,
+          "peak_vm_Pa": 231195646.4506,
+          "max_S1_Pa": 257853598.8514,
+          "min_S3_Pa": -202345819.4382,
+          "peak_tresca_max_shear_Pa": 128926799.4257,
+          "peak_abs_local_sxy_Pa": 85298712.0,
+          "max_displacement_m": 0.02430274799171397,
+          "min_von_mises_yield_factor": 2.1756465042583617
+        },
+        "wall_nacelles": {
+          "elems": 12417,
+          "peak_vm_Pa": 52705442.77593,
+          "max_S1_Pa": 60851289.25113,
+          "min_S3_Pa": -40201426.27098,
+          "peak_tresca_max_shear_Pa": 30425644.625565,
+          "peak_abs_local_sxy_Pa": 17631076.0,
+          "max_displacement_m": 0.03145547713339112,
+          "min_von_mises_yield_factor": 9.543606381193605
+        },
+        "wall_sponson": {
+          "elems": 1663,
+          "peak_vm_Pa": 150436199.5595,
+          "max_S1_Pa": 164575703.7631,
+          "min_S3_Pa": -97947538.86851,
+          "peak_tresca_max_shear_Pa": 82287851.88155,
+          "peak_abs_local_sxy_Pa": 42209200.0,
+          "max_displacement_m": 0.004513373579381509,
+          "min_von_mises_yield_factor": 3.3436101249091656
+        },
+        "wall_empennage": {
+          "elems": 10361,
+          "peak_vm_Pa": 42240877.8685,
+          "max_S1_Pa": 25039503.15322,
+          "min_S3_Pa": -36357983.93971,
+          "peak_tresca_max_shear_Pa": 24140823.30979,
+          "peak_abs_local_sxy_Pa": 24062946.0,
+          "max_displacement_m": 0.029586231710428193,
+          "min_von_mises_yield_factor": 11.907896459109784
+        },
+        "WINGBOX": {
+          "elems": 516,
+          "peak_vm_Pa": 71151970.99969,
+          "max_S1_Pa": 79508160.48241,
+          "min_S3_Pa": -72938429.11888,
+          "peak_tresca_max_shear_Pa": 39754080.241205,
+          "peak_abs_local_sxy_Pa": 9412839.5,
+          "max_displacement_m": 0.02816378297611827,
+          "min_von_mises_yield_factor": 7.0693754921025524
+        },
+        "PYLON": {
+          "elems": 3518,
+          "peak_vm_Pa": 38627475.97581,
+          "max_S1_Pa": 36526278.24727,
+          "min_S3_Pa": -40201426.27098,
+          "peak_tresca_max_shear_Pa": 20100713.13549,
+          "peak_abs_local_sxy_Pa": 17631076.0,
+          "max_displacement_m": 0.031281423235569,
+          "min_von_mises_yield_factor": 13.02181898488521
+        }
+      },
+      "peak_element_average_top_or_bottom_von_mises_Pa": 237774508.0953,
+      "peak_element_1based": 39497,
+      "peak_element_centroid_m": [
+        0.31199049949645996,
+        0.11325785269339879,
+        0.47753750284512836
+      ],
+      "area_weighted_p99_von_mises_Pa": 49966941.41948,
+      "wingtip_patch_mean_displacement_m": [
+        -0.02836010188498367,
+        0.0025288172228757552,
+        0.00040120568267437386
+      ],
+      "wingtip_patch_mean_displacement_magnitude_m": 0.028475450154004194,
+      "linear_elastic_nominal_yield_ratio": 2.1154496502980784,
+      "interpretation": "Section gauges, wing box, rigid empennage lugs and gear attachment patches are assumed. Yield ratio is specific to modeled static loads; local support peaks and surface discretization depend on the idealization."
+    },
+    {
+      "grid": "fine",
+      "equilibrium": {
+        "reactions_wrench": [
+          3868.7208207100016,
+          84.02106611999935,
+          -478.6695187220521,
+          322.90496667810106,
+          12614.779121757738,
+          -60.585036083234854
+        ],
+        "residual_wrench": [
+          3.867855411954224e-06,
+          3.928180092316325e-06,
+          3.747338632820174e-05,
+          -3.6566007111105137e-08,
+          -2.5223798729712144e-06,
+          9.391068772401923e-06
+        ],
+        "normalization_force_N": 7024.293254973238,
+        "normalization_moment_Nm": 19215.094015379418,
+        "relative_force_moment_errors": [
+          5.392245776086394e-09,
+          5.060597837256404e-10
+        ],
+        "passed": true
+      },
+      "component_envelopes": {
+        "wall_wing": {
+          "elems": 41209,
+          "peak_vm_Pa": 277225487.6654,
+          "max_S1_Pa": 286584703.5223,
+          "min_S3_Pa": -302457971.8441,
+          "peak_tresca_max_shear_Pa": 151228985.92205,
+          "peak_abs_local_sxy_Pa": 119752688.0,
+          "max_displacement_m": 0.02923174286171331,
+          "min_von_mises_yield_factor": 1.814407485530698
+        },
+        "wall_fuselage": {
+          "elems": 7684,
+          "peak_vm_Pa": 232802004.3466,
+          "max_S1_Pa": 259859152.2349,
+          "min_S3_Pa": -212881237.7778,
+          "peak_tresca_max_shear_Pa": 129929576.11745,
+          "peak_abs_local_sxy_Pa": 75372952.0,
+          "max_displacement_m": 0.02386565806935643,
+          "min_von_mises_yield_factor": 2.160634318470575
+        },
+        "wall_nacelles": {
+          "elems": 22084,
+          "peak_vm_Pa": 64374269.40373,
+          "max_S1_Pa": 74313976.23939,
+          "min_S3_Pa": -39215334.70746,
+          "peak_tresca_max_shear_Pa": 37156988.119695,
+          "peak_abs_local_sxy_Pa": 17033870.0,
+          "max_displacement_m": 0.031849738008159184,
+          "min_von_mises_yield_factor": 7.813680911007823
+        },
+        "wall_sponson": {
+          "elems": 3329,
+          "peak_vm_Pa": 147108777.5377,
+          "max_S1_Pa": 146229004.7115,
+          "min_S3_Pa": -98327387.81988,
+          "peak_tresca_max_shear_Pa": 82427222.72368,
+          "peak_abs_local_sxy_Pa": 37970028.0,
+          "max_displacement_m": 0.004419715885500088,
+          "min_von_mises_yield_factor": 3.4192385282455
+        },
+        "wall_empennage": {
+          "elems": 16888,
+          "peak_vm_Pa": 50074093.02026,
+          "max_S1_Pa": 35172428.22405,
+          "min_S3_Pa": -40962946.02341,
+          "peak_tresca_max_shear_Pa": 28445236.459710002,
+          "peak_abs_local_sxy_Pa": 28352944.0,
+          "max_displacement_m": 0.029094790839453256,
+          "min_von_mises_yield_factor": 10.04511454249378
+        },
+        "WINGBOX": {
+          "elems": 727,
+          "peak_vm_Pa": 76667267.51899,
+          "max_S1_Pa": 83607000.26641,
+          "min_S3_Pa": -85336701.63602,
+          "peak_tresca_max_shear_Pa": 42668350.81801,
+          "peak_abs_local_sxy_Pa": 14665267.0,
+          "max_displacement_m": 0.02850270154960898,
+          "min_von_mises_yield_factor": 6.560818146745743
+        },
+        "PYLON": {
+          "elems": 7053,
+          "peak_vm_Pa": 37541006.56642,
+          "max_S1_Pa": 38325983.00468,
+          "min_S3_Pa": -39215334.70746,
+          "peak_tresca_max_shear_Pa": 19607667.35373,
+          "peak_abs_local_sxy_Pa": 17033870.0,
+          "max_displacement_m": 0.03166632969978107,
+          "min_von_mises_yield_factor": 13.398681761770549
+        }
+      },
+      "peak_element_average_top_or_bottom_von_mises_Pa": 277225487.6654,
+      "peak_element_1based": 67212,
+      "peak_element_centroid_m": [
+        0.3094865034023921,
+        0.11425366128484409,
+        0.4816989799340566
+      ],
+      "area_weighted_p99_von_mises_Pa": 50228243.32593,
+      "wingtip_patch_mean_displacement_m": [
+        -0.028699513419084596,
+        0.0024982027407707804,
+        0.00041945676700620813
+      ],
+      "wingtip_patch_mean_displacement_magnitude_m": 0.0288110921591945,
+      "linear_elastic_nominal_yield_ratio": 1.814407485530698,
+      "interpretation": "Section gauges, wing box, rigid empennage lugs and gear attachment patches are assumed. Yield ratio is specific to modeled static loads; local support peaks and surface discretization depend on the idealization."
+    }
+  ],
+  "fluid_load_sensitivity_fixed_fine_structure": [
+    {
+      "grid": "fine",
+      "equilibrium": {
+        "reactions_wrench": [
+          3874.2725563299987,
+          83.83065341999793,
+          -489.0739781801958,
+          279.57164415022356,
+          12646.35991272783,
+          -131.52077551934576
+        ],
+        "residual_wrench": [
+          1.9060633348999545e-05,
+          -4.252662776593752e-06,
+          4.694094241131097e-05,
+          3.842343062387954e-06,
+          1.7115617083618417e-06,
+          3.7368007014038085e-05
+        ],
+        "normalization_force_N": 6971.965157272371,
+        "normalization_moment_Nm": 19068.401853408162,
+        "relative_force_moment_errors": [
+          7.292258265408124e-09,
+          1.972058415163769e-09
+        ],
+        "passed": true
+      },
+      "component_envelopes": {
+        "wall_wing": {
+          "elems": 41209,
+          "peak_vm_Pa": 277426720.5457,
+          "max_S1_Pa": 286697762.9359,
+          "min_S3_Pa": -302525065.0698,
+          "peak_tresca_max_shear_Pa": 151262532.5349,
+          "peak_abs_local_sxy_Pa": 119986608.0,
+          "max_displacement_m": 0.02935072571452502,
+          "min_von_mises_yield_factor": 1.8130913958489507
+        },
+        "wall_fuselage": {
+          "elems": 7684,
+          "peak_vm_Pa": 232950804.1004,
+          "max_S1_Pa": 260048433.8209,
+          "min_S3_Pa": -213522682.3301,
+          "peak_tresca_max_shear_Pa": 130024216.91045,
+          "peak_abs_local_sxy_Pa": 75502552.0,
+          "max_displacement_m": 0.024328584279887766,
+          "min_von_mises_yield_factor": 2.1592541907827494
+        },
+        "wall_nacelles": {
+          "elems": 22084,
+          "peak_vm_Pa": 64780986.66927,
+          "max_S1_Pa": 74784710.64853,
+          "min_S3_Pa": -40451696.43168,
+          "peak_tresca_max_shear_Pa": 37392355.324265,
+          "peak_abs_local_sxy_Pa": 17465318.0,
+          "max_displacement_m": 0.03171788062614582,
+          "min_von_mises_yield_factor": 7.764623940786732
+        },
+        "wall_sponson": {
+          "elems": 3329,
+          "peak_vm_Pa": 149770820.403,
+          "max_S1_Pa": 148844305.767,
+          "min_S3_Pa": -100244143.807,
+          "peak_tresca_max_shear_Pa": 83925178.94572,
+          "peak_abs_local_sxy_Pa": 38673020.0,
+          "max_displacement_m": 0.004506296019187795,
+          "min_von_mises_yield_factor": 3.358464610439729
+        },
+        "wall_empennage": {
+          "elems": 16888,
+          "peak_vm_Pa": 33806601.8832,
+          "max_S1_Pa": 25338517.64964,
+          "min_S3_Pa": -27888804.05821,
+          "peak_tresca_max_shear_Pa": 19226077.84158,
+          "peak_abs_local_sxy_Pa": 19165424.0,
+          "max_displacement_m": 0.02963668041324877,
+          "min_von_mises_yield_factor": 14.878750657573871
+        },
+        "WINGBOX": {
+          "elems": 727,
+          "peak_vm_Pa": 77653374.19132,
+          "max_S1_Pa": 84091403.41074,
+          "min_S3_Pa": -85223131.25762,
+          "peak_tresca_max_shear_Pa": 42611565.62881,
+          "peak_abs_local_sxy_Pa": 14624264.0,
+          "max_displacement_m": 0.02862207064263115,
+          "min_von_mises_yield_factor": 6.477503459936255
+        },
+        "PYLON": {
+          "elems": 7053,
+          "peak_vm_Pa": 38681843.62138,
+          "max_S1_Pa": 38143692.62768,
+          "min_S3_Pa": -40451696.43168,
+          "peak_tresca_max_shear_Pa": 20225848.21584,
+          "peak_abs_local_sxy_Pa": 17465318.0,
+          "max_displacement_m": 0.0316837478342207,
+          "min_von_mises_yield_factor": 13.003516712476051
+        }
+      },
+      "peak_element_average_top_or_bottom_von_mises_Pa": 277426720.5457,
+      "peak_element_1based": 67212,
+      "peak_element_centroid_m": [
+        0.3094865034023921,
+        0.11425366128484409,
+        0.4816989799340566
+      ],
+      "area_weighted_p99_von_mises_Pa": 50539693.33834,
+      "wingtip_patch_mean_displacement_m": [
+        -0.0289147873616036,
+        0.0010590173000843879,
+        0.00041365367769257403
+      ],
+      "wingtip_patch_mean_displacement_magnitude_m": 0.02893713108056322,
+      "linear_elastic_nominal_yield_ratio": 1.8130913958489507,
+      "interpretation": "Section gauges, wing box, rigid empennage lugs and gear attachment patches are assumed. Yield ratio is specific to modeled static loads; local support peaks and surface discretization depend on the idealization."
+    },
+    {
+      "grid": "fine",
+      "equilibrium": {
+        "reactions_wrench": [
+          3868.6080909600014,
+          79.28324326000089,
+          -479.54456559288064,
+          323.25271854125765,
+          12636.761789827342,
+          -94.35823981830617
+        ],
+        "residual_wrench": [
+          8.486119440931361e-06,
+          -2.2252339562101042e-06,
+          -1.7065793940673757e-05,
+          4.89678211579303e-06,
+          -5.16662112204358e-06,
+          3.018217356043351e-06
+        ],
+        "normalization_force_N": 6998.037254796248,
+        "normalization_moment_Nm": 19125.854835645594,
+        "relative_force_moment_errors": [
+          2.7420154358391756e-09,
+          4.042636319003309e-10
+        ],
+        "passed": true
+      },
+      "component_envelopes": {
+        "wall_wing": {
+          "elems": 41209,
+          "peak_vm_Pa": 277419419.72,
+          "max_S1_Pa": 286796661.1989,
+          "min_S3_Pa": -302683177.315,
+          "peak_tresca_max_shear_Pa": 151341588.6575,
+          "peak_abs_local_sxy_Pa": 119823480.0,
+          "max_displacement_m": 0.029289015270932188,
+          "min_von_mises_yield_factor": 1.8131391108368653
+        },
+        "wall_fuselage": {
+          "elems": 7684,
+          "peak_vm_Pa": 232944399.0381,
+          "max_S1_Pa": 260020463.5882,
+          "min_S3_Pa": -212984601.5741,
+          "peak_tresca_max_shear_Pa": 130010231.7941,
+          "peak_abs_local_sxy_Pa": 75411024.0,
+          "max_displacement_m": 0.02407176240340001,
+          "min_von_mises_yield_factor": 2.15931356185014
+        },
+        "wall_nacelles": {
+          "elems": 22084,
+          "peak_vm_Pa": 64481456.28805,
+          "max_S1_Pa": 74437291.26379,
+          "min_S3_Pa": -39333568.94992,
+          "peak_tresca_max_shear_Pa": 37218645.631895,
+          "peak_abs_local_sxy_Pa": 17064782.0,
+          "max_displacement_m": 0.03190255635663309,
+          "min_von_mises_yield_factor": 7.800692306839513
+        },
+        "wall_sponson": {
+          "elems": 3329,
+          "peak_vm_Pa": 148243620.7031,
+          "max_S1_Pa": 147382461.7709,
+          "min_S3_Pa": -99245863.98845,
+          "peak_tresca_max_shear_Pa": 83068796.923,
+          "peak_abs_local_sxy_Pa": 38280952.0,
+          "max_displacement_m": 0.004460644112915403,
+          "min_von_mises_yield_factor": 3.3930633751006427
+        },
+        "wall_empennage": {
+          "elems": 16888,
+          "peak_vm_Pa": 44204050.39226,
+          "max_S1_Pa": 31781677.4204,
+          "min_S3_Pa": -36263745.90104,
+          "peak_tresca_max_shear_Pa": 25119357.21022,
+          "peak_abs_local_sxy_Pa": 25038274.0,
+          "max_displacement_m": 0.02933306721498568,
+          "min_von_mises_yield_factor": 11.37904774644981
+        },
+        "WINGBOX": {
+          "elems": 727,
+          "peak_vm_Pa": 76754327.25226,
+          "max_S1_Pa": 83682400.74822,
+          "min_S3_Pa": -85384947.65497,
+          "peak_tresca_max_shear_Pa": 42692473.827485,
+          "peak_abs_local_sxy_Pa": 14673883.0,
+          "max_displacement_m": 0.028564170755291832,
+          "min_von_mises_yield_factor": 6.553376441524206
+        },
+        "PYLON": {
+          "elems": 7053,
+          "peak_vm_Pa": 37558614.17975,
+          "max_S1_Pa": 38440406.01464,
+          "min_S3_Pa": -39333568.94992,
+          "peak_tresca_max_shear_Pa": 19666784.47496,
+          "peak_abs_local_sxy_Pa": 17064782.0,
+          "max_displacement_m": 0.03172392815644575,
+          "min_von_mises_yield_factor": 13.392400411599747
+        }
+      },
+      "peak_element_average_top_or_bottom_von_mises_Pa": 277419419.72,
+      "peak_element_1based": 67212,
+      "peak_element_centroid_m": [
+        0.3094865034023921,
+        0.11425366128484409,
+        0.4816989799340566
+      ],
+      "area_weighted_p99_von_mises_Pa": 50287524.83061,
+      "wingtip_patch_mean_displacement_m": [
+        -0.0287674125465244,
+        0.0024231686709156194,
+        0.00041928193294456137
+      ],
+      "wingtip_patch_mean_displacement_magnitude_m": 0.02887233222947066,
+      "linear_elastic_nominal_yield_ratio": 1.8131391108368653,
+      "interpretation": "Section gauges, wing box, rigid empennage lugs and gear attachment patches are assumed. Yield ratio is specific to modeled static loads; local support peaks and surface discretization depend on the idealization."
+    },
+    {
+      "grid": "fine",
+      "equilibrium": {
+        "reactions_wrench": [
+          3868.7208207100016,
+          84.02106611999935,
+          -478.6695187220521,
+          322.90496667810106,
+          12614.779121757738,
+          -60.585036083234854
+        ],
+        "residual_wrench": [
+          3.867855411954224e-06,
+          3.928180092316325e-06,
+          3.747338632820174e-05,
+          -3.6566007111105137e-08,
+          -2.5223798729712144e-06,
+          9.391068772401923e-06
+        ],
+        "normalization_force_N": 7024.293254973238,
+        "normalization_moment_Nm": 19215.094015379418,
+        "relative_force_moment_errors": [
+          5.392245776086394e-09,
+          5.060597837256404e-10
+        ],
+        "passed": true
+      },
+      "component_envelopes": {
+        "wall_wing": {
+          "elems": 41209,
+          "peak_vm_Pa": 277225487.6654,
+          "max_S1_Pa": 286584703.5223,
+          "min_S3_Pa": -302457971.8441,
+          "peak_tresca_max_shear_Pa": 151228985.92205,
+          "peak_abs_local_sxy_Pa": 119752688.0,
+          "max_displacement_m": 0.02923174286171331,
+          "min_von_mises_yield_factor": 1.814407485530698
+        },
+        "wall_fuselage": {
+          "elems": 7684,
+          "peak_vm_Pa": 232802004.3466,
+          "max_S1_Pa": 259859152.2349,
+          "min_S3_Pa": -212881237.7778,
+          "peak_tresca_max_shear_Pa": 129929576.11745,
+          "peak_abs_local_sxy_Pa": 75372952.0,
+          "max_displacement_m": 0.02386565806935643,
+          "min_von_mises_yield_factor": 2.160634318470575
+        },
+        "wall_nacelles": {
+          "elems": 22084,
+          "peak_vm_Pa": 64374269.40373,
+          "max_S1_Pa": 74313976.23939,
+          "min_S3_Pa": -39215334.70746,
+          "peak_tresca_max_shear_Pa": 37156988.119695,
+          "peak_abs_local_sxy_Pa": 17033870.0,
+          "max_displacement_m": 0.031849738008159184,
+          "min_von_mises_yield_factor": 7.813680911007823
+        },
+        "wall_sponson": {
+          "elems": 3329,
+          "peak_vm_Pa": 147108777.5377,
+          "max_S1_Pa": 146229004.7115,
+          "min_S3_Pa": -98327387.81988,
+          "peak_tresca_max_shear_Pa": 82427222.72368,
+          "peak_abs_local_sxy_Pa": 37970028.0,
+          "max_displacement_m": 0.004419715885500088,
+          "min_von_mises_yield_factor": 3.4192385282455
+        },
+        "wall_empennage": {
+          "elems": 16888,
+          "peak_vm_Pa": 50074093.02026,
+          "max_S1_Pa": 35172428.22405,
+          "min_S3_Pa": -40962946.02341,
+          "peak_tresca_max_shear_Pa": 28445236.459710002,
+          "peak_abs_local_sxy_Pa": 28352944.0,
+          "max_displacement_m": 0.029094790839453256,
+          "min_von_mises_yield_factor": 10.04511454249378
+        },
+        "WINGBOX": {
+          "elems": 727,
+          "peak_vm_Pa": 76667267.51899,
+          "max_S1_Pa": 83607000.26641,
+          "min_S3_Pa": -85336701.63602,
+          "peak_tresca_max_shear_Pa": 42668350.81801,
+          "peak_abs_local_sxy_Pa": 14665267.0,
+          "max_displacement_m": 0.02850270154960898,
+          "min_von_mises_yield_factor": 6.560818146745743
+        },
+        "PYLON": {
+          "elems": 7053,
+          "peak_vm_Pa": 37541006.56642,
+          "max_S1_Pa": 38325983.00468,
+          "min_S3_Pa": -39215334.70746,
+          "peak_tresca_max_shear_Pa": 19607667.35373,
+          "peak_abs_local_sxy_Pa": 17033870.0,
+          "max_displacement_m": 0.03166632969978107,
+          "min_von_mises_yield_factor": 13.398681761770549
+        }
+      },
+      "peak_element_average_top_or_bottom_von_mises_Pa": 277225487.6654,
+      "peak_element_1based": 67212,
+      "peak_element_centroid_m": [
+        0.3094865034023921,
+        0.11425366128484409,
+        0.4816989799340566
+      ],
+      "area_weighted_p99_von_mises_Pa": 50228243.32593,
+      "wingtip_patch_mean_displacement_m": [
+        -0.028699513419084596,
+        0.0024982027407707804,
+        0.00041945676700620813
+      ],
+      "wingtip_patch_mean_displacement_magnitude_m": 0.0288110921591945,
+      "linear_elastic_nominal_yield_ratio": 1.814407485530698,
+      "interpretation": "Section gauges, wing box, rigid empennage lugs and gear attachment patches are assumed. Yield ratio is specific to modeled static loads; local support peaks and surface discretization depend on the idealization."
+    }
+  ],
+  "shell_GCI": {
+    "peak_element_average_top_or_bottom_von_mises_Pa": {
+      "h_coarse_medium_fine_m": [
+        0.03291741256572539,
+        0.022213162031508384,
+        0.017286324362857958
+      ],
+      "values_coarse_medium_fine": [
+        307680406.0515,
+        237774508.0953,
+        277225487.6654
+      ],
+      "r_coarse_medium": 1.4818877438085358,
+      "r_medium_fine": 1.2850136075912364,
+      "r21": 1.2850136075912364,
+      "r32": 1.4818877438085358,
+      "safety_factor": 1.25,
+      "epsilon32": 69905897.95620003,
+      "epsilon21": -39450979.57010004,
+      "epsilon32_over_epsilon21": -1.7719686232881737,
+      "observed_order": 1.6785225637036298,
+      "order_candidates": [
+        1.6785225637036298
+      ],
+      "celik_log_branch": "contracting",
+      "convergence_type": "oscillatory",
+      "qualified_monotonic_order": false,
+      "status": "Oscillatory differences; raw extrapolation is diagnostic",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 1.6785225637036298,
+        "extrapolated": 352604911.71712506,
+        "extrapolated_32": 163021800.12920415,
+        "fine_absolute_GCI": 94224280.06465632,
+        "medium_absolute_GCI": 93440884.95761977,
+        "fine_percent_GCI": 33.98831790617363,
+        "medium_percent_GCI": 39.2981088284572,
+        "approximate_relative_error_21_pct": 14.23064664880878,
+        "approximate_relative_error_32_pct": 29.400080991096722,
+        "extrapolated_relative_error_21_pct": 21.377871251038528,
+        "extrapolated_relative_error_32_pct": 45.85442432045898,
+        "asymptotic_ratio": 0.7589932311080981
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 337801880.01981515,
+        "extrapolated_32": 179324334.73840111,
+        "fine_absolute_GCI": 75720490.44301888,
+        "medium_absolute_GCI": 73062716.6961236,
+        "fine_percent_GCI": 27.313682836554502,
+        "medium_percent_GCI": 30.727733297145576,
+        "approximate_relative_error_21_pct": 14.23064664880878,
+        "approximate_relative_error_32_pct": 29.400080991096722,
+        "extrapolated_relative_error_21_pct": 17.93252078729158,
+        "extrapolated_relative_error_32_pct": 32.5946690069511,
+        "asymptotic_ratio": 0.6812943844676402
+      },
+      "half_range_U_osc": 34952948.97810002,
+      "range_midpoint": 272727457.0734,
+      "observed_range_interval": [
+        237774508.0953,
+        307680406.0515
+      ],
+      "reported_fine_absolute_uncertainty": 94224280.06465632,
+      "reported_medium_absolute_uncertainty": 93440884.95761977,
+      "reported_fine_percent_uncertainty": 33.98831790617363,
+      "reported_medium_percent_uncertainty": 39.2981088284572,
+      "reported_fine_interval": [
+        183001207.6007437,
+        371449767.73005635
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 352604911.71712506,
+      "extrapolated_32": 163021800.12920415,
+      "fine_absolute_GCI": 94224280.06465632,
+      "medium_absolute_GCI": 93440884.95761977,
+      "fine_percent_GCI": 33.98831790617363,
+      "medium_percent_GCI": 39.2981088284572,
+      "approximate_relative_error_21_pct": 14.23064664880878,
+      "approximate_relative_error_32_pct": 29.400080991096722,
+      "extrapolated_relative_error_21_pct": 21.377871251038528,
+      "extrapolated_relative_error_32_pct": 45.85442432045898,
+      "asymptotic_ratio": 0.7589932311080981,
+      "h_m": [
+        0.03291741256572539,
+        0.022213162031508384,
+        0.017286324362857958
+      ],
+      "values": [
+        307680406.0515,
+        237774508.0953,
+        277225487.6654
+      ],
+      "refinement_ratios": [
+        1.4818877438085358,
+        1.2850136075912364
+      ],
+      "GCI_fine_percent": 33.98831790617363,
+      "passed_3_percent": false
+    },
+    "area_weighted_p99_von_mises_Pa": {
+      "h_coarse_medium_fine_m": [
+        0.03291741256572539,
+        0.022213162031508384,
+        0.017286324362857958
+      ],
+      "values_coarse_medium_fine": [
+        46420385.62843,
+        49966941.41948,
+        50228243.32593
+      ],
+      "r_coarse_medium": 1.4818877438085358,
+      "r_medium_fine": 1.2850136075912364,
+      "r21": 1.2850136075912364,
+      "r32": 1.4818877438085358,
+      "safety_factor": 1.25,
+      "epsilon32": -3546555.791050002,
+      "epsilon21": -261301.90644999593,
+      "epsilon32_over_epsilon21": 13.572636492526659,
+      "observed_order": 6.264664376085329,
+      "order_candidates": [
+        6.264664376085329
+      ],
+      "celik_log_branch": "contracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 6.264664376085329,
+        "extrapolated": 50296801.53247466,
+        "extrapolated_32": 50296801.53247466,
+        "fine_absolute_GCI": 85697.75818082559,
+        "medium_absolute_GCI": 412325.1412433217,
+        "fine_percent_GCI": 0.1706166740189074,
+        "medium_percent_GCI": 0.825195878574576,
+        "approximate_relative_error_21_pct": 0.520229036787955,
+        "approximate_relative_error_32_pct": 7.097804448897785,
+        "extrapolated_relative_error_21_pct": 0.13630728884498775,
+        "extrapolated_relative_error_32_pct": 0.6558272155371146,
+        "asymptotic_ratio": 1.0052294957231116
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 50629468.51680126,
+        "extrapolated_32": 52932310.67826085,
+        "fine_absolute_GCI": 501531.4885890769,
+        "medium_absolute_GCI": 3706711.5734760556,
+        "fine_percent_GCI": 0.9985049354297537,
+        "medium_percent_GCI": 7.418327934779224,
+        "approximate_relative_error_21_pct": 0.520229036787955,
+        "approximate_relative_error_32_pct": 7.097804448897785,
+        "extrapolated_relative_error_21_pct": 0.7924736376367767,
+        "extrapolated_relative_error_32_pct": 5.602191215126215,
+        "asymptotic_ratio": 4.499252418036056
+      },
+      "half_range_U_osc": 1903928.848749999,
+      "range_midpoint": 48324314.477180004,
+      "observed_range_interval": [
+        46420385.62843,
+        50228243.32593
+      ],
+      "reported_fine_absolute_uncertainty": 3807857.697499994,
+      "reported_medium_absolute_uncertainty": 3706711.5734760556,
+      "reported_fine_percent_uncertainty": 7.581108645968139,
+      "reported_medium_percent_uncertainty": 7.418327934779224,
+      "reported_fine_interval": [
+        46420385.62843001,
+        54036101.02342999
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 50296801.53247466,
+      "extrapolated_32": 50296801.53247466,
+      "fine_absolute_GCI": 85697.75818082559,
+      "medium_absolute_GCI": 412325.1412433217,
+      "fine_percent_GCI": 0.1706166740189074,
+      "medium_percent_GCI": 0.825195878574576,
+      "approximate_relative_error_21_pct": 0.520229036787955,
+      "approximate_relative_error_32_pct": 7.097804448897785,
+      "extrapolated_relative_error_21_pct": 0.13630728884498775,
+      "extrapolated_relative_error_32_pct": 0.6558272155371146,
+      "asymptotic_ratio": 1.0052294957231116,
+      "h_m": [
+        0.03291741256572539,
+        0.022213162031508384,
+        0.017286324362857958
+      ],
+      "values": [
+        46420385.62843,
+        49966941.41948,
+        50228243.32593
+      ],
+      "refinement_ratios": [
+        1.4818877438085358,
+        1.2850136075912364
+      ],
+      "GCI_fine_percent": 0.1706166740189074,
+      "passed_3_percent": false
+    },
+    "wingtip_patch_mean_displacement_magnitude_m": {
+      "h_coarse_medium_fine_m": [
+        0.03291741256572539,
+        0.022213162031508384,
+        0.017286324362857958
+      ],
+      "values_coarse_medium_fine": [
+        0.026763607914276594,
+        0.028475450154004194,
+        0.0288110921591945
+      ],
+      "r_coarse_medium": 1.4818877438085358,
+      "r_medium_fine": 1.2850136075912364,
+      "r21": 1.2850136075912364,
+      "r32": 1.4818877438085358,
+      "safety_factor": 1.25,
+      "epsilon32": -0.0017118422397276005,
+      "epsilon21": -0.0003356420051903071,
+      "epsilon32_over_epsilon21": 5.100202636308873,
+      "observed_order": 3.5178061234294895,
+      "order_candidates": [
+        3.5178061234294895
+      ],
+      "celik_log_branch": "contracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 3.5178061234294895,
+        "extrapolated": 0.029048109466499845,
+        "extrapolated_32": 0.029048109466499845,
+        "fine_absolute_GCI": 0.0002962716341316784,
+        "medium_absolute_GCI": 0.000715824140619563,
+        "fine_percent_GCI": 1.0283248982532203,
+        "medium_percent_GCI": 2.513829058884621,
+        "approximate_relative_error_21_pct": 1.164974945537403,
+        "approximate_relative_error_32_pct": 6.01164241643036,
+        "extrapolated_relative_error_21_pct": 0.815947446007412,
+        "extrapolated_relative_error_32_pct": 1.9714168082300778,
+        "asymptotic_ratio": 1.0117870658189803
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 0.029326465465981548,
+        "extrapolated_32": 0.029906766803915935,
+        "fine_absolute_GCI": 0.0006442166334838082,
+        "medium_absolute_GCI": 0.001789145812389677,
+        "fine_percent_GCI": 2.236002126973236,
+        "medium_percent_GCI": 6.2831168698419635,
+        "approximate_relative_error_21_pct": 1.164974945537403,
+        "approximate_relative_error_32_pct": 6.01164241643036,
+        "extrapolated_relative_error_21_pct": 1.757365910272669,
+        "extrapolated_relative_error_32_pct": 4.785929081856912,
+        "asymptotic_ratio": 1.701717528568498
+      },
+      "half_range_U_osc": 0.0010237421224589538,
+      "range_midpoint": 0.027787350036735547,
+      "observed_range_interval": [
+        0.026763607914276594,
+        0.0288110921591945
+      ],
+      "reported_fine_absolute_uncertainty": 0.0020474842449179076,
+      "reported_medium_absolute_uncertainty": 0.001789145812389677,
+      "reported_fine_percent_uncertainty": 7.10658323400105,
+      "reported_medium_percent_uncertainty": 6.2831168698419635,
+      "reported_fine_interval": [
+        0.026763607914276594,
+        0.03085857640411241
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 0.029048109466499845,
+      "extrapolated_32": 0.029048109466499845,
+      "fine_absolute_GCI": 0.0002962716341316784,
+      "medium_absolute_GCI": 0.000715824140619563,
+      "fine_percent_GCI": 1.0283248982532203,
+      "medium_percent_GCI": 2.513829058884621,
+      "approximate_relative_error_21_pct": 1.164974945537403,
+      "approximate_relative_error_32_pct": 6.01164241643036,
+      "extrapolated_relative_error_21_pct": 0.815947446007412,
+      "extrapolated_relative_error_32_pct": 1.9714168082300778,
+      "asymptotic_ratio": 1.0117870658189803,
+      "h_m": [
+        0.03291741256572539,
+        0.022213162031508384,
+        0.017286324362857958
+      ],
+      "values": [
+        0.026763607914276594,
+        0.028475450154004194,
+        0.0288110921591945
+      ],
+      "refinement_ratios": [
+        1.4818877438085358,
+        1.2850136075912364
+      ],
+      "GCI_fine_percent": 1.0283248982532203,
+      "passed_3_percent": false
+    }
+  },
+  "stress_GCI_target_percent": 3.0,
+  "load_signatures_fixed_fine_structure": [
+    "8340707872002ef8fc560384aac9552920523131821d0c6e7f8d87d94f383018",
+    "83100d896a56425046ac11048cbed207b663b09784ae4035ae7eb0d211d76b4c",
+    "65894ecb611617c60db48b5f2bda9c0e4dbdf36dc8d506cbf4e2df21064f7105"
+  ],
+  "stress_mesh_QA_target_3pct_passed": false,
+  "stress_mesh_QA_passed": true,
+  "stress_mesh_QA_definition": "engineering: shell-ladder reported uncertainty <10% for area-weighted p99 von Mises and wingtip deflection; target: every metric GCI <3%",
+  "stress_mesh_study_complete": true,
+  "scope": "One-way static symmetric half-airframe; equivalent shell components, gauges, attachments and supports are engineering assumptions. Peak and area-weighted p99 include both SHELL181 faces. Local support and junction peaks remain sensitive to the assumed constraints."
+}

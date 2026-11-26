@@ -2,9 +2,9 @@
 """Surface-refinement study for the mesh-convergence section (brief: "refine the surface and volume mesh").
 
 The volume ladder (coarse/medium/fine) shares one surface tessellation. This study re-meshes the published
-Medium grid on a refined surface tessellation (preferred: the FINE shell, 2.1x wall faces; fallback: the
-MEDIUM shell, 1.5x) while keeping the Medium volume size field and the recipe-C inflation identical, so the
-change in lift/drag isolates surface refinement. Steps (each resumable; Fluent only through the P2 managed
+Medium grid on a refined surface mesh while keeping the Medium volume size field and the recipe-C inflation
+identical, so the change in lift/drag isolates surface refinement. The refined CAD re-tessellations failed to
+inflate (see SHELLS); the surface used is the coarse facet geometry with subdivided wall facets (2.0x faces). Steps (each resumable; Fluent only through the P2 managed
 runner and run_fluent_managed via run_x57_converged):
   1. mesh    -> 02_mesh/surfref/mesh_qa.json   (P2 quality tiers via the protected auditor; Student cell cap)
   2. solve   -> 03_cases/surfref_rpm100         (run_x57_converged, Fine plan: strict/engineering only)
@@ -35,7 +35,29 @@ from run_p2_fluent import run_fluent  # noqa: E402
 LOG = WS / "logs" / "surfref_study.log"
 FOLDER = WS / "02_mesh" / "surfref"
 CASE = "surfref_rpm100"
-SHELLS = ("fine", "medium")          # refined surface tessellations, preferred first
+# 2026-11-25 14:08-14:21: the refined CAD re-tessellations ("fine" 2.1x, "medium" 1.5x wall faces) both failed
+# with the Medium recipe-C inflation ("No cell zones (check for holes in boundary mesh)" after prism
+# stair-stepping; hexcore found 0 live regions), as the medium shell already had inverted cells at the outboard
+# HLP junction on 2026-11-24. The study therefore refines the SURFACE MESH on the identical coarse facet geometry
+# (scripts/build_subdivided_shell.py: planar edge-midpoint subdivision of wall facets, 2.0x wall faces, vertices
+# fixed, symmetry/ground/far field untouched), so size field, inflation AND geometry match the Medium grid.
+SHELLS = ("subdivC",)   # 11-26: subdivA 2.0x and subdivB 1.5x kept a zero-OQ cell; subdivC = 1.5x with the nacelle facets frozen
+REFINED_CAD_SHELL_ATTEMPTS = [
+    dict(surface="p2_fine_prism_base_patches (78,482 wall faces)", attempt="sr_fine_1125_1408",
+         result="volume meshing failed: No cell zones after prism stair-stepping (0 live hexcore regions)"),
+    dict(surface="p2_medium_prism_base_patches (55,476 wall faces)", attempt="sr_medium_1125_1416",
+         result="volume meshing failed: No cell zones after prism stair-stepping (0 live hexcore regions)"),
+    dict(surface="p2_medium_prism_base_patches", attempt="02_mesh/medium/ft_R1_*, ft_R2_* (2026-11-24, thinner "
+         "inflation)", result="meshed but rejected: min orthogonal quality 0 (inverted cells, outboard HLP junction)")]
+
+
+def surface_description(level):
+    meta = WS / "01_geometry" / f"p2_{level}_prism_base_patches" / "surface_subdivision.json"
+    if meta.is_file():
+        m = read(meta)
+        return (f"coarse facet geometry, wall facets subdivided ({m['wall_face_ratio']:.2f}x wall faces, "
+                f"edges > {1000 * m['split_threshold_edge_length_m']:.0f} mm split)"), m
+    return f"refined CAD tessellation {level}", None
 MESH_WALL_MIN, IMPROVE_WALL_MIN = 120, 40
 P2.REPAIR_WALL["surfref"] = 45
 OUT_JSON = WS / "DELIVERABLES" / "data" / "surface_refinement_study.json"
@@ -206,6 +228,9 @@ def build_mesh():
                face_zones=inv["boundary_zones"], cell_zones=inv["cell_zones"], checks=best["surfref_hard_checks"],
                surface_level=surf, surface_wall_faces=shell_faces(surf)["wall_faces"],
                surface_faces_by_zone=shell_faces(surf)["faces_by_zone"],
+               surface_description=surface_description(surf)[0], surface_construction=surface_description(surf)[1],
+               geometry_identical_to_medium=surface_description(surf)[1] is not None,
+               refined_cad_shell_attempts=REFINED_CAD_SHELL_ATTEMPTS,
                reference_medium=dict(mesh=q["source_mesh"], cells=q["cells"],
                                      boundary_layer_cells=q["boundary_layer_cell_count"],
                                      surface_wall_faces=shell_faces("coarse")["wall_faces"],
@@ -258,7 +283,8 @@ def case_row(name, grid):
     mq = read(WS / "02_mesh" / grid / "mesh_qa.json")
     L, D = 2 * a["ForceY"], 2 * a["ForceX"]
     return dict(case=name, grid=grid, cells=mq["cells"], boundary_layer_cells=mq.get("boundary_layer_cell_count"),
-                surface=("refined " + mq["surface_level"]) if grid == "surfref" else "coarse (shared ladder surface)",
+                surface=(mq.get("surface_description") or "refined " + mq["surface_level"]) if grid == "surfref"
+                else "coarse CAD tessellation (shared ladder surface)",
                 surface_wall_faces=mq.get("surface_wall_faces") or shell_faces("coarse")["wall_faces"],
                 min_orthogonal_quality=mq.get("min_orthogonal_quality"), quality_tier=mq.get("quality_tier"),
                 acceptance_tier=qa.get("acceptance_tier"), final_iteration=qa.get("final_iteration"),
@@ -273,7 +299,11 @@ def case_row(name, grid):
 def compare():
     base, ref = case_row("medium_rpm100", "medium"), case_row(CASE, "surfref")
     pct = lambda k: 100.0 * (ref[k] - base[k]) / ref[k] if ref[k] else None
-    result = dict(study="surface refinement at fixed Medium volume size field and fixed inflation",
+    mq = read(FOLDER / "mesh_qa.json")
+    result = dict(study="surface-mesh refinement at fixed Medium volume size field, fixed inflation"
+                        + (" and identical facet geometry" if mq.get("geometry_identical_to_medium") else ""),
+                  surface_construction=mq.get("surface_construction"),
+                  refined_cad_shell_attempts=mq.get("refined_cad_shell_attempts", REFINED_CAD_SHELL_ATTEMPTS),
                   rows=[base, ref],
                   linear_surface_refinement_ratio=(ref["surface_wall_faces"] / base["surface_wall_faces"]) ** 0.5,
                   change_percent_relative_to_refined={k: pct(k) for k in ("L_wall_N", "D_wall_N", "L_wing_N", "C_L", "C_D")},

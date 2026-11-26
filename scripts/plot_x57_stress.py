@@ -76,9 +76,11 @@ def fig18(planes,frame,case):
     fig=plt.figure(figsize=(8.3,7.8),layout="constrained");gs=fig.add_gridspec(3,2,height_ratios=[.95,1,1])
     wall=frame[frame.record_type=="wall_face"];polys,tau=wall_polygons(case,wall)
     ax=fig.add_subplot(gs[0,:]); vmax=max(np.max(tau),1.e-12)
-    col=PolyCollection(polys,array=tau,cmap=cm.lajolla,norm=Normalize(0,vmax),edgecolors="face",linewidths=.08)
+    # Main panel 0 to the 99th percentile (the junction peak is shown in the inset at its own full range).
+    col=PolyCollection(polys,array=tau,cmap=cm.lajolla,norm=Normalize(0,max(float(np.percentile(tau,99)),1.e-12)),
+                       edgecolors="face",linewidths=.08)
     ax.add_collection(col);ax.autoscale_view();ax.set_aspect("equal");ax.set(xlabel="Spanwise z (m)",ylabel="Axial x (m)",title="a   Projected upper airframe; wall shear")
-    fig.colorbar(col,ax=ax,label="Wall shear (Pa)",shrink=.72)
+    fig.colorbar(col,ax=ax,label="Wall shear (Pa)",shrink=.72,extend="max")
     z,x=polys[int(np.argmax(tau))].mean(axis=0);win=(z-.5,z+.5,x-.34,x+.34)
     select=[i for i,p in enumerate(polys) if p[:,0].max()>win[0] and p[:,0].min()<win[1] and p[:,1].max()>win[2] and p[:,1].min()<win[3]]
     inset=ax.inset_axes([.74,.62,.24,.39]); zoom=PolyCollection([polys[i] for i in select],array=tau[select],cmap=cm.lajolla,norm=Normalize(min(tau[select]),vmax),edgecolors="face",linewidths=.08)

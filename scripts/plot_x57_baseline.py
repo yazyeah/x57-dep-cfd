@@ -7,13 +7,13 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.collections import PolyCollection
-from matplotlib.colors import Normalize,TwoSlopeNorm
+from matplotlib.colors import Normalize,TwoSlopeNorm,LogNorm,SymLogNorm
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 from cmcrameri import cm
 from plot_style import apply_publication_style,save_dual_figure,ACADEMIC_PALETTE
 from plot_fluent_sections import panel as field_panel,stream
 from wing_surface_metrics import wing_faces
-from x57_baseline_data import (BASE,FINE,OFF,CASES3,ROOT,DATA,accepted,reference,save_table,save_json,
+from x57_baseline_data import (BASE,FINE,OFF,CASES3,ROOT,DATA,accepted,reference,save_table,save_json,stats,
                                grid_series,histories,convergence_rows,rpm_series,wall_data,wall_budgets,crossplanes,read_json,swirl_load_partition)
 
 STEMS={2:"fig02_mesh_convergence_and_yplus",3:"fig03_convergence_histories",6:"fig06_wing_cp_and_suction",
@@ -50,12 +50,24 @@ def projected_faces(case,wall,side):
     return polys,np.array(rows,dtype=int)
 
 
-def wing_panel(fig,ax,projected,values,cmap,norm,label):
-    polygons,idx=projected;field=PolyCollection(polygons,array=values[idx],cmap=cmap,norm=norm,
-                                                  edgecolors="face",linewidths=.1)
-    ax.add_collection(field);ax.autoscale_view();ax.set_aspect("equal")
-    ax.set(xlabel="Spanwise z (m)",ylabel="Axial x (m)")
-    fig.colorbar(field,ax=ax,shrink=.77,label=label)
+CHORD_STRETCH=3.
+
+
+def wing_panel(fig,ax,projected,values,cmap,norm,label,extend="neither"):
+    # Starboard half only (the planform is symmetric) and the chordwise axis drawn 3x the spanwise scale: at equal
+    # scales the 10 m x 0.75 m wing was a hairline strip (fig06c/d, fig11 before 2026-11-26).
+    polygons,idx=projected
+    keep=[i for i,p in enumerate(polygons) if p[:,0].mean()>0]
+    field=PolyCollection([polygons[i] for i in keep],array=values[idx[keep]],cmap=cmap,norm=norm,
+                         edgecolors="face",linewidths=.1)
+    ax.add_collection(field);ax.autoscale_view();ax.set_aspect(CHORD_STRETCH)
+    ax.set(xlabel="Starboard span z (m)",ylabel=f"Axial x (m), ×{CHORD_STRETCH:g} scale")
+    fig.colorbar(field,ax=ax,shrink=.9,label=label,extend=extend)
+
+
+def robust(values,lo=1.,hi=99.):
+    v=np.asarray(values,dtype=float);v=v[np.isfinite(v)]
+    return float(np.percentile(v,lo)),float(np.percentile(v,hi))
 
 
 def yplus_table():
@@ -66,10 +78,67 @@ def yplus_table():
     return pd.DataFrame(stats)
 
 
+SURFREF="surfref_rpm100"
+
+
+def surface_refinement():
+    """Brief surface-mesh refinement check (SUPERVISOR/surfref_study.py): Medium volume size field and inflation on
+    a wall surface with more facets. It runs after P11, so the panel appears once its study file is published and
+    both endpoints still match the accepted QA; otherwise None and fig02 keeps the volume-ladder layout."""
+    path=DATA/"surface_refinement_study.json"
+    if not path.is_file():return None
+    study=read_json(path)
+    base,ref=study["rows"]
+    _,mcas,_,mforces=stats(BASE)
+    try:
+        qa,cas,_,forces=stats(SURFREF)
+    except Exception as exc:
+        print(f"fig02: surface-refinement endpoint not accepted ({exc}); panel omitted");return None
+    if Path(base["native_case"]).name!=mcas.name or Path(ref["native_case"]).name!=cas.name:
+        print("fig02: surface_refinement_study.json does not match the accepted endpoints; panel omitted");return None
+    mesh=read_json(ROOT/"02_mesh/surfref/mesh_qa.json")
+    volume=(mesh.get("five_region_evidence") or read_json(ROOT/"02_mesh/medium/mesh_qa.json")["five_region_evidence"])["fluid_volume_m3"]
+    return dict(study=study,base=base,ref=ref,forces=forces,medium_forces=mforces,h_m=(volume/ref["cells"])**(1/3),
+                face_ratio=ref["surface_wall_faces"]/base["surface_wall_faces"])
+
+
+def surface_panel(ax,sr):
+    keys=[("L_air","Airframe lift"),("L_wing","Wing lift"),("D_air","Airframe drag")]
+    ends=[]
+    for i,(key,name) in enumerate(keys):
+        m,r=sr["medium_forces"][key],sr["forces"][key]
+        scale=abs(m["mean_N"])
+        ends+=[1-m["std_N"]/scale,1+m["std_N"]/scale,r["mean_N"]/m["mean_N"]-r["std_N"]/scale,r["mean_N"]/m["mean_N"]+r["std_N"]/scale]
+        ax.errorbar(i-.12,m["mean_N"]/m["mean_N"],yerr=m["std_N"]/scale,fmt="o",color=ACADEMIC_PALETTE[0],capsize=3,
+                    label="Medium (shared ladder surface)" if i==0 else None)
+        ax.errorbar(i+.12,r["mean_N"]/m["mean_N"],yerr=r["std_N"]/scale,fmt="D",mfc="white",color=ACADEMIC_PALETTE[3],capsize=3,
+                    label=f"Medium volume, {sr['face_ratio']:.1f}x wall faces" if i==0 else None)
+        delta=100*(r["mean_N"]-m["mean_N"])/scale
+        ax.annotate(f"{delta:+.2f} %\n{m['mean_N']:.1f} -> {r['mean_N']:.1f} N",(i+.12,r["mean_N"]/m["mean_N"]),
+                    xytext=(14,0),textcoords="offset points",va="center",fontsize=6.5)
+    ax.axhline(1,ls=":",color="k",lw=.8)
+    lo,hi=min(ends),max(ends);span=max(hi-lo,2e-3)   # free bands: legend above, provenance note below the data
+    ax.set_ylim(lo-.55*span,hi+.4*span)
+    ax.set_xticks(range(len(keys)),[name for _,name in keys]);ax.set_xlim(-.5,len(keys)-.1)
+    ax.set(ylabel="Plateau mean / Medium mean")
+    b,r=sr["base"],sr["ref"]
+    ax.text(.01,.03,f"Wall faces {b['surface_wall_faces']:,} -> {r['surface_wall_faces']:,} (linear ratio {sr['face_ratio']**.5:.2f}); "
+            f"cells {b['cells']:,} -> {r['cells']:,}; acceptance {b['acceptance_tier']} / {r['acceptance_tier']}.\n"
+            "Identical facet geometry, volume size field and prism recipe; error bars: 1 sigma of the 200-iteration load plateau.",
+            transform=ax.transAxes,fontsize=6.3,va="bottom")
+    ax.legend(fontsize=6.5,loc="upper center",ncol=2)
+    title(ax,"e","Surface-mesh refinement at fixed Medium volume mesh")
+
+
 def fig2():
     frame,gcis=grid_series();save_table(frame,"mesh_convergence.csv");save_json(gcis,"asme_vv20_gci.json")
     save_table(yplus_table(),"yplus_stats.csv")
-    fig,axs=layout(2,2,(8.1,6.2))
+    sr=surface_refinement()
+    if sr:
+        fig=plt.figure(figsize=(8.1,9.0),layout="constrained");grid=fig.add_gridspec(3,2,height_ratios=(1,1,.85))
+        axs=np.array([[fig.add_subplot(grid[r,c]) for c in range(2)] for r in range(2)])
+    else:
+        fig,axs=layout(2,2,(8.1,6.2))
     for ax,col,label in zip(axs[0],["C_L","C_D"],["a","b"]):
         g=gcis[col];ax.plot(frame.h_m,frame[col],"-o",color=ACADEMIC_PALETTE[0])
         for i,text in enumerate(frame.level):ax.annotate(text,(frame.h_m.iloc[i],frame[col].iloc[i]),xytext=(0,5),textcoords="offset points",ha="center",fontsize=7)
@@ -82,6 +151,11 @@ def fig2():
                 ax.plot([],[],color="k",marker="|",ls="none",label=g["convergence_type"]+"; range / p=2 envelope")
             ax.legend(fontsize=7)
         else:ax.text(.02,.03,g["status"],transform=ax.transAxes,fontsize=6,wrap=True)
+        if sr:
+            qs=frame.q_ref_Pa.iloc[0]*frame.S_ref_m2.iloc[0];m=sr["forces"]["L_air" if col=="C_L" else "D_air"]
+            ax.errorbar(sr["h_m"],m["mean_N"]/qs,yerr=m["std_N"]/qs,fmt="D",mfc="white",color=ACADEMIC_PALETTE[3],capsize=3,
+                        label=f"Surface-refined Medium ({sr['face_ratio']:.1f}x wall faces, 1 sigma)")
+            ax.legend(fontsize=7)
         title(ax,label,{"C_L":"Lift convergence","C_D":"Drag convergence"}[col]);ax.set(xlabel="Mean grid spacing h (m)",ylabel=col)
     _,_,w,_,_,_=wall_data(FINE)
     with w:
@@ -93,6 +167,7 @@ def fig2():
         a.axvline(1,ls=":",color="k");a.set(xlabel="Wall y+",ylabel="Fraction of wetted area",xscale="symlog");a.legend(fontsize=6)
         title(a,"c","Fine-grid wall resolution")
     a=axs[1,1];a.plot(frame.cells/1e6,frame.min_orthogonal_quality,"o-",color=ACADEMIC_PALETTE[2]);a.axhline(.1,ls=":",color="k");a.set(xlabel="Half-domain cells (million)",ylabel="Minimum standard orthogonal quality");title(a,"d","Solver-reloaded mesh quality")
+    if sr:surface_panel(fig.add_subplot(grid[2,:]),sr)
     finish(fig,2)
 
 
@@ -138,13 +213,15 @@ def fig6():
         inset.plot(g.x_over_c,g.Cp,color=ACADEMIC_PALETTE[j%7],lw=.65)
     inset.set_xlim(0,.14);inset.invert_yaxis();inset.tick_params(labelsize=5);mark_inset(top,inset,loc1=2,loc2=4,fc="none",ec="0.45",lw=.5)
     with wall:
-        peak=met["peak_suction"]; mask=wall["component"]=="wall_wing"; v=wall["Cp"]; norm=Normalize(float(v[mask].min()),float(v[mask].max()))
+        peak=met["peak_suction"]; mask=wall["component"]=="wall_wing"; v=wall["Cp"]
+        # 1st-99th percentile of wing-face Cp; the junction minimum is marked and stated, not used as the limit.
+        lo,hi=robust(v[mask]);norm=TwoSlopeNorm(0.,lo,hi) if lo<0.<hi else Normalize(lo,hi)
         for s,ax,letter in [(1,axs[1,0],"c"),(-1,axs[1,1],"d")]:
-            proj=projected_faces(case,wall,s);wing_panel(fig,ax,proj,v,cm.vik,norm,"Cp")
+            proj=projected_faces(case,wall,s);wing_panel(fig,ax,proj,v,cm.vik,norm,"Cp",extend="both")
             title(ax,letter,"Upper wing" if s==1 else "Lower wing")
             ids=wall["face_id"][proj[1]]
             if peak["face_id"] in ids:
-                x,y,z=peak["face_centroid_m"];ax.plot([z,-z],[x,x],"w*",mec="k",ms=7)
+                x,y,z=peak["face_centroid_m"];ax.plot([abs(z)],[x],"w*",mec="k",ms=7)
                 ax.set_title(f"{letter}   Min Cp={peak['Cp']:.2f} at ({x:.2f}, {y:.2f}, ±{z:.2f}) m",loc="left",fontsize=8)
     finish(fig,6)
 
@@ -167,6 +244,11 @@ def field_norm(fields,key,signed=False):
     if not len(data) or not np.isfinite(data).all():raise ValueError(f"No finite native {key} values")
     # Every native value is retained; colorbar arrowheads identify percentile saturation.
     vmax=max(float(np.percentile(abs(data),99)),np.finfo(float).eps)
+    if key=="axial_vorticity_s_inv":
+        # Axial vorticity spans five decades (median 2.4 1/s, 99th percentile 1.4e4 1/s at the disk rims): a linear
+        # +-p99 scale left the slipstream vortex sheets white. Symmetric log above U/c ~ 30 1/s, limit p99.5.
+        vmax=max(float(np.percentile(abs(data),99.5)),np.finfo(float).eps)
+        return SymLogNorm(linthresh=30.,linscale=1.,vmin=-vmax,vmax=vmax,base=10)
     return TwoSlopeNorm(vcenter=0.,vmin=-vmax,vmax=vmax) if signed else Normalize(0,vmax)
 
 
@@ -177,7 +259,7 @@ def fig8():
     for ax,f,caption in zip(axs[0,:2],fields,["a   Swirl on","b   Swirl off"]):
         bar=field_panel(ax,f,"axial_vorticity_s_inv",BOX,cm.vik,norm,caption,("Spanwise z (m)","Vertical y (m)"))
         stream(ax,f,BOX,"w_m_s","v_m_s",.04,1.)
-    fig.colorbar(bar,ax=axs[0,:2].tolist(),label="Axial vorticity (1/s)",extend="both",shrink=.75)
+    fig.colorbar(bar,ax=axs[0,:2].tolist(),label="Axial vorticity (1/s), symmetric log",extend="both",shrink=.75)
     tables=[]
     for name in [BASE,OFF,FINE]:
         _,load,wall,_,_,_=wall_data(name);wall.close();tables.append(load.assign(case=name))
@@ -208,7 +290,8 @@ def fig9():
         for i,(x,field) in enumerate(zip(xs,fields)):
             ax=axs[i,j];bar=field_panel(ax,field,key,BOX,cmap,norm,f"{chr(97+i*2+j)}   x = {x:+.2f} m",("Spanwise z (m)","Vertical y (m)"))
             if j==1:stream(ax,field,BOX,"w_m_s","v_m_s",.045,.85)
-        fig.colorbar(bar,ax=axs[:,j].tolist(),label=caption,extend="both" if signed else "max",shrink=.72)
+        fig.colorbar(bar,ax=axs[:,j].tolist(),label=caption+(", symmetric log" if signed else ""),
+                     extend="both" if signed else "max",shrink=.72)
     finish(fig,9)
 
 
@@ -233,9 +316,12 @@ def fig11():
         mask=w["component"]=="wall_wing";tau=np.linalg.norm(w["wall_shear_storage"],axis=1)/w["area_m2"]
         for i,side in enumerate([1,-1]):
             proj=projected_faces(case,w,side)
-            for j,(v,label,cmap) in enumerate([(w["yplus"],"Wall y+",cm.batlow),(tau,"Wall shear (Pa)",cm.lajolla)]):
-                cap=max(float(np.max(v[mask])),np.finfo(float).eps)
-                wing_panel(fig,axs[i,j],proj,v,cmap,Normalize(0,cap),label)
+            for j,(v,label,cmap) in enumerate([(w["yplus"],"Wall y+ (log)",cm.batlow),(tau,"Wall shear (Pa)",cm.lajolla)]):
+                # y+ spans 0.1 to 6e3 on the wing (median ~14): log scale between the 1st and 99th percentiles;
+                # wall shear 0 to its 99th percentile. Saturation is shown by the colour-bar arrows.
+                lo,hi=robust(v[mask])
+                norm=LogNorm(max(lo,.1),hi) if j==0 else Normalize(0,hi)
+                wing_panel(fig,axs[i,j],proj,v,cmap,norm,label,extend="both" if j==0 else "max")
                 title(axs[i,j],chr(97+i*2+j),("Upper" if side==1 else "Lower")+" surface")
     finish(fig,11)
 

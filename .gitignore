@@ -26,3 +26,6 @@ __pycache__/
 /DELIVERABLES/*
 !/DELIVERABLES/data/
 !/DELIVERABLES/handoff_notes.md
+
+# 250 MB per-face/per-cell table (above the GitHub file limit); regenerated locally by the post-processing
+/DELIVERABLES/data/stress_and_bl_profiles.csv

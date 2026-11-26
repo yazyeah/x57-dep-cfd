@@ -1,0 +1,1202 @@
+{
+  "summary": {
+    "PASS": 59,
+    "WARN": 6,
+    "FAIL": 23
+  },
+  "overall": "FAIL",
+  "rows": [
+    {
+      "group": "Integrity",
+      "item": "acceptance thresholds unchanged since first launch",
+      "grade": "PASS",
+      "value": "all protected files match",
+      "criterion": "SHA-256 of fasttrack_profile/assess/verify/audit scripts"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "coarse quality tier",
+      "grade": "WARN",
+      "value": {
+        "tier": "last_resort",
+        "cells": 292178,
+        "min_OQ": 0.00614423,
+        "poor_cell_fraction": 0.0008556427930918823
+      },
+      "criterion": "solver min OQ >= 0.01 (Ansys) and <=1% cells OQ<0.05; last_resort = >0 with poor-mesh numerics"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "coarse prism-layer coverage",
+      "grade": "FAIL",
+      "value": 0.29293335932401626,
+      "criterion": "surviving / requested prism cells after stair-stepping: >=0.6 PASS, >=0.3 WARN"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "coarse CAD sponson clearance",
+      "grade": "PASS",
+      "value": 0.0014875324312376703,
+      "criterion": "|gap - CAD| <= 8 mm"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "medium quality tier",
+      "grade": "PASS",
+      "value": {
+        "tier": "accept",
+        "cells": 570033,
+        "min_OQ": 0.0101637,
+        "poor_cell_fraction": 0.0005561081551418952
+      },
+      "criterion": "solver min OQ >= 0.01 (Ansys) and <=1% cells OQ<0.05; last_resort = >0 with poor-mesh numerics"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "medium prism-layer coverage",
+      "grade": "FAIL",
+      "value": 0.293996999771169,
+      "criterion": "surviving / requested prism cells after stair-stepping: >=0.6 PASS, >=0.3 WARN"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "medium CAD sponson clearance",
+      "grade": "PASS",
+      "value": 0.0014875324312376703,
+      "criterion": "|gap - CAD| <= 8 mm"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "fine quality tier",
+      "grade": "WARN",
+      "value": {
+        "tier": "last_resort",
+        "cells": 952382,
+        "min_OQ": 0.000371153,
+        "poor_cell_fraction": 0.0004094995495504955
+      },
+      "criterion": "solver min OQ >= 0.01 (Ansys) and <=1% cells OQ<0.05; last_resort = >0 with poor-mesh numerics"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "fine prism-layer coverage",
+      "grade": "FAIL",
+      "value": 0.29427244450847945,
+      "criterion": "surviving / requested prism cells after stair-stepping: >=0.6 PASS, >=0.3 WARN"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "fine CAD sponson clearance",
+      "grade": "PASS",
+      "value": 0.0014875324312376703,
+      "criterion": "|gap - CAD| <= 8 mm"
+    },
+    {
+      "group": "P2 mesh",
+      "item": "refinement ratios r32/r21",
+      "grade": "PASS",
+      "value": {
+        "r32": 1.249541921040563,
+        "r21": 1.1865983152479738
+      },
+      "criterion": "target r32>=1.18, r21>=1.15; hard >=1.10"
+    },
+    {
+      "group": "Convergence",
+      "item": "coarse_rpm100 acceptance tier [brief-required]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 3000,
+        "total_iterations": 3009
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "coarse_rpm100 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": -169.8939443494894,
+        "rel_std": 0.002320364658661174,
+        "rel_drift": 0.0004109318737891596
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "coarse_rpm100 mass imbalance",
+      "grade": "PASS",
+      "value": 6.433164801527369e-06,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "coarse_rpm100 max disk integral error",
+      "grade": "PASS",
+      "value": 2.8225754068716895e-15,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm100 acceptance tier [brief-required]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 900,
+        "total_iterations": 902
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm100 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": -160.67910250302734,
+        "rel_std": 0.0007145955619015775,
+        "rel_drift": 0.000477403423965661
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm100 mass imbalance",
+      "grade": "PASS",
+      "value": 6.984016778059196e-05,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm100 max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "fine_rpm100 acceptance tier [brief-required]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 900,
+        "total_iterations": 902
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "fine_rpm100 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": -170.15029082219394,
+        "rel_std": 0.004295440812303654,
+        "rel_drift": 0.002465949425816491
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "fine_rpm100 mass imbalance",
+      "grade": "PASS",
+      "value": 2.08299820985629e-06,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "fine_rpm100 max disk integral error",
+      "grade": "PASS",
+      "value": 1.9157015024569447e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm050 acceptance tier [brief-required]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1800,
+        "total_iterations": 903
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm050 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": -43.06773290662304,
+        "rel_std": 0.0023529662219017996,
+        "rel_drift": 0.0012752554405684956
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm050 mass imbalance",
+      "grade": "PASS",
+      "value": 2.230998637720459e-06,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm050 max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm075 acceptance tier [brief-required]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1800,
+        "total_iterations": 903
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm075 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": -92.6248556666713,
+        "rel_std": 0.0009134629266402014,
+        "rel_drift": 0.0001638939184127909
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm075 mass imbalance",
+      "grade": "PASS",
+      "value": 1.8315780038994229e-06,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm075 max disk integral error",
+      "grade": "PASS",
+      "value": 1.5254660112157153e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm100_noswirl acceptance tier [extension]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1500,
+        "total_iterations": 602
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm100_noswirl lift plateau (last 200 it.)",
+      "grade": "WARN",
+      "value": {
+        "mean_N": -225.3415380999371,
+        "rel_std": 0.006541832301347993,
+        "rel_drift": 0.006286163560355513
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm100_noswirl mass imbalance",
+      "grade": "PASS",
+      "value": 7.468005472435529e-06,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm100_noswirl max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm100_hlp_only acceptance tier [extension]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1500,
+        "total_iterations": 602
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm100_hlp_only lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": -50.1248814090388,
+        "rel_std": 0.002353529496351671,
+        "rel_drift": 0.0010687293832015634
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm100_hlp_only mass imbalance",
+      "grade": "PASS",
+      "value": 6.596764871780379e-07,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm100_hlp_only max disk integral error",
+      "grade": "PASS",
+      "value": 9.877644382898647e-15,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm100_wt_only acceptance tier [extension]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1500,
+        "total_iterations": 602
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm100_wt_only lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": 257.8640205373256,
+        "rel_std": 0.0004356346897327254,
+        "rel_drift": 4.1710598908747356e-05
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm100_wt_only mass imbalance",
+      "grade": "PASS",
+      "value": 0.00012782321117483898,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm100_wt_only max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm100_alt_swirl acceptance tier [extension]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1500,
+        "total_iterations": 602
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm100_alt_swirl lift plateau (last 200 it.)",
+      "grade": "WARN",
+      "value": {
+        "mean_N": -103.79689126081513,
+        "rel_std": 0.010523749245440538,
+        "rel_drift": 0.0004841844867856718
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm100_alt_swirl mass imbalance",
+      "grade": "PASS",
+      "value": 2.3681813510055925e-05,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm100_alt_swirl max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm100_takeoff_v10 acceptance tier [extension]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1500,
+        "total_iterations": 602
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm100_takeoff_v10 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": 311.4269313674614,
+        "rel_std": 0.004014039528024114,
+        "rel_drift": 0.0015797270104282886
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm100_takeoff_v10 mass imbalance",
+      "grade": "FAIL",
+      "value": 0.0623705633219937,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm100_takeoff_v10 max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm100_oge acceptance tier [extension]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1500,
+        "total_iterations": 602
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm100_oge lift plateau (last 200 it.)",
+      "grade": "FAIL",
+      "value": {
+        "mean_N": 790.0620119091985,
+        "rel_std": 0.013408702505514989,
+        "rel_drift": 0.019546176692878472
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm100_oge mass imbalance",
+      "grade": "PASS",
+      "value": 0.001158208280567484,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm100_oge max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_rpm100_rke acceptance tier [extension]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 2100,
+        "total_iterations": 1204
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_rpm100_rke lift plateau (last 200 it.)",
+      "grade": "FAIL",
+      "value": {
+        "mean_N": -166.24479006632018,
+        "rel_std": 0.12995487752769344,
+        "rel_drift": 0.009190108517245759
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_rpm100_rke mass imbalance",
+      "grade": "PASS",
+      "value": 0.00016264713242300616,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_rpm100_rke max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "medium_opt_hlp_vector10 acceptance tier [extension]",
+      "grade": "FAIL",
+      "value": {
+        "tier": "flagged",
+        "final_iteration": 1500,
+        "total_iterations": 602
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "medium_opt_hlp_vector10 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": -1058.4569698566409,
+        "rel_std": 0.0006202191256032775,
+        "rel_drift": 0.00030577855374974033
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "medium_opt_hlp_vector10 mass imbalance",
+      "grade": "PASS",
+      "value": 2.128047426254475e-06,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Actuator disks",
+      "item": "medium_opt_hlp_vector10 max disk integral error",
+      "grade": "PASS",
+      "value": 1.1889357998046415e-14,
+      "criterion": "< 1 %"
+    },
+    {
+      "group": "Convergence",
+      "item": "opt2d_01_clean acceptance tier [extension]",
+      "grade": "PASS",
+      "value": {
+        "tier": "engineering",
+        "final_iteration": 600,
+        "total_iterations": 600
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "opt2d_01_clean lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": 28.830066171615325,
+        "rel_std": 1.7467866092180383e-05,
+        "rel_drift": 1.4603955819098835e-05
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "opt2d_01_clean mass imbalance",
+      "grade": "PASS",
+      "value": 1.1494015442457313e-08,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Convergence",
+      "item": "opt2d_02_flap15 acceptance tier [extension]",
+      "grade": "PASS",
+      "value": {
+        "tier": "engineering",
+        "final_iteration": 600,
+        "total_iterations": 600
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "opt2d_02_flap15 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": 182.02111411282078,
+        "rel_std": 3.627176180725058e-06,
+        "rel_drift": 9.12692454040046e-07
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "opt2d_02_flap15 mass imbalance",
+      "grade": "PASS",
+      "value": 6.710879705656018e-08,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Convergence",
+      "item": "opt2d_03_flap30 acceptance tier [extension]",
+      "grade": "PASS",
+      "value": {
+        "tier": "engineering",
+        "final_iteration": 600,
+        "total_iterations": 600
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "opt2d_03_flap30 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": 256.8036702442946,
+        "rel_std": 4.970390758562763e-06,
+        "rel_drift": 6.964669724368691e-07
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "opt2d_03_flap30 mass imbalance",
+      "grade": "PASS",
+      "value": 8.38064067710216e-07,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Convergence",
+      "item": "opt2d_04_slat_flap30 acceptance tier [extension]",
+      "grade": "PASS",
+      "value": {
+        "tier": "engineering",
+        "final_iteration": 600,
+        "total_iterations": 600
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "opt2d_04_slat_flap30 lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": 240.12197802379183,
+        "rel_std": 1.4561745576871306e-07,
+        "rel_drift": 1.2626482552264148e-07
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "opt2d_04_slat_flap30 mass imbalance",
+      "grade": "PASS",
+      "value": 9.785485400991233e-09,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Convergence",
+      "item": "opt2d_05_camber_opt acceptance tier [extension]",
+      "grade": "PASS",
+      "value": {
+        "tier": "engineering",
+        "final_iteration": 600,
+        "total_iterations": 600
+      },
+      "criterion": "strict/engineering = converged; budget = plateau within 2 %; flagged = FAIL"
+    },
+    {
+      "group": "Lift stability",
+      "item": "opt2d_05_camber_opt lift plateau (last 200 it.)",
+      "grade": "PASS",
+      "value": {
+        "mean_N": 73.6265808101734,
+        "rel_std": 6.554085349288726e-06,
+        "rel_drift": 6.41637785033949e-06
+      },
+      "criterion": "rel. std < 1 %, drift < 0.5 %"
+    },
+    {
+      "group": "Conservation",
+      "item": "opt2d_05_camber_opt mass imbalance",
+      "grade": "PASS",
+      "value": 3.137007407982168e-08,
+      "criterion": "< 1 % (strict 0.5 %)"
+    },
+    {
+      "group": "Mesh convergence",
+      "item": "GCI fine L_air_N",
+      "grade": "FAIL",
+      "value": {
+        "U_fine_pct": 211.10149553343618,
+        "convergence": "oscillatory",
+        "p": 0.18954108228999278
+      },
+      "criterion": "fine-grid uncertainty < 3 % target, < 5 % redline (Celik 2008)"
+    },
+    {
+      "group": "Mesh convergence",
+      "item": "GCI fine D_air_N",
+      "grade": "FAIL",
+      "value": {
+        "U_fine_pct": 6.033182353091662,
+        "convergence": "monotonic",
+        "p": 12.401186563677673
+      },
+      "criterion": "fine-grid uncertainty < 3 % target, < 5 % redline (Celik 2008)"
+    },
+    {
+      "group": "Mesh convergence",
+      "item": "GCI fine C_L",
+      "grade": "FAIL",
+      "value": {
+        "U_fine_pct": 211.10149553341708,
+        "convergence": "oscillatory",
+        "p": 0.1895410822900099
+      },
+      "criterion": "fine-grid uncertainty < 3 % target, < 5 % redline (Celik 2008)"
+    },
+    {
+      "group": "Mesh convergence",
+      "item": "GCI fine C_D",
+      "grade": "FAIL",
+      "value": {
+        "U_fine_pct": 6.033182353091656,
+        "convergence": "monotonic",
+        "p": 12.4011865636776
+      },
+      "criterion": "fine-grid uncertainty < 3 % target, < 5 % redline (Celik 2008)"
+    },
+    {
+      "group": "Wall resolution",
+      "item": "fine wing y+ (area-weighted)",
+      "grade": "WARN",
+      "value": {
+        "mean": 141.81556813683213,
+        "p95": 980.8156503923727
+      },
+      "criterion": "mean 0.5-1.2, p95 < 2.5 (SST all-y+ treatment otherwise)"
+    },
+    {
+      "group": "Structural stress",
+      "item": "skin area in the LOWEST colour band (render17/18, allowable scale 0-335 MPa)",
+      "grade": "PASS",
+      "value": {
+        "area_fraction": 0.9855545202602772,
+        "blue_below_MPa": 37.25925925925926,
+        "peak_vm_MPa": 277.2254876654,
+        "p99_vm_MPa": 39.5208118709638
+      },
+      "criterion": ">= 95 % of exterior skin area below 37.3 MPa"
+    },
+    {
+      "group": "Structural stress",
+      "item": "minimum yield factor of safety",
+      "grade": "PASS",
+      "value": 1.814407485530698,
+      "criterion": ">= 1.5 (503 MPa yield)"
+    },
+    {
+      "group": "Structural stress",
+      "item": "structural mesh convergence",
+      "grade": "WARN",
+      "value": {
+        "peak_element_average_top_or_bottom_von_mises_Pa": 33.98831790617363,
+        "area_weighted_p99_von_mises_Pa": 7.581108645968139,
+        "wingtip_patch_mean_displacement_magnitude_m": 7.10658323400105
+      },
+      "criterion": "smooth metrics < 10 % (engineering), all metrics < 3 % (target)"
+    },
+    {
+      "group": "Physics checks",
+      "item": "RPM^2 scaling R^2",
+      "grade": "PASS",
+      "value": {
+        "delta_L_static_N": 0.9984845043875646,
+        "D_air_N": 0.9994559913180235,
+        "L_wing_N": 0.9973382359100171
+      },
+      "criterion": ">= 0.99 (target 0.999)"
+    },
+    {
+      "group": "Physics checks",
+      "item": "zero-RPM static equilibrium",
+      "grade": "PASS",
+      "value": {
+        "MaxVelocity": true,
+        "MaxAbsGaugePressure": true,
+        "MaxTemperatureDeparture": true,
+        "matched_native_mesh": true,
+        "zero_actuator_fields": true,
+        "reported_airframe_parts": true,
+        "reported_open_boundaries": true,
+        "stationary_wall_forces": true,
+        "zero_moment": true,
+        "zero_surface_flux": true,
+        "zero_source_reaction": true
+      },
+      "criterion": "all exact"
+    }
+  ],
+  "profile": {
+    "ENABLED": true,
+    "LICENSE_CELL_CAP": 1048575,
+    "TARGET_WINDOWS": {
+      "coarse": [
+        280000,
+        380000
+      ],
+      "medium": [
+        560000,
+        680000
+      ],
+      "fine": [
+        940000,
+        1044000
+      ]
+    },
+    "HARD_WINDOWS": {
+      "coarse": [
+        250000,
+        400000
+      ],
+      "medium": [
+        480000,
+        720000
+      ],
+      "fine": [
+        840000,
+        1045000
+      ]
+    },
+    "COUNT_TARGET": {
+      "coarse": 315000,
+      "medium": 570000,
+      "fine": 945000
+    },
+    "RATIO_TARGET": {
+      "r32": 1.18,
+      "r21": 1.15
+    },
+    "RATIO_HARD": {
+      "r32": 1.1,
+      "r21": 1.1
+    },
+    "MESH_OQ_TARGET": 0.1,
+    "MESH_OQ_ACCEPT": 0.01,
+    "MESH_POOR_FRACTION_MAX": 0.01,
+    "MESH_POOR_FRACTION_LASTRESORT": 0.02,
+    "CAD_GAP_TOL_M": {
+      "coarse": 0.008,
+      "medium": 0.008,
+      "fine": 0.008
+    },
+    "P2_LEVEL_BUDGET_MIN": {
+      "coarse": 100,
+      "medium": 150,
+      "fine": 190
+    },
+    "P2_MAX_ATTEMPTS": {
+      "coarse": 3,
+      "medium": 3,
+      "fine": 3
+    },
+    "P2_FLUENT_WALL_MIN": {
+      "coarse": 45,
+      "medium": 60,
+      "fine": 80
+    },
+    "P2_SILENT_STALL_MIN": 35,
+    "FORCE_TIERS": {
+      "strict": [
+        0.005,
+        0.005
+      ],
+      "engineering": [
+        0.0075,
+        0.003
+      ],
+      "budget": [
+        0.015,
+        0.0075
+      ]
+    },
+    "FORCE_NEAR_ZERO_ABS": {
+      "strict": [
+        1.0,
+        0.5
+      ],
+      "engineering": [
+        1.5,
+        0.75
+      ],
+      "budget": [
+        3.0,
+        1.5
+      ]
+    },
+    "MASS_TIERS": {
+      "strict": 0.005,
+      "engineering": 0.005,
+      "budget": 0.01
+    },
+    "REDUCTION_ORDERS": {
+      "strict": 4.0,
+      "engineering": 3.0,
+      "budget": 2.0
+    },
+    "RESIDUAL_TIERS": {
+      "strict": {
+        "continuity": 0.001,
+        "velocity": 0.0001,
+        "energy": 1e-06,
+        "turbulence": 0.0001
+      },
+      "engineering": {
+        "continuity": 0.002,
+        "velocity": 0.0005,
+        "energy": 5e-06,
+        "turbulence": 0.0005
+      },
+      "budget": {
+        "continuity": 0.005,
+        "velocity": 0.001,
+        "energy": 1e-05,
+        "turbulence": 0.001
+      }
+    },
+    "SECTION_RESIDUAL_TIERS": {
+      "strict": {
+        "continuity": 1e-06,
+        "other": 1e-06
+      },
+      "engineering": {
+        "continuity": 5e-05,
+        "other": 5e-06
+      },
+      "budget": {
+        "continuity": 0.0001,
+        "other": 1e-05
+      }
+    },
+    "SECTION_YPLUS_MAX": {
+      "strict": 0.5,
+      "engineering": 1.0,
+      "budget": 2.0
+    },
+    "TIER_ORDER": [
+      "strict",
+      "engineering",
+      "budget"
+    ],
+    "CASE_PLAN": {
+      "coarse_rpm100": {
+        "block": 300,
+        "min_iter": 900,
+        "max_iter": 2400,
+        "initial_scale": 0.6,
+        "warmup": 150,
+        "grace_blocks": 3,
+        "allow_budget": false,
+        "deadline_binding": false
+      },
+      "medium_rpm100": {
+        "block": 300,
+        "min_iter": 900,
+        "max_iter": 2400,
+        "initial_scale": 0.6,
+        "warmup": 100,
+        "grace_blocks": 3,
+        "allow_budget": false,
+        "deadline_binding": false
+      },
+      "fine_rpm100": {
+        "block": 300,
+        "min_iter": 600,
+        "max_iter": 2100,
+        "initial_scale": 0.8,
+        "warmup": 60,
+        "grace_blocks": 3,
+        "allow_budget": false,
+        "deadline_binding": false
+      },
+      "medium_rpm050": {
+        "block": 300,
+        "min_iter": 600,
+        "max_iter": 1800,
+        "initial_scale": 1.0,
+        "warmup": 0,
+        "grace_blocks": 3,
+        "allow_budget": false,
+        "deadline_binding": false
+      },
+      "medium_rpm075": {
+        "block": 300,
+        "min_iter": 600,
+        "max_iter": 1800,
+        "initial_scale": 1.0,
+        "warmup": 0,
+        "grace_blocks": 3,
+        "allow_budget": false,
+        "deadline_binding": false
+      },
+      "_branch": {
+        "block": 300,
+        "min_iter": 300,
+        "max_iter": 900,
+        "initial_scale": 1.0,
+        "warmup": 0,
+        "grace_blocks": 1,
+        "allow_budget": true,
+        "deadline_binding": true
+      },
+      "_section": {
+        "block": 600,
+        "min_iter": 600,
+        "max_iter": 3000,
+        "initial_scale": 1.0,
+        "warmup": 0,
+        "grace_blocks": 1,
+        "allow_budget": true,
+        "deadline_binding": true
+      }
+    },
+    "REQUIRED_CASES": [
+      "coarse_rpm100",
+      "medium_rpm100",
+      "fine_rpm100",
+      "medium_rpm050",
+      "medium_rpm075"
+    ],
+    "CORE_CASES": [
+      "coarse_rpm100",
+      "medium_rpm100",
+      "fine_rpm100"
+    ],
+    "MAX_DIVERGENCE_RECOVERIES": 2,
+    "FIELD_EXPORT_CASES": [
+      "medium_rpm100",
+      "fine_rpm100",
+      "medium_rpm100_noswirl"
+    ],
+    "INTERPOLATION_EXPORT_CASES": [
+      "coarse_rpm100",
+      "medium_rpm100"
+    ],
+    "GLOBAL_HOURS": 15.0,
+    "STAGES": [
+      "P2",
+      "P3",
+      "P4",
+      "P5",
+      "P6",
+      "P7",
+      "P8",
+      "P9",
+      "P10",
+      "P11",
+      "P12"
+    ],
+    "COMPUTE_STAGES": [
+      "P2",
+      "P3",
+      "P4",
+      "P5",
+      "P6",
+      "P7",
+      "P8",
+      "P9",
+      "P10"
+    ],
+    "REPORT_STAGES": [
+      "P11",
+      "P12"
+    ],
+    "REQUIRED_STAGES": [
+      "P2",
+      "P3",
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "STAGE_NOMINAL_MIN": {
+      "P2": 190,
+      "P3": 45,
+      "P4": 70,
+      "P5": 95,
+      "P6": 75,
+      "P7": 25,
+      "P8": 75,
+      "P9": 80,
+      "P10": 95,
+      "P11": 60,
+      "P12": 15
+    },
+    "STAGE_HARD_MIN": {
+      "P2": 360,
+      "P3": 120,
+      "P4": 180,
+      "P5": 240,
+      "P6": 160,
+      "P7": 45,
+      "P8": 110,
+      "P9": 120,
+      "P10": 150,
+      "P11": 150,
+      "P12": 45
+    },
+    "STAGE_FLOOR_MIN": {
+      "P2": 60,
+      "P3": 30,
+      "P4": 45,
+      "P5": 60,
+      "P6": 45,
+      "P7": 15,
+      "P8": 40,
+      "P9": 40,
+      "P10": 55,
+      "P11": 45,
+      "P12": 12
+    },
+    "FLUENT_DEFAULT_WALL_MIN": 90.0,
+    "FLUENT_DEFAULT_IDLE_MIN": 20.0,
+    "MAPDL_WALL_MIN": 40.0,
+    "PROGRESS_STALL_MIN": {
+      "P2": 100,
+      "P11": 120,
+      "_default": 60
+    },
+    "STAGE_ATTEMPTS": 3,
+    "PROGRESS_SUFFIXES": [
+      ".json",
+      ".jsonl",
+      ".cas.h5",
+      ".dat.h5",
+      ".msh.h5",
+      ".ip",
+      ".png",
+      ".pdf",
+      ".csv",
+      ".rst",
+      ".npz",
+      ".sf",
+      ".h5"
+    ],
+    "PROGRESS_DIRS": [
+      "02_mesh",
+      "03_cases",
+      "04_postproc",
+      "DELIVERABLES",
+      "logs"
+    ],
+    "PROTECTED_FILES": [
+      "scripts/fasttrack_profile.py",
+      "scripts/assess_fluent_case.py",
+      "scripts/assess_section_case.py",
+      "scripts/fasttrack_mesh.py",
+      "scripts/cfd_verification.py",
+      "scripts/verify_deliverables.py",
+      "scripts/final_quality_audit.py",
+      "scripts/verify_fsi_mesh_study.py"
+    ],
+    "STRESS_YIELD_MPA": 503.0,
+    "STRESS_DESIGN_FACTOR": 1.5,
+    "STRESS_SCALE_MAX_MPA": 335.3333333333333,
+    "STRESS_BLUE_BINS": 1,
+    "STRESS_BLUE_AREA_MIN": 0.95,
+    "STRESS_MIN_YIELD_FOS": 1.5,
+    "GCI_TARGET_PCT": 3.0,
+    "GCI_REDLINE_PCT": 5.0
+  }
+}

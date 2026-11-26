@@ -83,9 +83,17 @@ read_cmd=f'/file/read-case "{source.as_posix()}"'
 if input_data:
     read_cmd+=f'\n/file/read-data "{input_data.as_posix()}"'
 worker=(ROOT/'scripts/fluent_solver_worker.py').as_posix()
+# Boundary-type changes of the P9 branches. Fluent 25.2's settings-API set_zone_type is a silent no-op in this
+# Student build (logs/probe_zonetype, 2026-11-25: returns None, zone type unchanged), while the TUI command
+# converts the zone with or without data loaded and is harmless when the zone already has the target type,
+# so the journal converts the zones on every block before the worker runs (the worker verifies the types).
+ZONE_TYPES={'_oge':{'runway_ground':'pressure-inlet'},
+            '_takeoff_v10':{'farfield_inlet':'velocity-inlet','farfield_top':'symmetry','farfield_side':'symmetry'}}
+zone_cmd=''.join(f'/define/boundary-conditions/zone-type {zone} {ztype}\n'
+                 for suffix,zones in ZONE_TYPES.items() if a.case.endswith(suffix) for zone,ztype in zones.items())
 journal=f'''/file/confirm-overwrite no
 {read_cmd}
-(set! checkpoint/exit-filename "exit-fluent.txt")
+{zone_cmd}(set! checkpoint/exit-filename "exit-fluent.txt")
 (set! checkpoint/check-filename "check-fluent.txt")
 /mesh/check
 /file/auto-save/data-frequency 50

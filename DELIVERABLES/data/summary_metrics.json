@@ -1,0 +1,643 @@
+{
+  "accepted_case": "block_20261125_114009_154239.cas.h5",
+  "accepted_data": "block_20261125_114009_154239.dat.h5",
+  "coordinate_convention": "x downstream; y upward; z starboard; thrust magnitudes reported positive forward.",
+  "full_aircraft_forces_N": {
+    "L_air": -170.15029082219394,
+    "L_wing": 153.32211573272014,
+    "D_air": 194.92520222429084,
+    "T_gross": 7931.545068140556,
+    "T_net": 7736.619865916266
+  },
+  "half_domain_forces_N": {
+    "L_air": -85.07514541109697,
+    "L_wing": 76.66105786636007,
+    "D_air": 97.46260111214542,
+    "T_gross": 3965.772534070278,
+    "T_net": 3868.309932958133
+  },
+  "C_L": -0.08979992060147096,
+  "C_D": 0.10287533214538461,
+  "q_ref_Pa": 305.9361147570636,
+  "V_ref_m_s": 22.349217755824178,
+  "S_ref_m2": 6.193355309991654,
+  "peak_suction": {
+    "face_id": 17928,
+    "face_centroid_m": [
+      -0.3490456313499243,
+      0.11485835723241232,
+      1.4971566564389285
+    ],
+    "span_fraction": 0.3106668494227805,
+    "chord_fraction": 0.04370736845809094,
+    "p_gauge_Pa": -3379.234925028253,
+    "Cp": -11.045557428588063,
+    "q_ref_Pa": 305.93611475706354
+  },
+  "gci": {
+    "C_L": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118263,
+        0.32130464416711096,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        -0.08966462907311623,
+        -0.08480132815150847,
+        -0.08979992060147096
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479735,
+      "r21": 1.1865983152479735,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": -0.004863300921607763,
+      "epsilon21": 0.004998592449962494,
+      "epsilon32_over_epsilon21": -0.9729340750003042,
+      "observed_order": 0.1895410822900099,
+      "order_candidates": [
+        0.1895410822900099
+      ],
+      "celik_log_branch": "noncontracting",
+      "convergence_type": "oscillatory",
+      "qualified_monotonic_order": false,
+      "status": "Oscillatory differences; raw extrapolation is diagnostic",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 0.1895410822900099,
+        "extrapolated": -0.241455100903492,
+        "extrapolated_32": 0.02795891460860095,
+        "fine_absolute_GCI": 0.18956897537752632,
+        "medium_absolute_GCI": 0.14095030345013676,
+        "fine_percent_GCI": 211.10149553341708,
+        "medium_percent_GCI": 166.21237723813823,
+        "approximate_relative_error_21_pct": 5.566366224471489,
+        "approximate_relative_error_32_pct": 5.734934850217028,
+        "extrapolated_relative_error_21_pct": 62.80885337876403,
+        "extrapolated_relative_error_32_pct": 403.30693926659507,
+        "asymptotic_ratio": 0.7622342196684854
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": -0.10205090541325483,
+        "extrapolated_32": -0.07613782499601264,
+        "fine_absolute_GCI": 0.015313731014729834,
+        "medium_absolute_GCI": 0.010829378944369784,
+        "fine_percent_GCI": 17.053167655561367,
+        "medium_percent_GCI": 12.770294027732335,
+        "approximate_relative_error_21_pct": 5.566366224471489,
+        "approximate_relative_error_32_pct": 5.734934850217028,
+        "extrapolated_relative_error_21_pct": 12.004778166517525,
+        "extrapolated_relative_error_32_pct": 11.378711114941275,
+        "asymptotic_ratio": 0.5318490406328727
+      },
+      "half_range_U_osc": 0.002499296224981247,
+      "range_midpoint": -0.08730062437648972,
+      "observed_range_interval": [
+        -0.08979992060147096,
+        -0.08480132815150847
+      ],
+      "reported_fine_absolute_uncertainty": 0.18956897537752632,
+      "reported_medium_absolute_uncertainty": 0.14095030345013676,
+      "reported_fine_percent_uncertainty": 211.10149553341708,
+      "reported_medium_percent_uncertainty": 166.21237723813823,
+      "reported_fine_interval": [
+        -0.2793688959789973,
+        0.09976905477605535
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": -0.241455100903492,
+      "extrapolated_32": 0.02795891460860095,
+      "fine_absolute_GCI": 0.18956897537752632,
+      "medium_absolute_GCI": 0.14095030345013676,
+      "fine_percent_GCI": 211.10149553341708,
+      "medium_percent_GCI": 166.21237723813823,
+      "approximate_relative_error_21_pct": 5.566366224471489,
+      "approximate_relative_error_32_pct": 5.734934850217028,
+      "extrapolated_relative_error_21_pct": 62.80885337876403,
+      "extrapolated_relative_error_32_pct": 403.30693926659507,
+      "asymptotic_ratio": 0.7622342196684854
+    },
+    "C_D": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118263,
+        0.32130464416711096,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        0.09666867576070483,
+        0.10252787669442984,
+        0.10287533214538461
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479735,
+      "r21": 1.1865983152479735,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": -0.005859200933725009,
+      "epsilon21": -0.00034745545095477004,
+      "epsilon32_over_epsilon21": 16.863171717768587,
+      "observed_order": 12.4011865636776,
+      "order_candidates": [
+        12.4011865636776
+      ],
+      "celik_log_branch": "contracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 12.4011865636776,
+        "extrapolated": 0.10292263370566707,
+        "extrapolated_32": 0.10292263370566707,
+        "fine_absolute_GCI": 5.9126950353078706e-05,
+        "medium_absolute_GCI": 0.000493446264046542,
+        "fine_percent_GCI": 0.057474371280298586,
+        "medium_percent_GCI": 0.4812800966484368,
+        "approximate_relative_error_21_pct": 0.33774418386687877,
+        "approximate_relative_error_32_pct": 5.714739369066959,
+        "extrapolated_relative_error_21_pct": 0.045958365598895934,
+        "extrapolated_relative_error_32_pct": 0.38354732775896483,
+        "asymptotic_ratio": 1.003388887609469
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 0.10372690616247622,
+        "extrapolated_32": 0.11296548000054595,
+        "fine_absolute_GCI": 0.0010644675213645246,
+        "medium_absolute_GCI": 0.013047004132645137,
+        "fine_percent_GCI": 1.0347159996141804,
+        "medium_percent_GCI": 12.725323642008046,
+        "approximate_relative_error_21_pct": 0.33774418386687877,
+        "approximate_relative_error_32_pct": 5.714739369066959,
+        "extrapolated_relative_error_21_pct": 0.820976975595635,
+        "extrapolated_relative_error_32_pct": 9.239639672283664,
+        "asymptotic_ratio": 8.734543603583521
+      },
+      "half_range_U_osc": 0.0031033281923398895,
+      "range_midpoint": 0.09977200395304472,
+      "observed_range_interval": [
+        0.09666867576070483,
+        0.10287533214538461
+      ],
+      "reported_fine_absolute_uncertainty": 0.006206656384679772,
+      "reported_medium_absolute_uncertainty": 0.013047004132645137,
+      "reported_fine_percent_uncertainty": 6.033182353091656,
+      "reported_medium_percent_uncertainty": 12.725323642008046,
+      "reported_fine_interval": [
+        0.09666867576070484,
+        0.10908198853006437
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 0.10292263370566707,
+      "extrapolated_32": 0.10292263370566707,
+      "fine_absolute_GCI": 5.9126950353078706e-05,
+      "medium_absolute_GCI": 0.000493446264046542,
+      "fine_percent_GCI": 0.057474371280298586,
+      "medium_percent_GCI": 0.4812800966484368,
+      "approximate_relative_error_21_pct": 0.33774418386687877,
+      "approximate_relative_error_32_pct": 5.714739369066959,
+      "extrapolated_relative_error_21_pct": 0.045958365598895934,
+      "extrapolated_relative_error_32_pct": 0.38354732775896483,
+      "asymptotic_ratio": 1.003388887609469
+    },
+    "L_air_N": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118263,
+        0.32130464416711096,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        -169.8939443494894,
+        -160.67910250302734,
+        -170.15029082219394
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479735,
+      "r21": 1.1865983152479735,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": -9.214841846462065,
+      "epsilon21": 9.4711883191666,
+      "epsilon32_over_epsilon21": -0.9729340750003066,
+      "observed_order": 0.18954108228999278,
+      "order_candidates": [
+        0.18954108228999278
+      ],
+      "celik_log_branch": "noncontracting",
+      "convergence_type": "oscillatory",
+      "qualified_monotonic_order": false,
+      "status": "Oscillatory differences; raw extrapolation is diagnostic",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 0.18954108228999278,
+        "extrapolated": -457.50213768630783,
+        "extrapolated_32": 52.97574229314182,
+        "fine_absolute_GCI": 359.18980858014237,
+        "medium_absolute_GCI": 267.06855599521145,
+        "fine_percent_GCI": 211.10149553343618,
+        "medium_percent_GCI": 166.2123772381537,
+        "approximate_relative_error_21_pct": 5.566366224471481,
+        "approximate_relative_error_32_pct": 5.734934850217034,
+        "extrapolated_relative_error_21_pct": 62.80885337876615,
+        "extrapolated_relative_error_32_pct": 403.3069392664814,
+        "asymptotic_ratio": 0.7622342196684897
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": -193.36310231046107,
+        "extrapolated_32": -144.26374743842092,
+        "fine_absolute_GCI": 29.016014360333934,
+        "medium_absolute_GCI": 20.519193830758034,
+        "fine_percent_GCI": 17.053167655561342,
+        "medium_percent_GCI": 12.770294027732346,
+        "approximate_relative_error_21_pct": 5.566366224471481,
+        "approximate_relative_error_32_pct": 5.734934850217034,
+        "extrapolated_relative_error_21_pct": 12.00477816651751,
+        "extrapolated_relative_error_32_pct": 11.378711114941286,
+        "asymptotic_ratio": 0.5318490406328741
+      },
+      "half_range_U_osc": 4.7355941595833,
+      "range_midpoint": -165.41469666261065,
+      "observed_range_interval": [
+        -170.15029082219394,
+        -160.67910250302734
+      ],
+      "reported_fine_absolute_uncertainty": 359.18980858014237,
+      "reported_medium_absolute_uncertainty": 267.06855599521145,
+      "reported_fine_percent_uncertainty": 211.10149553343618,
+      "reported_medium_percent_uncertainty": 166.2123772381537,
+      "reported_fine_interval": [
+        -529.3400994023364,
+        189.03951775794843
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": -457.50213768630783,
+      "extrapolated_32": 52.97574229314182,
+      "fine_absolute_GCI": 359.18980858014237,
+      "medium_absolute_GCI": 267.06855599521145,
+      "fine_percent_GCI": 211.10149553343618,
+      "medium_percent_GCI": 166.2123772381537,
+      "approximate_relative_error_21_pct": 5.566366224471481,
+      "approximate_relative_error_32_pct": 5.734934850217034,
+      "extrapolated_relative_error_21_pct": 62.80885337876615,
+      "extrapolated_relative_error_32_pct": 403.3069392664814,
+      "asymptotic_ratio": 0.7622342196684897,
+      "fine_target_pct": 3.0,
+      "fine_redline_pct": 5.0,
+      "below_target": false,
+      "below_redline": false
+    },
+    "L_wing_N": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118263,
+        0.32130464416711096,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        131.1833649595249,
+        152.7590163450553,
+        153.32211573272014
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479735,
+      "r21": 1.1865983152479735,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": -21.575651385530392,
+      "epsilon21": -0.5630993876648347,
+      "epsilon32_over_epsilon21": 38.31588500744836,
+      "observed_order": 16.198757003400363,
+      "order_candidates": [
+        16.198757003400363
+      ],
+      "celik_log_branch": "contracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 16.198757003400363,
+        "extrapolated": 153.35970108034687,
+        "extrapolated_32": 153.35970108034687,
+        "fine_absolute_GCI": 0.04698168453339732,
+        "medium_absolute_GCI": 0.750855919114441,
+        "fine_percent_GCI": 0.030642470793514537,
+        "medium_percent_GCI": 0.4915296897555243,
+        "approximate_relative_error_21_pct": 0.36726559959977445,
+        "approximate_relative_error_32_pct": 14.123978997609447,
+        "extrapolated_relative_error_21_pct": 0.024507968757076847,
+        "extrapolated_relative_error_32_pct": 0.3916835590184461,
+        "asymptotic_ratio": 1.0036861941189315
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 154.7022086518495,
+        "extrapolated_32": 191.1939655438448,
+        "fine_absolute_GCI": 1.725116148911692,
+        "medium_absolute_GCI": 48.04368649848686,
+        "fine_percent_GCI": 1.125158063901892,
+        "medium_percent_GCI": 31.450638821845228,
+        "approximate_relative_error_21_pct": 0.36726559959977445,
+        "approximate_relative_error_32_pct": 14.123978997609447,
+        "extrapolated_relative_error_21_pct": 0.8920964549608932,
+        "extrapolated_relative_error_32_pct": 20.10259533529867,
+        "asymptotic_ratio": 19.852192573842505
+      },
+      "half_range_U_osc": 11.069375386597613,
+      "range_midpoint": 142.25274034612252,
+      "observed_range_interval": [
+        131.1833649595249,
+        153.32211573272014
+      ],
+      "reported_fine_absolute_uncertainty": 22.138750773195227,
+      "reported_medium_absolute_uncertainty": 48.04368649848686,
+      "reported_fine_percent_uncertainty": 14.439372081056304,
+      "reported_medium_percent_uncertainty": 31.450638821845228,
+      "reported_fine_interval": [
+        131.1833649595249,
+        175.46086650591536
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 153.35970108034687,
+      "extrapolated_32": 153.35970108034687,
+      "fine_absolute_GCI": 0.04698168453339732,
+      "medium_absolute_GCI": 0.750855919114441,
+      "fine_percent_GCI": 0.030642470793514537,
+      "medium_percent_GCI": 0.4915296897555243,
+      "approximate_relative_error_21_pct": 0.36726559959977445,
+      "approximate_relative_error_32_pct": 14.123978997609447,
+      "extrapolated_relative_error_21_pct": 0.024507968757076847,
+      "extrapolated_relative_error_32_pct": 0.3916835590184461,
+      "asymptotic_ratio": 1.0036861941189315
+    },
+    "D_air_N": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118263,
+        0.32130464416711096,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        183.1650093219667,
+        194.26685369088756,
+        194.92520222429084
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479735,
+      "r21": 1.1865983152479735,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": -11.101844368920865,
+      "epsilon21": -0.6583485334032844,
+      "epsilon32_over_epsilon21": 16.86317171776885,
+      "observed_order": 12.401186563677673,
+      "order_candidates": [
+        12.401186563677673
+      ],
+      "celik_log_branch": "contracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 12.401186563677673,
+        "extrapolated": 195.01482785184706,
+        "extrapolated_32": 195.01482785184706,
+        "fine_absolute_GCI": 0.1120320344452585,
+        "medium_absolute_GCI": 0.9349677011993657,
+        "fine_percent_GCI": 0.057474371280296914,
+        "medium_percent_GCI": 0.4812800966484289,
+        "approximate_relative_error_21_pct": 0.33774418386687377,
+        "approximate_relative_error_32_pct": 5.714739369066962,
+        "extrapolated_relative_error_21_pct": 0.0459583655988946,
+        "extrapolated_relative_error_32_pct": 0.3835473277589585,
+        "asymptotic_ratio": 1.0033888876094692
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": 196.53874002804685,
+        "extrapolated_32": 214.04372237993692,
+        "fine_absolute_GCI": 2.0169222546950034,
+        "medium_absolute_GCI": 24.72108586131171,
+        "fine_percent_GCI": 1.034715999614165,
+        "medium_percent_GCI": 12.725323642008055,
+        "approximate_relative_error_21_pct": 0.33774418386687377,
+        "approximate_relative_error_32_pct": 5.714739369066962,
+        "extrapolated_relative_error_21_pct": 0.8209769755956229,
+        "extrapolated_relative_error_32_pct": 9.23963967228367,
+        "asymptotic_ratio": 8.734543603583656
+      },
+      "half_range_U_osc": 5.880096451162075,
+      "range_midpoint": 189.04510577312877,
+      "observed_range_interval": [
+        183.1650093219667,
+        194.92520222429084
+      ],
+      "reported_fine_absolute_uncertainty": 11.76019290232415,
+      "reported_medium_absolute_uncertainty": 24.72108586131171,
+      "reported_fine_percent_uncertainty": 6.033182353091662,
+      "reported_medium_percent_uncertainty": 12.725323642008055,
+      "reported_fine_interval": [
+        183.1650093219667,
+        206.685395126615
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": 195.01482785184706,
+      "extrapolated_32": 195.01482785184706,
+      "fine_absolute_GCI": 0.1120320344452585,
+      "medium_absolute_GCI": 0.9349677011993657,
+      "fine_percent_GCI": 0.057474371280296914,
+      "medium_percent_GCI": 0.4812800966484289,
+      "approximate_relative_error_21_pct": 0.33774418386687377,
+      "approximate_relative_error_32_pct": 5.714739369066962,
+      "extrapolated_relative_error_21_pct": 0.0459583655988946,
+      "extrapolated_relative_error_32_pct": 0.3835473277589585,
+      "asymptotic_ratio": 1.0033888876094692,
+      "fine_target_pct": 3.0,
+      "fine_redline_pct": 5.0,
+      "below_target": false,
+      "below_redline": false
+    },
+    "Mz_Nm": {
+      "h_coarse_medium_fine_m": [
+        0.4014836223118263,
+        0.32130464416711096,
+        0.2707779372668039
+      ],
+      "values_coarse_medium_fine": [
+        -0.2623160298337459,
+        -0.3840644353281384,
+        -0.4975519007208858
+      ],
+      "r_coarse_medium": 1.249541921040563,
+      "r_medium_fine": 1.1865983152479735,
+      "r21": 1.1865983152479735,
+      "r32": 1.249541921040563,
+      "safety_factor": 1.25,
+      "epsilon32": 0.12174840549439248,
+      "epsilon21": 0.1134874653927474,
+      "epsilon32_over_epsilon21": 1.072791652127011,
+      "observed_order": 1.3442189641165547,
+      "order_candidates": [
+        1.3442189641165547
+      ],
+      "celik_log_branch": "noncontracting",
+      "convergence_type": "monotonic",
+      "qualified_monotonic_order": false,
+      "status": "Noncontracting sequence or observed order outside [0.5,3.0]",
+      "project_refinement_ratio_pass": true,
+      "celik_preferred_ratio_exceeded": false,
+      "fallback_activated": true,
+      "raw_celik": {
+        "order": 1.3442189641165547,
+        "extrapolated": -0.9364408570325178,
+        "extrapolated_32": -0.7327822813541616,
+        "fine_absolute_GCI": 0.54861119538954,
+        "medium_absolute_GCI": 0.43589730753252903,
+        "fine_percent_GCI": 110.26210423368418,
+        "medium_percent_GCI": 113.49587919019513,
+        "approximate_relative_error_21_pct": 22.80917131023303,
+        "approximate_relative_error_32_pct": 31.699994661149145,
+        "extrapolated_relative_error_21_pct": 46.86777098795376,
+        "extrapolated_relative_error_32_pct": 47.58819295979731,
+        "asymptotic_ratio": 0.8178493968417974
+      },
+      "formal_second_order": {
+        "order": 2.0,
+        "extrapolated": -0.7756968442769118,
+        "extrapolated_32": -0.6009475178638903,
+        "fine_absolute_GCI": 0.34768117944503246,
+        "medium_absolute_GCI": 0.2711038531696899,
+        "fine_percent_GCI": 69.87837428442926,
+        "medium_percent_GCI": 70.58811705334371,
+        "approximate_relative_error_21_pct": 22.80917131023303,
+        "approximate_relative_error_32_pct": 31.699994661149145,
+        "extrapolated_relative_error_21_pct": 35.857428789117584,
+        "extrapolated_relative_error_32_pct": 36.09018692791641,
+        "asymptotic_ratio": 0.7174330010628615
+      },
+      "half_range_U_osc": 0.11761793544356994,
+      "range_midpoint": -0.3799339652773158,
+      "observed_range_interval": [
+        -0.4975519007208858,
+        -0.2623160298337459
+      ],
+      "reported_fine_absolute_uncertainty": 0.54861119538954,
+      "reported_medium_absolute_uncertainty": 0.43589730753252903,
+      "reported_fine_percent_uncertainty": 110.26210423368418,
+      "reported_medium_percent_uncertainty": 113.49587919019513,
+      "reported_fine_interval": [
+        -1.0461630961104258,
+        0.051059294668654165
+      ],
+      "reported_method": "project fault manual \u00a79: envelope of raw GCI, formal p=2 GCI and measured range",
+      "method_source": "https://doi.org/10.1115/1.2960953",
+      "extrapolated": -0.9364408570325178,
+      "extrapolated_32": -0.7327822813541616,
+      "fine_absolute_GCI": 0.54861119538954,
+      "medium_absolute_GCI": 0.43589730753252903,
+      "fine_percent_GCI": 110.26210423368418,
+      "medium_percent_GCI": 113.49587919019513,
+      "approximate_relative_error_21_pct": 22.80917131023303,
+      "approximate_relative_error_32_pct": 31.699994661149145,
+      "extrapolated_relative_error_21_pct": 46.86777098795376,
+      "extrapolated_relative_error_32_pct": 47.58819295979731,
+      "asymptotic_ratio": 0.8178493968417974
+    }
+  },
+  "rpm_fits": {
+    "delta_L_static_N": {
+      "squared_rpm_coefficient": -162.11944578696753,
+      "r_squared_centered": 0.9984845043875646,
+      "normalized": [
+        -172.27093162649217,
+        -164.6664100740823,
+        -160.67910250302734
+      ]
+    },
+    "D_air_N": {
+      "squared_rpm_coefficient": 195.38483825953665,
+      "r_squared_centered": 0.9994559913180235,
+      "normalized": [
+        202.1963435480221,
+        197.57273906149214,
+        194.26685369088756
+      ]
+    },
+    "L_wing_N": {
+      "squared_rpm_coefficient": 150.90743277678155,
+      "r_squared_centered": 0.9973382359100171,
+      "normalized": [
+        136.7572585359961,
+        147.8506104851086,
+        152.7590163450553
+      ]
+    }
+  },
+  "matched_medium_static_lift_increment_N": -160.67910250302734,
+  "swirl_span_partition": {
+    "inboard_edge_of_wingtip_disk_m": 4.05374,
+    "full_symmetric_wing_delta_L_N": 270.68508915049824,
+    "full_symmetric_delta_by_region_N": {
+      "inboard_HLP": 136.89947026674162,
+      "outboard_wingtip": 133.78561888375665
+    },
+    "cell_face_pressure_minima": {
+      "medium_rpm100": {
+        "face_id": 17164,
+        "face_centroid_m": [
+          -0.3490456313499243,
+          0.11485835723241232,
+          1.4971566564389285
+        ],
+        "span_fraction": 0.3106668494227805,
+        "chord_fraction": 0.04370736845809094,
+        "p_gauge_Pa": -3189.4158577407447,
+        "Cp": -10.42510414395954,
+        "q_ref_Pa": 305.93611475706354
+      },
+      "medium_rpm100_noswirl": {
+        "face_id": 17275,
+        "face_centroid_m": [
+          -0.25861526717960787,
+          0.08654361538163187,
+          2.088053232191636
+        ],
+        "span_fraction": 0.43328058976471595,
+        "chord_fraction": 0.15353741653349287,
+        "p_gauge_Pa": -2051.1375815954666,
+        "Cp": -6.7044637185911355,
+        "q_ref_Pa": 305.93611475706354
+      }
+    },
+    "interpretation": "Spatial decomposition of swirl ON minus OFF lift at the inboard tip of the wingtip disk. Both propulsor groups can influence either region."
+  },
+  "swirl_on_minus_off_full_N": {
+    "L_air_N": 64.66243559690977,
+    "L_wing_N": 269.8752292314414,
+    "D_air_N": 60.47911991998649,
+    "T_net_N": -60.47911991998626
+  },
+  "rpm_zero_source_baseline": "Native same-medium static equilibrium",
+  "signed_pressure_forces": "Gauge pressure integrated over aircraft surfaces.",
+  "sources": {
+    "pressure_shear": "native face fields",
+    "thrust": "native seven-disk volume integrals",
+    "coefficients": "derived from area and fixed induced-velocity reference"
+  }
+}

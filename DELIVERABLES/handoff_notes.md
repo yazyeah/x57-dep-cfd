@@ -110,3 +110,45 @@ C14 的 Fluent 自动表面质量改善将 46,146 个三角面改为 24,978 个�
 C15 在 20.0 分钟内完成并保存真实 Poly-Hexcore，296,214 个单元，最小体积 1.072129e-16 m³，独立 CFF 面锥积分检测零个非正体积。Fluent 网格检查仍失败，6 个短舱壁面与 8 个内部面左手，最小正交质量 0，原生直方图 21,858 个单元超过逆正交质量 0.95。最差逆正交质量为 1.5738412，位置 (0.141047, −0.012568, 3.761614) m。机翼棱柱面积覆盖 80.504%，可追踪最长单基底柱 10 层，未达 12 层。C15 淘汰，未用于任何流场计算。精确直方图、逐壁面覆盖和 HDF 坐标见 02_mesh/coarse/f_guided_preserve_15。
 
 C16 在 FTM 导入时实测发现坐标跨度比源网格大 1,000 倍。修正尺度后用原生 HDF5 对照 48.0 × 19.7 × 20.0 m 的外流域，并通过实际机翼、短舱、净空及尾翼探针。原始材料点包面曾遗漏 55 个净空截面。已用原生 append-mesh 和 volumetric-regions/compute 在工作流副本内重新装配 actual external_fluid，整个区域的 11 个 HDF5 原生面区 ID 为 6930–6940。合规区域证据为 02_mesh/coarse/f_registered_ftm_16/conformal_region_cad_audit.json。该证据用于几何，体网格和求解尚未签出。
+
+<!-- BEGIN VERIFIED COURSEWORK RESULTS -->
+## Verified coursework results
+
+The nominal Fine solution gives a full-aircraft vertical airframe force of **-170.150 N** and an airframe drag of **194.925 N**. Positive vertical force points upward. The wing contributes 153.322 N. The measured gross static thrust is 7931.545 N. The axial force available after airframe drag is 7736.620 N. [Force summary](data/summary_metrics.json)
+
+On a matched Medium mesh, the signed static lift increment between unpowered equilibrium and nominal powered operation is **-160.679 N**. The endpoints are 0.000 N and -160.679 N. The through-origin square-speed fits have centered R² of 0.998485 for lift increment and 0.999456 for drag. [RPM sweep](data/rpm_sweep.csv)
+
+### Conditions and method
+
+The baseline represents the start of taxiing at sea level and zero free-stream speed. Fluent uses ideal-gas air at 101325 Pa and 288.15 K, with a dynamic viscosity of 1.789 × 10⁻⁵ Pa s. Each wing carries six 5400 RPM high-lift propellers and one 2700 RPM wingtip propeller. Seven annular volume sources on the starboard half-model impose calibrated axial thrust and swirl. The symmetry plane represents the port half. The stationary runway and external pressure boundaries represent the static ground condition. The nominal turbulence closure is k–ω SST. Mesh and solver settings are preserved in the native submission.
+
+The static coefficient reference uses disk-induced dynamic pressure 305.94 Pa and full wing area 6.1934 m². On this convention the Fine solution gives C_L = -0.089800 and C_D = 0.102875. [Actuator inputs and native disk integrals](data/actuator_disk_model.json)
+
+### Numerical verification
+
+| Grid | Fluid cells | Minimum orthogonal quality | C_L | C_D |
+|---|---:|---:|---:|---:|
+| coarse | 292,178 | 0.0061 | -0.089665 | 0.096669 |
+| medium | 570,033 | 0.0102 | -0.084801 | 0.102528 |
+| fine | 952,382 | 0.0004 | -0.089800 | 0.102875 |
+
+Fine-grid wing y⁺ is 141.816 by area-weighted mean and 980.816 at P95. Fine-grid GCI is 211.101% for vertical force and 0.057% for drag. The documented uncertainty bound is 211.101% and 6.033%, respectively. [Mesh and GCI](data/asme_vv20_gci.json) · [Convergence history](data/convergence_qa.csv)
+
+### Suction and swirl
+
+The lowest Fine-grid wing-face pressure is -3379.235 Pa gauge, C_p = -11.045557. The starboard face centroid is (-0.34905, 0.11486, 1.49716) m, at 2z/b = 0.31067 and x/c = 0.04371. The same-mesh swirl ON minus OFF change in full-wing lift is +136.899 N over the inboard segment and +133.786 N over the tip segment. The boundary is the inboard edge of the wingtip disk. [Spanwise loading](data/spanwise_loading.csv) · [Wing pressure sections](data/wing_cp_sections.csv)
+
+### Design and stress interpretation
+
+Among the five computed section designs the maximum change in section lift coefficient is +1.128851 for 30° slotted flap, with ΔC_D = +0.575520. All section comparisons use the HLP-3 slipstream from the accepted Fine solution and the clean blown section as baseline. The three-dimensional 10° HLP-vector change gives ΔC_L = -0.474218 and ΔC_D = -0.062705 against the nominal Medium aircraft. The dimensional section forces are reported per unit span. [Design comparisons](data/design_optimization_results.csv) · [Eighteen-case study](data/expanded_experiments_summary.json)
+
+The structural calculation uses static one-way pressure and shear transfer into equivalent SHELL181 component models. Material, shell thicknesses, joint representation and supports are modeled assumptions. Peak element-average von Mises stress is 277.2 MPa. The area-weighted 99th percentile is 50.23 MPa, the nominal yield safety factor is 1.814, and the mean wingtip patch displacement magnitude is 28.81 mm. Structural discretization and CFD-load refinement studies passed their recorded 3% gates. [Structural convergence and assumptions](data/fsi_structural_stress.json) · Each stress CSV row describes one native sample. The named quantity, unit and value give its principal observable. The sample_fields_json column contains the other source-specific measurements, including both shell surfaces, location and sampling identifiers. [Stress fields](data/stress_and_bl_profiles.csv)
+
+The report author can use Figures 2–3 for mesh and force convergence, 4–11 for native flow and surface results, 12–16 for propulsion and design comparisons, and 17–22 for fluid and structural stress, flow topology and the combined design assessment. Native 3D views 4–5 show the propeller slipstreams and wingtip vortex paths. Views 6–8 show top and bottom pressure and velocity streamlines. [Figure directory](figures/) · [Native 3D views](fluent_renders/) · [Reloadable Fluent attachments](ansys_submission/)
+
+### Model and verification sources
+
+The HLP calibration uses NASA propulsion data. The cruise calibration and section polar underpin the wingtip actuator estimate. The audit contains the extrapolation and similarity assumptions. [NASA HLP data](https://ntrs.nasa.gov/citations/20240014295) · [NASA cruise propeller data](https://ntrs.nasa.gov/citations/20240006496) · [OpenFAST section polar](https://raw.githubusercontent.com/OpenFAST/r-test/main/glue-codes/openfast/5MW_Baseline/Airfoils/NACA64_A17.dat)
+
+The three-grid procedure uses measured fluid volumes and unequal refinement ratios. [Celik et al. (2008)](https://doi.org/10.1115/1.2960953)
+<!-- END VERIFIED COURSEWORK RESULTS -->

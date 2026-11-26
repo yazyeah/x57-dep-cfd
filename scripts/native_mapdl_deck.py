@@ -46,7 +46,10 @@ def field_commands():
     for name in ["TOPXY","BOTXY","ABTOP","ABBOT","PICKT","PICKB","XTV","XBV","XOUT","VMVAL","VMDEN","FOSVAL"]:
         lines.append(f"*DIM,{name},ARRAY,ECNT")
     lines += ["*VGET,TOPXY(1),ELEM,1,ETAB,TXY", "*VGET,BOTXY(1),ELEM,1,ETAB,BXY",
-              "*VFUN,ABTOP(1),ABS,TOPXY(1)", "*VFUN,ABBOT(1),ABS,BOTXY(1)",
+              # |x| as sqrt(x^2): MAPDL 2025 R2 rejects "*VFUN,...,ABS" ("ABS is not a valid *VFUN operation",
+              # P11 2026-11-26 02:02); PWR and SQRT are valid *VFUN functions and give the same magnitudes.
+              "*VFUN,ABTOP(1),PWR,TOPXY(1),2", "*VFUN,ABTOP(1),SQRT,ABTOP(1)",
+              "*VFUN,ABBOT(1),PWR,BOTXY(1),2", "*VFUN,ABBOT(1),SQRT,ABBOT(1)",
               "*VOPER,PICKT(1),ABTOP(1),GE,ABBOT(1)", "*VOPER,PICKB(1),ABTOP(1),LT,ABBOT(1)",
               "*VOPER,XTV(1),PICKT(1),MULT,TOPXY(1)", "*VOPER,XBV(1),PICKB(1),MULT,BOTXY(1)",
               "*VFACT,1E-6", "*VOPER,XOUT(1),XTV(1),ADD,XBV(1)", "*VPUT,XOUT(1),ELEM,1,ETAB,XYMPA",

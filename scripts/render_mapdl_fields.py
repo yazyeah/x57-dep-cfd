@@ -66,8 +66,14 @@ def build_panels(numbers,mesh,fields):
         raise ValueError("Invalid structural extrema")
     magnification=.055*float(np.ptp(mesh["xyz"][:,2]))/umax
     skin=masks["skin"]
-    principal=max(np.abs(values["S1MPA"][skin]).max(),np.abs(values["S3MPA"][skin]).max())
-    shear=np.abs(values["XYMPA"][masks["internal"]]).max()
+    # Signed panels use symmetric limits at the 99th percentile of the magnitude. The +-max limits were set by the
+    # singular wing-root peak (|sigma| ~830-860 MPa vs 99th percentile ~60 MPa), which put the whole skin in the
+    # neutral middle bin: render20 failed the blank/monochrome check at P11 (2026-11-26 02:12). Larger magnitudes
+    # share the end bins; the notes state the actual extremes.
+    principal_max=max(np.abs(values["S1MPA"][skin]).max(),np.abs(values["S3MPA"][skin]).max())
+    principal=max(np.percentile(np.abs(values["S1MPA"][skin]),99),np.percentile(np.abs(values["S3MPA"][skin]),99))
+    shear_max=np.abs(values["XYMPA"][masks["internal"]]).max()
+    shear=np.percentile(np.abs(values["XYMPA"][masks["internal"]]),99)
     # Scalar invariants can be reflected in these projections. Signed local-coordinate
     # shear is drawn on the actual solved elements only.
     upper=(-3,9,0); lower=(-3,-9,0); iso=(-6.5,9.5,8)
@@ -112,11 +118,14 @@ def build_panels(numbers,mesh,fields):
                   f"Actual skin maximum {float(values['VMMPA'][masks['skin']].max()):.1f} MPa."))
     add(19,"root","VMMPA","Wing-root junction","von Mises stress (MPa)",(-2,2.5,2.1))
     add(19,"pylon3","VMMPA","HLP-3 pylon attachment","von Mises stress (MPa)",(-2.1,-2,2.2))
-    add(20,"skin","S1MPA","Maximum principal stress","σ₁ (MPa)",upper,[-principal,principal],SIGNED)
-    add(20,"skin","S3MPA","Minimum principal stress","σ₃ (MPa)",lower,[-principal,principal],SIGNED)
+    signed_note=(f"Symmetric exterior. Limits ±{principal:.1f} MPa = 99th percentile of |σ₁|, |σ₃| on the skin; "
+                 f"larger magnitudes share the end bins (actual max |σ| {principal_max:.1f} MPa at the wing-root junction).")
+    add(20,"skin","S1MPA","Maximum principal stress","σ₁ (MPa)",upper,[-principal,principal],SIGNED,note=signed_note)
+    add(20,"skin","S3MPA","Minimum principal stress","σ₃ (MPa)",lower,[-principal,principal],SIGNED,note=signed_note)
     add(21,"internal","TRESCA","Wing box and motor mounts","Tresca maximum shear stress (MPa)",iso)
     add(21,"internal","XYMPA","Element-local in-plane shear","Signed local τxy (MPa)",iso,[-shear,shear],SIGNED,
-        note="Solved side. Shell face with the greater shear magnitude; signed in element axes.")
+        note=(f"Solved side. Shell face with the greater shear magnitude; signed in element axes. Limits ±{shear:.2f} MPa "
+              f"= 99th percentile of |τxy|; actual max {shear_max:.2f} MPa."))
     add(22,"skin","U","Deformed and undeformed exterior","Total displacement (mm)",upper,[0,umax*1000],
         note=f"Deformation magnified {magnification:.4g}×; native undeformed outline overlaid.")
     add(22,"skin","FOSCAP","Yield safety factor","Yield stress / von Mises stress",upper,[0,20],ENGINEERING[::-1],

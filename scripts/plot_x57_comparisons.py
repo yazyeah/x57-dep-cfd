@@ -116,6 +116,13 @@ def fig15(cases,out):
             a.plot(tab.x_over_c,tab.Cp,ls=ls,color=COLORS[i],label=label+" "+side)
         for k in range(0,len(y),3):
             b.plot(u[k:k+2],y[k:k+2],color=COLORS[i],lw=1.3,label=label if k==0 else None)
+        # Thin line through the cell-interval midpoints so the profile shape reads (2026-11-26); the cell-constant
+        # interval segments above remain the native samples.
+        uu,yy=np.asarray(u,dtype=float),np.asarray(y,dtype=float)
+        mids=sorted(((uu[k],.5*(yy[k]+yy[k+1])) for k in range(0,len(yy)-1,3) if np.isfinite(uu[k])),
+                    key=lambda m:m[1])
+        if mids:
+            b.plot([m[0] for m in mids],[m[1] for m in mids],color=COLORS[i],lw=.6,alpha=.75)
         c.plot(load.z_m,load.dL_dz_N_per_m,ls=["-","--"][i],color=COLORS[i],label=label)
     a.set(xlabel="Baseline chord fraction",ylabel="Pressure coefficient");a.invert_yaxis();a.legend(frameon=False,ncol=2,fontsize=6.5)
     b.set(xlabel="Axial velocity (m/s)",ylabel="Vertical position (m)");b.legend(frameon=False)

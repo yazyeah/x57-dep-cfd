@@ -37,7 +37,11 @@ def save(name,position,target,up,width):
 def mesh(name,zones,wire=False):
     graphics.mesh[name]={'surfaces_list':zones,'options':{'faces':not wire,'edges':wire}}
     ob=graphics.mesh[name]
-    if wire:ob.edge_type_options.edge_type='all'
+    if wire:
+        ob.edge_type_options.edge_type='all'
+        # White theme draws boundary/interior edges yellow or white (render01 faint, render02/03 blank on
+        # 2026-11-26); wireframes are drawn in black.
+        ob.coloring.option='manual';ob.coloring.manual.edges='black'
     return ob
 def rake(name,a,b,count):
     surfaces.rake_surface[name]={'p0':a,'p1':b,'number_of_points':count}
@@ -45,9 +49,8 @@ def rake(name,a,b,count):
 def flow(name,seeds,body=True):
     graphics.pathline[name]={'field':'velocity-magnitude','release_from_surfaces':seeds}
     obj=graphics.pathline[name];obj.step=3000
-    if body:
-        obj.draw_mesh=True;obj.mesh_object='airframe'
-    prepare_legend(name,obj)
+    apply_range(obj,'velocity')
+    prepare_legend(name,obj)   # body: the airframe is added by with_airframe() at display time
     return obj
 def cut(name,z):
     surfaces.plane_surface[name]={'method':'xy-plane','z':z}
@@ -70,10 +73,49 @@ def select_field(setting,choices):
             if actual.casefold()==name.casefold():return actual
     raise RuntimeError('Unavailable Fluent field '+repr(choices)+' in '+repr(options))
 
+RANGES=cfg.get('color_ranges',{})
+MANUAL={}
+
+def range_key(field):
+    f=field.lower()
+    if f in ('pressure','static-pressure'):return 'pressure'
+    if f.startswith('wall-shear'):return 'wall_shear'
+    if 'y-plus' in f or 'yplus' in f:return 'y_plus'
+    if f=='velocity-magnitude':return 'velocity'
+    if 'x57totalpressurecoeff' in f:return 'Cp0'
+    if 'x57modeledshearxy' in f:return 'modeled_shear'
+    return None
+
+def apply_range(obj,key):
+    """Fixed colour limits from run_x57_native_renders.color_ranges (robust percentiles of the accepted fine
+    solution); auto-ranging let a few extreme cells (|V| 512 m/s, y+ 6e3, Q 1e12 s^-2) wash out every view."""
+    lim=RANGES.get(key) if key else None
+    if not lim:return
+    lo,hi=float(lim[0]),float(lim[1])
+    applied=[]
+    try:
+        ro=obj.range_option
+        ro.option=next(v for v in ro.option.allowed_values() if 'off' in v.lower())
+        ro.auto_range_off.minimum=lo;ro.auto_range_off.maximum=hi
+        if ro.auto_range_off.clip_to_range.is_active():ro.auto_range_off.clip_to_range=False
+        applied.append('range_option')
+    except Exception as exc:
+        applied.append('range_option unavailable: '+str(exc).splitlines()[0][:100])
+    try:
+        rs=obj.range_options
+        rs.auto_range=False;rs.minimum=lo;rs.maximum=hi
+        applied.append('range_options')
+    except Exception as exc:
+        applied.append('range_options unavailable: '+str(exc).splitlines()[0][:100])
+    if not set(applied)&{'range_option','range_options'}:
+        raise RuntimeError('Could not fix the colour range for '+key+': '+repr(applied))
+    MANUAL[obj.name.get_state()]=dict(key=key,range=[lo,hi],applied=applied,rule=RANGES.get('rules',{}).get(key))
+
 def field_object(name,options,zones):
     graphics.contour[name]={}
     obj=graphics.contour[name];field=select_field(obj.field,options)
     obj.field=field;obj.surfaces_list=zones;obj.filled=True;obj.node_values=False
+    apply_range(obj,range_key(field))
     prepare_legend(name,obj)
     return obj
 
@@ -84,6 +126,8 @@ def prepare_legend(name,obj):
     return evidence
 
 def field_range(obj):
+    manual=MANUAL.get(obj.name.get_state())
+    if manual:return list(manual['range'])
     bounds=obj.range_options
     bounds.compute()
     lo=float(bounds.minimum.get_state());hi=float(bounds.maximum.get_state())
@@ -92,7 +136,23 @@ def field_range(obj):
     return [lo,hi]
 
 def configure_render_background():
-    graphics.colors.background='white';graphics.colors.foreground='black'
+    colors=graphics.colors
+    if colors.background.is_active():
+        colors.background='white'
+    else:
+        # Fluent 2025 R2: colors.background is never active (every theme); the background comes from the colour
+        # theme. P11 halted 2026-11-26 01:05 on "api-set-var: the object is not active"; probe evidence in
+        # logs/probe_render/probe10.py + probe_out.json (allowed themes: classic, black, gray-gradient, white, ...).
+        colors.graphics_color_theme='white'
+    colors.foreground='black'
+    # The 2025 R2 themes add a floor grid, shadows and a mirrored reflection to every 3D view; publication frames
+    # must show only the model (probe12: values are enable/disable/dont-save).
+    states=views.display_states
+    states['x57-publication']={}
+    state=states['x57-publication']
+    for option in ('reflections','static_shadows','dynamic_shadows','grid_plane'):
+        getattr(state,option).set_state('disable')
+    states.apply(state_name='x57-publication')
     for attr in ('left_top','left_bottom','right_top','right_middle','right_bottom'):
         setattr(graphics.colors.titles,attr,'')
     picture.invert_background=False
@@ -104,7 +164,8 @@ def store_frame(name,obj,legends,position,target,up,width,metadata=None):
     row['metadata']=metadata or {};row['legend_records']=[]
     missing=[]
     for key,legend,units in legends:
-        ev=font_evidence[key];record={'object':key,'field':ev['field'],'units':units,'font':ev}
+        ev=font_evidence[key];record={'object':key,'field':ev['field'],'units':units,'font':ev,
+                                      'color_limits':MANUAL.get(key)}
         if not ev['exact']:
             record['range']=field_range(legend);record['palette']=legend.color_map.color.get_state()
             record['descending_vertical_bar']=True
@@ -128,6 +189,15 @@ def as_scene(name,objects):
     for entry in objects:scene.graphics_objects.add(name=entry)
     return scene
 
+def with_airframe(obj,name):
+    """Display obj together with the 'airframe' mesh object. Fluent 2025 R2 keeps draw_mesh inactive on pathline and
+    contour objects (P11 2026-11-26 01:23: renders 04/05/08/09 'draw-mesh? not active'), so compose a native scene of
+    the two objects instead, as render10 already does."""
+    if obj.draw_mesh.is_active():
+        obj.draw_mesh=True;obj.mesh_object='airframe'
+        return obj
+    return as_scene(name+'-with-airframe',['airframe',name])
+
 def extra_mesh():
     mirror(False)
     z=cfg.get('sponson_section_z',.86)
@@ -147,15 +217,20 @@ def isovortex():
     mirror(False)
     key='q-vortex-wake'
     surfaces.iso_surface[key]={}
-    iso=surfaces.iso_surface[key];iso.field=select_field(iso.field,['q-criterion','q-criterion-magnitude'])
+    iso=surfaces.iso_surface[key];iso.field=select_field(iso.field,['raw-q-criterion','q-criterion','q-criterion-magnitude'])  # Fluent 'q-criterion' is normalised; raw is Q in s^-2 (probe15)
     iso.range.compute();lo=float(iso.range.minimum.get_state());hi=float(iso.range.maximum.get_state())
     if not math.isfinite(hi) or hi<=0:raise ValueError('No positive physical Q criterion is present')
-    threshold=max(max(0.,lo)+(hi-max(0.,lo))*.002,.00001)
+    qiso=RANGES.get('q_isovalue')
+    if qiso and max(0.,lo)<float(qiso)<hi:
+        # 0.2 % of the native range was 2.4e9 s^-2 here (max 1.2e12 in a few rim cells): no visible surface.
+        threshold=float(qiso);rule=RANGES.get('rules',{}).get('q_isovalue')
+    else:
+        threshold=max(max(0.,lo)+(hi-max(0.,lo))*.002,.00001);rule='0.2 % of the positive native Q range'
     if threshold>=hi:raise ValueError('Q isosurface threshold falls outside the active field')
     iso.iso_values=[threshold]
-    ob=field_object('q-speed',['velocity-magnitude'],[key]);ob.draw_mesh=True;ob.mesh_object='airframe'
-    store_frame(PRIMARY[8],ob,[('q-speed',ob,'m/s')],[6,4,9],[1.5,.1,3.85],[0,1,0],7.,
-                {'Q_isovalue_s^-2':threshold,'evaluated_Q_range_s^-2':[lo,hi],'positive_range_fraction':.002})
+    ob=field_object('q-speed',['velocity-magnitude'],[key])
+    store_frame(PRIMARY[8],with_airframe(ob,'q-speed'),[('q-speed',ob,'m/s')],[6,4,9],[1.5,.1,3.85],[0,1,0],7.,
+                {'Q_isovalue_s^-2':threshold,'evaluated_Q_range_s^-2':[lo,hi],'Q_isovalue_rule':rule})
 
 def oilflow():
     mirror(True)
@@ -163,7 +238,8 @@ def oilflow():
     key='surface-oilflow'
     graphics.pathline[key]={};oil=graphics.pathline[key]
     oil.field=select_field(oil.field,['y-plus','wall-yplus','wall-y-plus','velocity-magnitude'])
-    oil.release_from_surfaces=walls;oil.option.oil_flow=True;oil.option.onzone=walls
+    # Seeds off the nacelles: one nacelle-nose oil line escaped as a straight streak across render10 (2026-11-26).
+    oil.release_from_surfaces=[w for w in walls if w!='wall_nacelles'];oil.option.oil_flow=True;oil.option.onzone=walls
     oil.step=1200;oil.skip=70;oil.color_map.visible=False
     scene=as_scene('skin-and-oil',['surface-yplus',key])
     store_frame(PRIMARY[9],scene,[('surface-yplus',surf,'1')],[-5,9,7],[.6,0,0],[0,0,1],12.,
@@ -177,12 +253,41 @@ def native_field_aliases(name):
 
 def surface_area(surface, label):
     key='X57Area'+label
-    s.setup.named_expressions[key]={'definition':"Area(['"+surface+"'])"}
-    area=float(s.setup.named_expressions[key].get_value())
+    try:
+        s.setup.named_expressions[key]={'definition':"Area(['"+surface+"'])"}
+        area=float(s.setup.named_expressions[key].get_value())
+    except Exception:
+        # Fluent 2025 R2 cannot evaluate Area() on a fresh iso-surface (P11 2026-11-26 01:23, renders 15/16);
+        # use the native surface-area report definition instead (same area integral, reports.compute).
+        rd=s.solution.report_definitions
+        rd.surface[key]={'surface_names':[surface]}
+        option=rd.surface[key].report_type
+        option.set_state(next(v for v in option.allowed_values() if v.replace('_','-').lower()=='surface-area'))
+        raw=rd.compute(report_defs=[key])
+        raw=raw[0] if isinstance(raw,(list,tuple)) and len(raw)==1 else raw
+        raw=raw[key] if isinstance(raw,dict) else raw
+        area=float(raw[0] if isinstance(raw,(list,tuple)) else raw)
     if not math.isfinite(area) or area<=0:
         raise ValueError('No native fluid surface for '+surface)
     return area
 
+
+def wake_expression(number):
+    """Render 15: Boussinesq modeled Reynolds shear -rho<u'v'> = mu_t (du/dy + dv/dx); render 16: Cp0 = p0/q_ref."""
+    if number==15:
+        return 'X57ModeledShearXY','TurbulenceViscosity*(dVelocitydy.x+dVelocitydx.y)'
+    return 'X57TotalPressureCoeff','TotalPressure/('+format(cfg['wake_display']['q_ref_Pa'],'.17g')+' [Pa])'
+
+def define_wake_expressions():
+    """Fluent 2025 R2 caches the postprocessing field list at its first query: a named expression defined after
+    any graphics object has listed its fields is never offered nor assignable as a field (probe14, 2026-11-26;
+    render15 failed at 01:40 while render16 succeeded only by chance). Define both before any graphics object."""
+    if 'wake_display' not in cfg:
+        return
+    for number in (15,16):
+        if number in cfg['numbers']:
+            variable,definition=wake_expression(number)
+            s.setup.named_expressions[variable]={'definition':definition}
 
 def wake_panels(number):
     mirror(False)
@@ -190,12 +295,11 @@ def wake_panels(number):
     shear=number==15
     name=PRIMARY[number-1]
     prefix='x57-r'+str(number)
-    variable='X57ModeledShearXY' if shear else 'X57TotalPressureCoeff'
-    qref=spec['q_ref_Pa']
-    definition=('TurbulenceViscosity*(dVelocitydy.x+dVelocitydx.y)' if shear
-                else 'TotalPressure/('+format(qref,'.17g')+' [Pa])')
-    s.setup.named_expressions[variable]={'definition':definition}
+    variable,definition=wake_expression(number)
     aliases=native_field_aliases(variable)
+    qref=spec['q_ref_Pa']
+    if s.setup.named_expressions[variable].definition.get_state()!=definition:
+        raise RuntimeError(variable+' changed after define_wake_expressions()')
     key=prefix+'-iso'
     surfaces.iso_surface[key]={}
     iso=surfaces.iso_surface[key]
@@ -211,11 +315,9 @@ def wake_panels(number):
     camera=([7.1,4.6,8.1],[.45,-.22,2.65],[0,1,0],8.2)
     iso_label=prefix+'-shell'
     field=field_object(iso_label,aliases if shear else ['velocity-magnitude'],[key])
-    field.draw_mesh=True
-    field.mesh_object='airframe'
     iso_name=name+'_shell'
     field_units='Pa' if shear else 'm/s'
-    store_frame(iso_name,field,[(iso_label,field,field_units)],*camera,
+    store_frame(iso_name,with_airframe(field,iso_label),[(iso_label,field,field_units)],*camera,
                 metadata={'iso_field':iso.field.get_state(),'iso_value':threshold,
                           'iso_unit':'m2/s2' if shear else 'Pa','native_field_range':bounds,
                           'positive_wake_percentile':85,'surface_area_m2':area})
@@ -231,10 +333,8 @@ def wake_panels(number):
         areas.append(surface_area(plane,'Section'+str(number)+'N'+str(i)))
     plane_label=prefix+'-slices'
     section=field_object(plane_label,aliases,groups)
-    section.draw_mesh=True
-    section.mesh_object='airframe'
     plane_name=name+'_slices'
-    store_frame(plane_name,section,[(plane_label,section,'Pa' if shear else '1')],*camera,
+    store_frame(plane_name,with_airframe(section,plane_label),[(plane_label,section,'Pa' if shear else '1')],*camera,
                 metadata={'sections_x_m':spec['sections_x_m'],'sections_area_m2':areas,
                           'sections_zy_bounds_m':spec['wake_zy_bounds_m']})
     stats[name]={'panels':[iso_name,plane_name],'expression':variable,'definition':definition,
@@ -243,12 +343,21 @@ def wake_panels(number):
 
 def production_control():
     if pilot:return
-    code=subprocess.run([os.environ['X57_PYTHON'],'-B',str(base/'scripts/control_gate.py'),'check'],
-                        stdout=subprocess.PIPE,stderr=subprocess.STDOUT).returncode
-    if code or any((work/n).exists() for n in ('exit-fluent.txt','exit-fluent')):
+    # Fluent's embedded Python exports its own PYTHONHOME/PYTHONPATH; the workspace venv interpreter must not inherit
+    # them (P11 2026-11-26 01:17: the gate check failed inside Fluent and the render loop exited silently).
+    env={k:v for k,v in os.environ.items() if not k.upper().startswith(('PYTHONHOME','PYTHONPATH','PYTHONSTARTUP','__PYVENV'))}
+    result=subprocess.run([os.environ['X57_PYTHON'],'-B',str(base/'scripts/control_gate.py'),'check'],
+                          stdout=subprocess.PIPE,stderr=subprocess.STDOUT,env=env)
+    code=result.returncode
+    flags=[n for n in ('exit-fluent.txt','exit-fluent') if (work/n).exists()]
+    if code or flags:
+        (work/'production_control_stop.json').write_text(json.dumps(dict(
+            returncode=code,exit_flags=flags,output=result.stdout.decode('utf-8','replace')[-4000:],
+            inherited_python_env={k:v for k,v in os.environ.items() if k.upper().startswith(('PYTHON','__PYVENV'))}),indent=2))
         raise SystemExit(code or 10)
 
 def render():
+    define_wake_expressions()
     configure_render_background()
     mesh('airframe',walls)
     st=cfg.copy()
@@ -261,7 +370,7 @@ def render():
         z=cfg['section_z']
         m=mesh('inflation-grid',[cut('inflation-cut',z)],True)
         m.display()
-        x,y=cfg['leading_edge_xy']
+        x,y=cfg.get('closeup_xy',cfg['leading_edge_xy'])
         save('render02_mesh_wing_inflation_closeup',[x,y,z+1],[x,y,z],[0,1,0],cfg['closeup_width_m'])
     def pressure():
         mirror(True)
@@ -289,7 +398,7 @@ def render():
         elif kind=='tip':pos,tgt,w=[5.2,3.1,8.8],[1.35,.12,4.75],4.9
         elif kind=='all':pos,tgt,w=[-6.4,9.5,8.4],[1.2,0,0],13.
         else:pos,tgt,w=[-8.,11.,10.],[1.6,0,0],15.5
-        store_frame(name,pathlines,[(name,pathlines,'m/s')],pos,tgt,[0,1,0],w,{'release_surfaces':ss})
+        store_frame(name,with_airframe(pathlines,name),[(name,pathlines,'m/s')],pos,tgt,[0,1,0],w,{'release_surfaces':ss})
     def surface_field(num, field_name, choices, bottom, units):
         mirror(True)
         obj=field_object(field_name,choices,walls)

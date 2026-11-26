@@ -112,6 +112,53 @@ def wake_config(case, data):
     return row
 
 
+def color_ranges(case, data):
+    """Robust colour limits for the native views, from the accepted fine solution: the wall-face table
+    (04_postproc/fine_rpm100/stress_and_bl_fluid.csv) and the native cell fields (x57_stress_profiles.native_volume)
+    inside the near-field box. Auto-ranging was dominated by a few extreme cells (|V| up to 512 m/s, y+ up to 6e3,
+    Q up to 1.2e12 s^-2); values beyond a limit are drawn in the end colour. The rules travel with the evidence."""
+    import csv
+    import h5py
+    from x57_stress_profiles import native_volume
+    def nice(v):
+        return float(f"{v:.2g}")
+    with (ROOT/"04_postproc/fine_rpm100/stress_and_bl_fluid.csv").open(encoding="utf-8") as stream:
+        rows=[r for r in csv.DictReader(stream) if r["record_type"]=="wall_face" and r["native_data"]==Path(data).name]
+    if len(rows)<1000:
+        raise ValueError("The wall-face table does not belong to the accepted Fine endpoint")
+    wall={q:np.array([float(r[q]) for r in rows]) for q in ("y_plus","wall_shear_Pa","pressure_gauge_Pa")}
+    path,source_case,source_data=native_volume()
+    if (source_case,source_data)!=(case,data):
+        raise ValueError("Native cell fields differ from the accepted Fine endpoint")
+    box=(-2.,8.,-1.7,2.5,0.,6.5)
+    with h5py.File(path) as f:
+        xyz=f["xyz_m"][:]
+        m=((xyz[:,0]>box[0])&(xyz[:,0]<box[1])&(xyz[:,1]>box[2])&(xyz[:,1]<box[3])&(xyz[:,2]>=box[4])&(xyz[:,2]<box[5]))
+        speed=np.linalg.norm(f["velocity_m_s"][:][m],axis=1)
+        cp0=f["Cp0"][:][m]
+        tau=np.abs(f["reynolds_shear_xy_Pa"][:][m])
+        q=f["Q_s_inv2"][:][m]
+    p=np.percentile
+    out=dict(pressure=[nice(p(wall["pressure_gauge_Pa"],1)),nice(p(wall["pressure_gauge_Pa"],99))],
+             wall_shear=[0.,nice(p(wall["wall_shear_Pa"],99))],
+             y_plus=[0.,nice(p(wall["y_plus"],80))],
+             velocity=[0.,nice(p(speed,99.9))],
+             Cp0=[nice(p(cp0,1)),nice(p(cp0,99))],
+             modeled_shear=[-nice(p(tau,99)),nice(p(tau,99))],
+             q_isovalue=nice(p(q[q>0],75)))
+    out["rules"]=dict(pressure="wall-face 1st-99th percentile of gauge static pressure",
+                      wall_shear="0 to wall-face 99th percentile",
+                      y_plus="0 to wall-face 80th percentile (higher y+ faces drawn in the top colour)",
+                      velocity="0 to 99.9th percentile of |V| in cells inside the near-field box",
+                      Cp0="1st-99th percentile of Cp0 in cells inside the near-field box",
+                      modeled_shear="symmetric, 99th percentile of the modeled Reynolds shear magnitude in the box",
+                      q_isovalue="75th percentile of positive Q in cells inside the near-field box (raw Q, s^-2)")
+    out["near_field_box_xyz_m"]=list(box)
+    out["wall_faces"]=len(rows)
+    out["cells_in_box"]=int(m.sum())
+    return out
+
+
 def plate(number, stem, evidence, folder, dest):
     row=evidence[stem]
     temp=dest/(stem+".pending.png")
@@ -166,16 +213,20 @@ def run(numbers):
     section=disks[2]["z_axis_m"]+.20*disks[2]["outer_radius_m"]
     xy=section_segments(wing,section).reshape(-1,2)
     leading=xy[np.argmin(xy[:,0])]
+    # The min-x point of this section is a wing/HLP-nacelle junction sliver with collapsed prisms (P11 probe
+    # 2026-11-26, logs/probe_render/probe12); frame the inflation close-up on the upper-surface crest instead.
+    crest=xy[np.argmax(xy[:,1])]
     from cut_fluent_cells import zones
     import h5py
     with h5py.File(case) as native:
         labels=zones(native["meshes/1/faces/zoneTopology"])
     config=dict(mode="production",run_id=run_id,case_file=str(case),data_file=str(data),numbers=numbers,
                 names=[Path(p).stem for p in REQUIRED_FLUENT_RENDERS],section_z=section,leading_edge_xy=leading.tolist(),
-                closeup_width_m=.012,disks=disks,sponson_section_z=.86,symmetry="symmetry",
+                closeup_xy=crest.tolist(),closeup_width_m=.10,disks=disks,sponson_section_z=.86,symmetry="symmetry",
                 wall_zones=[name for name in labels if name.startswith("wall_")])
     if {15,16}.intersection(numbers):
         config["wake_display"]=wake_config(case,data)
+    config["color_ranges"]=color_ranges(case,data)
     (folder/"render_config.json").write_text(json.dumps(config,indent=2),encoding="utf-8")
     journal=folder/"native_render.jou"
     worker=(ROOT/"scripts/render_x57_native.py").as_posix()

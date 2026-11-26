@@ -250,6 +250,11 @@ def solve(case,stage,block_size=None,initial_scale=None):
     # The surface-refinement grid starts, like Fine, from the interpolated accepted Medium field: it uses the
     # required-case Fine plan (strict/engineering acceptance only, never deadline-shortened).
     plan=case_plan("fine_rpm100" if case.startswith("surfref_") else case)
+    if case.endswith("_rke"):
+        # SST -> realizable k-epsilon switch on the SST endpoint: at pseudo-time scale 1 the first second-order
+        # block diverged (2026-11-25 21:15, continuity 1.5e6 at iteration 1200); scale 0.5 with a 100-iteration
+        # first-order start ran the full block with bounded residuals. Numerics only; acceptance unchanged.
+        plan=dict(plan,initial_scale=.5,warmup=100)
     block_size=int(block_size or plan["block"])
     if block_size<50:raise ValueError("Residual acceptance uses the last 50 native iterations of the block")
     control()
